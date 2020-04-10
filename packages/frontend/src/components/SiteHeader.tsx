@@ -1,16 +1,26 @@
 import * as React from "react";
-import { Flex } from "@chakra-ui/core/dist";
+import { Box, Flex, Heading, Image } from "@chakra-ui/core";
 import Link from "next/link";
 
-const SiteHeader: React.FC = ({ children }) => {
+const SiteHeader: React.FC = ({}) => {
   return (
-    <Flex as="nav" justify="center" m={2}>
+    <Box m={2}>
       <Link href="/">
         <a>
-          <img src="/images/logo.png" alt="need-mask.com" width="60" />
+          <Flex align="center">
+            <Image
+              src="/images/logo.png"
+              alt="need-mask.com"
+              size="40px"
+              m={2}
+            />
+            <Heading size="lg" letterSpacing="-.1rem">
+              need-mask.com
+            </Heading>
+          </Flex>
         </a>
       </Link>
-    </Flex>
+    </Box>
   );
 };
 

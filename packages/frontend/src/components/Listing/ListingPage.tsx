@@ -18,7 +18,6 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
 
   const { push, query } = router;
   const navigateTo = (queryParams) => {
-    console.log({ query, queryParams });
     const { page = 1, ...filterParams } = { ...query, ...queryParams };
     const queryParamString =
       Object.keys(filterParams).length > 0
@@ -28,6 +27,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
     push(newUrl, newUrl.replace("[page]", page));
   };
 
+  const currentPage = parseInt("" + router.query.page) || 1;
   return (
     <Flex flexDirection={{ base: "column-reverse", md: "row" }}>
       <Box
@@ -37,7 +37,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
       >
         <Pagination
           maxPages={maxPages}
-          currentPage={parseInt("" + router.query.page)}
+          currentPage={currentPage}
           onPageChange={navigateTo}
           mb="2"
         />
@@ -46,7 +46,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
         ))}
         <Pagination
           maxPages={maxPages}
-          currentPage={parseInt("" + router.query.page)}
+          currentPage={currentPage}
           onPageChange={navigateTo}
           mt="2"
         />

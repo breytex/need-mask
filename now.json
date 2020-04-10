@@ -1,5 +1,15 @@
 {
   "version": 2,
+  "env": {
+    "HASURA_ADMIN_SECRET": "@hasura_admin_secret",
+    "HASURA_URL": "@hasura_url"
+  },
+  "build": {
+    "env": {
+      "HASURA_ADMIN_SECRET": "@hasura_admin_secret",
+      "HASURA_URL": "@hasura_url"
+    }
+  },
   "builds": [
     {
       "src": "packages/frontend/next.config.js",
@@ -7,6 +17,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/console(.*)",
+      "destination": "https://api.need-mask.com/console/$1"
+    },
+    {
+      "source": "/api/v1/graphql/(.*)",
+      "destination": "https://api.need-mask.com/v1/graphql$1"
+    },
     {
       "source": "/(.*)",
       "destination": "/packages/frontend/$1"

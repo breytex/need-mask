@@ -8,15 +8,16 @@ import {
   CheckboxGroup,
 } from "@chakra-ui/core";
 import { Location, Filters } from "../../types/Filters";
-import { ProductType } from "../../types/Listing";
+import { ProductType } from "../../types/Supplier";
 
 interface Props {
   onFilterChanged: () => void;
+  productTypes: ProductType[];
 }
 
 export const FilterBox = (props: Props) => {
+  const { productTypes } = props;
   const [state, setState] = useState<Filters>({});
-  console.log({ state });
 
   const onLocationChanged = (event) => {
     const { value } = event.target;
@@ -42,9 +43,9 @@ export const FilterBox = (props: Props) => {
         ))}
       </Select>
       <CheckboxGroup variantColor="green" onChange={onProductChanged}>
-        {Object.keys(ProductType).map((key) => (
-          <Checkbox value={key} key={key}>
-            {ProductType[key]}
+        {productTypes.map((type) => (
+          <Checkbox value={type.id} key={type.id}>
+            {type.title}
           </Checkbox>
         ))}
       </CheckboxGroup>

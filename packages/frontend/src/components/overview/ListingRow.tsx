@@ -1,18 +1,19 @@
 import React from "react";
-import { Listing } from "../../types/Listing";
-import { Box, Flex, Icon, Text } from "@chakra-ui/core";
+import { Box, Flex, Text } from "@chakra-ui/core";
+import { Supplier } from "../../types/Supplier";
+
 interface ComponentProps {}
 
-type Props = ComponentProps & Listing;
+type Props = ComponentProps & Supplier;
 
 export const ListingRow = (props: Props) => {
-  const { company, products, location } = props;
+  const { companyName, city, country } = props;
   return (
     <Flex direction="column" shadow="sm" p="4" mb="3">
       <Flex direction="row">
-        <Text>{company}</Text>
+        <Text>{companyName}</Text>
         <Box color="gray.400" ml="2">
-          ({location})
+          ({city}, {country})
         </Box>
       </Flex>
       <Flex direction="row"></Flex>

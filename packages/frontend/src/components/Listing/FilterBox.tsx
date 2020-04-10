@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/core";
 import { Location, Filters } from "../../types/Filters";
 import { ProductType } from "../../types/Supplier";
+import { useRouter } from "next/router";
+import queryString from "query-string";
 
 interface Props {
   onFilterChanged: () => void;
@@ -16,8 +18,16 @@ interface Props {
 }
 
 export const FilterBox = (props: Props) => {
+  const router = useRouter();
+  const { page, ...filterParams } = router.query;
   const { productTypes } = props;
   const [state, setState] = useState<Filters>({});
+
+  const toNewFilterUrl = (newFilterParams) => {
+    const paramString = queryString.stringify(newFilterParams);
+    const newUrl = `/listings/[page]${paramString ? "?" + paramString : ""}`;
+    router.push(newUrl, newUrl.replace("[page]", "" + page));
+  };
 
   const onLocationChanged = (event) => {
     const { value } = event.target;
@@ -27,11 +37,10 @@ export const FilterBox = (props: Props) => {
     }));
   };
 
-  const onProductChanged = (value) =>
-    setState((state) => ({
-      ...state,
-      products: value,
-    }));
+  const onProductChanged = (value) => {
+    console.log({ value });
+    toNewFilterUrl({ ...filterParams, products: value.join(",") });
+  };
 
   return (
     <Flex direction="column">
@@ -44,7 +53,7 @@ export const FilterBox = (props: Props) => {
       </Select>
       <CheckboxGroup variantColor="green" onChange={onProductChanged}>
         {productTypes.map((type) => (
-          <Checkbox value={type.id} key={type.id}>
+          <Checkbox value={type.title} key={type.id}>
             {type.title}
           </Checkbox>
         ))}

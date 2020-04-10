@@ -65,7 +65,7 @@ export const Pagination = (props: PaginationProps): ReactElement => {
       <React.Fragment key={pageNumber}>
         {pageNumber < 0 && <PaginationButton>...</PaginationButton>}
         {pageNumber >= 0 && (
-          <Link href={`${path}[page]`} as={`${path}${pageNumber}`}>
+          <Link href={path} as={`${path.replace("[page]", pageNumber)}`}>
             <a>
               <PaginationButton active={pageNumber === currentPage}>
                 {pageNumber}

@@ -4,8 +4,13 @@ import { Box, Flex, Heading, Button } from "@chakra-ui/core";
 const SiteFooter: React.FC = () => {
   return (
     <Box p={6} bg="gray.700" color="white">
-      <Box w="100%" maxW="1332px" mx="auto">
-        <Flex align="center" mr={5}>
+      <Box
+        w="100%"
+        maxW="1332px"
+        mx="auto"
+        display={{ sm: "block", md: "flex" }}
+      >
+        <Flex align="center" mr={5} flex={1}>
           <Heading as="h1" size="lg" letterSpacing={"-.1rem"}>
             need-mask.com
           </Heading>
@@ -15,7 +20,6 @@ const SiteFooter: React.FC = () => {
           display={{ sm: "block", md: "flex" }}
           width={{ sm: "full", md: "auto" }}
           alignItems="center"
-          flexGrow={1}
         >
           <Box pr={2}>AGB</Box>
           <Box pr={2}>Imprint</Box>

@@ -18,12 +18,12 @@
   ],
   "rewrites": [
     {
-      "source": "/console/(.*)",
-      "destination": "https://api.need-mask.com/api/console/$1"
+      "source": "/console(.*)",
+      "destination": "https://api.need-mask.com/console/$1"
     },
     {
       "source": "/api/v1/graphql/(.*)",
-      "destination": "https://api.need-mask.com/v1/graphql/$1"
+      "destination": "https://api.need-mask.com/v1/graphql$1"
     },
     {
       "source": "/(.*)",

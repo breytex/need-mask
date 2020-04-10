@@ -21,5 +21,3 @@ export const customTheme = {
     ...theme.colors,
   },
 };
-
-console.log({ customTheme });

@@ -1,4 +1,4 @@
-import { ProductType } from "./Listing";
+import { Product } from "./Supplier";
 
 export enum Location {
   EUROPE = "Europe",
@@ -11,7 +11,7 @@ export enum Location {
 
 export interface Filters {
   location?: Location;
-  produts?: ProductType[];
+  produts?: Product[];
 }
 
 export const defaultFilter = {

@@ -1,15 +1,17 @@
 import { Supplier } from "../../types/Supplier";
+export const LISTINGS_PER_PAGE = 3;
 
 export const GET_LISTINGS = `
-    query GetListings {
-        suppliers {
+    query GetListings($offset:Int) {
+        suppliers(limit: ${LISTINGS_PER_PAGE}, offset: $offset) {
+            id
             country
             companyName
             zip
             products {
+              id
               capacity
               description
-              id
               leadTime
               maxPrice
               minOrderAmount
@@ -17,18 +19,18 @@ export const GET_LISTINGS = `
               title
               unit
               createdAt
-              id
               createdAt
               updatedAt
               productType {
+                id
                 title
                 description
-                id
                 createdAt
                 updatedAt
               }
             }
-          }
+        }
+        suppliers_aggregate{aggregate{count}}
     }
 `;
 

@@ -28,6 +28,7 @@ export interface Product {
 }
 
 export interface Supplier {
+  id: string;
   country: string;
   companyName: string;
   zip: string;

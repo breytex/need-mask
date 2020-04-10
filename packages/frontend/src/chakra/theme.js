@@ -22,4 +22,4 @@ export const customTheme = {
   },
 };
 
-console.log({ customTheme });
+// console.log({ customTheme });

@@ -11,7 +11,11 @@ export default function PageLayout(props: Props): ReactElement {
 
   return (
     <Flex flexDirection="column" minHeight="100%">
-      <Flex justify="center">
+      <Flex
+        justify="center"
+        mt={{ base: "2", md: "8", lg: "12" }}
+        mb={{ base: "2", md: "3", lg: "4" }}
+      >
         <SiteHeader />
       </Flex>
       <Flex justify="center" flex="1">

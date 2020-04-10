@@ -8,6 +8,14 @@
   ],
   "rewrites": [
     {
+      "source": "/api/console/(.*)",
+      "destination": "api.need-mask.com/api/console/$1"
+    },
+    {
+      "source": "/api/v1/graphql/(.*)",
+      "destination": "api.need-mask.com/v1/graphql/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/packages/frontend/$1"
     }

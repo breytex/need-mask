@@ -7,7 +7,7 @@ const SiteHeader: React.FC = ({ children }) => {
     <Flex as="nav" justify="center" m={2}>
       <Link href="/">
         <a>
-          <img src="images/logo.png" alt="need-mask.com" width="60" />
+          <img src="/images/logo.png" alt="need-mask.com" width="60" />
         </a>
       </Link>
     </Flex>

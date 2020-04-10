@@ -30,22 +30,23 @@ type Context = NextUrqlPageContext;
 export const listingInitialProps = async function (ctx: Context) {
   const { urqlClient, query } = ctx;
   const currentPage: number = parseInt("" + query.page || "1");
-  const productFilter = query.products
-    ? ("" + query.products).split(",")
-    : undefined;
+  const productFilter = query.products ? ("" + query.products).split(",") : [];
 
   let listingValues = {
     offset: (currentPage - 1) * LISTINGS_PER_PAGE,
-    productTitleArray: productFilter,
   };
-  console.log({ listingValues, productFilter });
+
   const { data: supplierData } = await urqlClient
-    .query(GET_LISTINGS_FN(!!productFilter), listingValues)
+    .query(GET_LISTINGS_FN(productFilter), listingValues)
     .toPromise();
+
   const { data: productTypeData } = await urqlClient
     .query(GET_PRODUCT_TYPES)
     .toPromise();
-
+  console.log({
+    supplierData,
+    productTypeData,
+  });
   return {
     supplierData,
     productTypeData,

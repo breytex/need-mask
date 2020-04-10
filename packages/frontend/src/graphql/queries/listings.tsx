@@ -1,17 +1,26 @@
 import { Supplier } from "../../types/Supplier";
 export const LISTINGS_PER_PAGE = 3;
 
-export const GET_LISTINGS_FN = (productType = false) => {
-  const filterByProductParam = productType
-    ? `, $productTitleArray: [String!]`
-    : "";
+// recursively add where params
+const createAndWhereFilters = (products) => {
+  if (products.length === 0) return "";
+  const [first, ...rest] = products;
+  const and = rest.length > 0 ? createAndWhereFilters([rest]) : "";
+  return `, _and: {products: {productType: {title: {_eq: "${first}"}}} ${and}}`;
+};
 
-  const filterByProductWhere = productType
-    ? `, where: {products: {productType: {title: {_in: $productTitleArray}}}},`
-    : "";
-
-  const test = `query GetListings($offset:Int${filterByProductParam}) {
-            suppliers(limit: ${LISTINGS_PER_PAGE}, offset: $offset${filterByProductWhere}) {
+export const GET_LISTINGS_FN = (products: String[]) => {
+  let productFilter = "";
+  if (products.length > 0) {
+    const [first, ...elements] = products;
+    const and = createAndWhereFilters(elements);
+    productFilter = `where: {products: {productType: {title: {_eq: "${first}"}}}${and}}`;
+  }
+  const getFilter = productFilter ? ", " + productFilter : "";
+  const aggregateFilter = productFilter ? `(${productFilter})` : "";
+  const query = `
+        query GetListings($offset:Int) {
+            suppliers(limit: ${LISTINGS_PER_PAGE}, offset: $offset${getFilter}) {
                 id 
                 country
                 companyName
@@ -38,11 +47,11 @@ export const GET_LISTINGS_FN = (productType = false) => {
                 }
                 }
             }
-            suppliers_aggregate{aggregate{count}}
+            suppliers_aggregate${aggregateFilter}{aggregate{count}}
         }
     `;
-  console.log({ test });
-  return test;
+
+  return query;
 };
 
 export interface SupplierResponse {

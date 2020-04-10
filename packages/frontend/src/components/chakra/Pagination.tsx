@@ -5,12 +5,18 @@ import Link from "next/link";
 interface PaginationButtonProps {
   children: string;
   active?: boolean;
+  onClick?: (params) => void;
 }
 
 function PaginationButton(props: PaginationButtonProps): ReactElement {
-  const { children, active } = props;
+  const { children, active, onClick = () => {} } = props;
   return (
-    <Button variant={active ? "solid" : "outline"} size="sm" m="5px">
+    <Button
+      onClick={onClick}
+      variant={active ? "solid" : "outline"}
+      size="sm"
+      m="5px"
+    >
       {children}
     </Button>
   );
@@ -54,24 +60,23 @@ const _getPagesToRender = (maxPages, currentPage) => {
 interface PaginationProps {
   maxPages: number;
   currentPage: number;
-  path: string;
+  onPageChange: (params) => void;
 }
 
 export const Pagination = (props: PaginationProps): ReactElement => {
-  const { maxPages, currentPage, path } = props;
+  const { maxPages, currentPage, onPageChange } = props;
 
   const _renderButton = useCallback(
     (pageNumber) => (
       <React.Fragment key={pageNumber}>
         {pageNumber < 0 && <PaginationButton>...</PaginationButton>}
         {pageNumber >= 0 && (
-          <Link href={path} as={`${path.replace("[page]", pageNumber)}`}>
-            <a>
-              <PaginationButton active={pageNumber === currentPage}>
-                {pageNumber}
-              </PaginationButton>
-            </a>
-          </Link>
+          <PaginationButton
+            onClick={() => onPageChange({ page: pageNumber })}
+            active={pageNumber === currentPage}
+          >
+            {pageNumber}
+          </PaginationButton>
         )}
       </React.Fragment>
     ),

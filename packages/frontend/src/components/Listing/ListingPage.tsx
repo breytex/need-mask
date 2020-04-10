@@ -17,22 +17,30 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
   );
 
   const { push, query } = router;
-  const navigateTo = useCallback(
-    (queryParams) => {
-      const { page = 1, ...filterParams } = { ...query, ...queryParams };
-      const queryParamString =
-        Object.keys(filterParams).length > 0
-          ? "?" + queryString.stringify(filterParams)
-          : "";
-      const newUrl = `/listings/[page]${queryParamString}`;
-      push(newUrl, newUrl.replace("[page]", page));
-    },
-    [push, query]
-  );
+  const navigateTo = (queryParams) => {
+    console.log({ query, queryParams });
+    const { page = 1, ...filterParams } = { ...query, ...queryParams };
+    const queryParamString =
+      Object.keys(filterParams).length > 0
+        ? "?" + queryString.stringify(filterParams)
+        : "";
+    const newUrl = `/listings/[page]${queryParamString}`;
+    push(newUrl, newUrl.replace("[page]", page));
+  };
 
   return (
     <Flex flexDirection={{ base: "column-reverse", md: "row" }}>
-      <Box width={{ base: "100%", md: "66%" }} pr="4">
+      <Box
+        width={{ base: "100%", md: "66%" }}
+        pr={{ base: "0", md: "5", lg: "8" }}
+        mt={{ base: "6", md: "0" }}
+      >
+        <Pagination
+          maxPages={maxPages}
+          currentPage={parseInt("" + router.query.page)}
+          onPageChange={navigateTo}
+          mb="2"
+        />
         {supplierData.suppliers.map((supplier) => (
           <ListingRow key={supplier.id} {...supplier} />
         ))}
@@ -40,9 +48,10 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
           maxPages={maxPages}
           currentPage={parseInt("" + router.query.page)}
           onPageChange={navigateTo}
+          mt="2"
         />
       </Box>
-      <Box width={{ base: "100%", md: "33%" }}>
+      <Box width={{ base: "100%", md: "33%" }} pt={{ base: "0", md: "50px" }}>
         <FilterBox
           onFilterChanged={navigateTo}
           productTypes={productTypeData.productTypes}

@@ -20,3 +20,7 @@ body,
 #__next {
   height: 100%;
 }
+
+body {
+  background-color: #f4f4f5;
+}

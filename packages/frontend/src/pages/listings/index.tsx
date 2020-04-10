@@ -43,10 +43,7 @@ export const listingInitialProps = async function (ctx: Context) {
   const { data: productTypeData } = await urqlClient
     .query(GET_PRODUCT_TYPES)
     .toPromise();
-  console.log({
-    supplierData,
-    productTypeData,
-  });
+
   return {
     supplierData,
     productTypeData,

@@ -1,6 +1,5 @@
 import React, { useCallback, ReactElement } from "react";
-import { Button } from "@chakra-ui/core";
-import Link from "next/link";
+import { Button, Box } from "@chakra-ui/core";
 
 interface PaginationButtonProps {
   children: string;
@@ -14,6 +13,7 @@ function PaginationButton(props: PaginationButtonProps): ReactElement {
     <Button
       onClick={onClick}
       variant={active ? "solid" : "outline"}
+      variantColor={active ? "blue" : "gray"}
       size="sm"
       m="5px"
     >
@@ -61,10 +61,12 @@ interface PaginationProps {
   maxPages: number;
   currentPage: number;
   onPageChange: (params) => void;
+  mb?: string;
+  mt?: string;
 }
 
 export const Pagination = (props: PaginationProps): ReactElement => {
-  const { maxPages, currentPage, onPageChange } = props;
+  const { maxPages, currentPage, onPageChange, mb, mt } = props;
 
   const _renderButton = useCallback(
     (pageNumber) => (
@@ -85,5 +87,9 @@ export const Pagination = (props: PaginationProps): ReactElement => {
 
   const pagesToRender = _getPagesToRender(maxPages, currentPage);
 
-  return <React.Fragment>{pagesToRender.map(_renderButton)}</React.Fragment>;
+  return (
+    <Box mb={mb} mt={mt} minH="42px">
+      {pagesToRender.length > 1 && pagesToRender.map(_renderButton)}
+    </Box>
+  );
 };

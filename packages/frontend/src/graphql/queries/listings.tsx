@@ -23,28 +23,29 @@ export const GET_LISTINGS_FN = (products: String[]) => {
             suppliers(limit: ${LISTINGS_PER_PAGE}, offset: $offset${getFilter}) {
                 id 
                 country
+                city
                 companyName
-                zip
-                products {
-                id
-                capacity
-                description
-                leadTime
-                maxPrice
-                minOrderAmount
-                minPrice
-                title
-                unit
-                createdAt
                 createdAt
                 updatedAt
-                productType {
+                products {
                     id
-                    title
+                    capacity
                     description
+                    leadTime
+                    maxPrice
+                    minOrderAmount
+                    minPrice
+                    title
+                    unit
                     createdAt
                     updatedAt
-                }
+                    productType {
+                        id
+                        title
+                        description
+                        createdAt
+                        updatedAt
+                    }
                 }
             }
             suppliers_aggregate${aggregateFilter}{aggregate{count}}

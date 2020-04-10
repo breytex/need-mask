@@ -1,0 +1,65 @@
+- args:
+    tables:
+    - array_relationships:
+      - name: productFiles
+        using:
+          foreign_key_constraint_on:
+            column: fileId
+            table:
+              name: productFiles
+              schema: public
+      table:
+        name: files
+        schema: public
+    - object_relationships:
+      - name: file
+        using:
+          foreign_key_constraint_on: fileId
+      - name: product
+        using:
+          foreign_key_constraint_on: productId
+      table:
+        name: productFiles
+        schema: public
+    - array_relationships:
+      - name: products
+        using:
+          foreign_key_constraint_on:
+            column: typeId
+            table:
+              name: products
+              schema: public
+      table:
+        name: productTypes
+        schema: public
+    - array_relationships:
+      - name: files
+        using:
+          foreign_key_constraint_on:
+            column: productId
+            table:
+              name: productFiles
+              schema: public
+      object_relationships:
+      - name: productType
+        using:
+          foreign_key_constraint_on: typeId
+      - name: supplier
+        using:
+          foreign_key_constraint_on: supplierId
+      table:
+        name: products
+        schema: public
+    - array_relationships:
+      - name: products
+        using:
+          foreign_key_constraint_on:
+            column: supplierId
+            table:
+              name: products
+              schema: public
+      table:
+        name: suppliers
+        schema: public
+    version: 2
+  type: replace_metadata

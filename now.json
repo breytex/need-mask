@@ -5,5 +5,11 @@
       "src": "packages/frontend/next.config.js",
       "use": "@now/next"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/packages/frontend/$1"
+    }
   ]
 }

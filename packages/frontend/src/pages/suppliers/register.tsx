@@ -23,7 +23,6 @@ const Register: NextPage = () => {
   const { handleSubmit, errors, register, setValue } = useForm();
   const formControls = { errors, register };
   const [hasSearched, setHasSearched] = useState(false);
-  console.log({ errors });
 
   useEffect(() => {
     register({ name: "blocker" }, { required: true });

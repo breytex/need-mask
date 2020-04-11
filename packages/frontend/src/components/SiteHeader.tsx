@@ -29,11 +29,10 @@ const SiteHeader: React.FC = () => {
           </Link>
         </Box>
         <Box m={2}>
-          <Button
-            variantColor="blue"
-            onClick={() => alert("Please contact us (somehow)")}
-          >
-            I am a Supplier
+          <Button variantColor="blue">
+            <Link href="/suppliers/register">
+              <a>I am a Supplier</a>
+            </Link>
           </Button>
         </Box>
       </Flex>

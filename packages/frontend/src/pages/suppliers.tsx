@@ -25,9 +25,7 @@ export interface ListingResponses {
 
 const Listings: NextPage<ListingResponses> = ListingPage;
 
-type Context = NextUrqlPageContext;
-
-export const listingInitialProps = async function (ctx: Context) {
+export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
   const { urqlClient, query } = ctx;
   const currentPage: number = parseInt("" + query.page || "1");
   const productFilter = query.products ? ("" + query.products).split(",") : [];

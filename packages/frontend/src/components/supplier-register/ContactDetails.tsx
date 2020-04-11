@@ -5,7 +5,7 @@ import { Input } from "@chakra-ui/core";
 import { FieldRow } from "../chakra/form/FieldRow";
 
 interface Props {
-  register: (obj) => (ref) => void;
+  register: (obj?) => (ref) => void;
   errors: any;
 }
 

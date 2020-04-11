@@ -12,7 +12,7 @@ interface Props {
   children: ReactElement;
   name: string;
   hint?: string;
-  label: string;
+  label?: string;
   flexGrow?: number;
   mt?: string;
   mb?: string;
@@ -34,7 +34,7 @@ export const Field = memo(
     return (
       <Box flexGrow={flexGrow} mr="4" mb={mb || "4"} mt={mt}>
         <FormControl>
-          <FormLabel htmlFor={name}>{label}</FormLabel>
+          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
           {children}
           {hint && <FormHelperText id={`hint-${name}`}>{hint}</FormHelperText>}
           {fieldError && (

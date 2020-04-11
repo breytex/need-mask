@@ -9,16 +9,24 @@ import {
 } from "../../graphql/queries/products";
 import { urqlConfig } from "../../graphql/urqlConfig";
 import { ContactDetails } from "../../components/supplier-register/ContactDetails";
-import { CompanyAddress } from "../../components/supplier-register/CompanyAddress";
+import {
+  CompanyAddress,
+  ADRESS_BLOCKER_FIELD_NAME,
+} from "../../components/supplier-register/CompanyAddress";
+import {
+  ProductConfigurator,
+  PRODUCT_FORM_FIELD_NAME,
+} from "../../components/supplier-register/ProductConfigurator";
 
 type Props = NextPage<ProductTypeResponse>;
 
 const Register: Props = (props) => {
   const { productTypes } = props;
-  const { handleSubmit, errors, register, setValue } = useForm();
+  const { handleSubmit, errors, register, setValue, watch } = useForm();
 
   useEffect(() => {
-    register({ name: "blocker" }, { required: true });
+    // register({ name: ADRESS_BLOCKER_FIELD_NAME }, { required: true });
+    register({ name: PRODUCT_FORM_FIELD_NAME }, { required: true });
   }, []);
 
   const onSubmit = (data) => {
@@ -29,12 +37,20 @@ const Register: Props = (props) => {
     <Box shadow="sm" bg="white" p="6" maxW="800px" mx="auto">
       <Box>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <ContactDetails errors={errors} register={register} />
+          {/* <ContactDetails errors={errors} register={register} />
 
           <CompanyAddress
             errors={errors}
             register={register}
             setValue={setValue}
+          /> */}
+
+          <ProductConfigurator
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            productTypes={productTypes}
+            watch={watch}
           />
 
           <Box>

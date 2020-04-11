@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 import AlgoliaPlaces from "algolia-places-react";
 
 interface Props {
-  register: (obj) => (ref) => void;
+  register: (obj?) => (ref) => void;
   errors: any;
   setValue: (name, value) => void;
 }
@@ -25,6 +25,8 @@ const AlgoliaFix = styled.div`
   }
 `;
 
+export const ADRESS_BLOCKER_FIELD_NAME = "addressBlocker";
+
 export const CompanyAddress = (props: Props) => {
   const { register, errors, setValue } = props;
   const [hasSearched, setHasSearched] = useState(false);
@@ -38,7 +40,7 @@ export const CompanyAddress = (props: Props) => {
   };
 
   const triggerCompanyAddress = () => {
-    setValue("blocker", "true");
+    setValue(ADRESS_BLOCKER_FIELD_NAME, "true");
     setHasSearched(true);
   };
 
@@ -60,7 +62,7 @@ export const CompanyAddress = (props: Props) => {
               onChange={onAlgoliaChanged}
             />
           </AlgoliaFix>
-          {errors["blocker"] && (
+          {errors[ADRESS_BLOCKER_FIELD_NAME] && (
             <Text color="red.500" mt="1">
               Please enter a company address
             </Text>

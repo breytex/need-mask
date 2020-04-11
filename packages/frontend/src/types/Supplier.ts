@@ -8,7 +8,7 @@ export interface ProductType {
 
 export interface Product {
   id: string;
-  capacity?: string;
+  capacity?: number;
   description?: string;
   leadTime?: number;
   maxPrice?: number;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SectionTitle from "./SectionTitle";
 import { Field } from "../chakra/form/Field";
 import { Input, Select, Link, Box, Text } from "@chakra-ui/core";
@@ -7,12 +7,9 @@ import { get } from "lodash";
 import { countries } from "../../types/countries";
 import styled from "@emotion/styled";
 import AlgoliaPlaces from "algolia-places-react";
+import { useFormContext } from "react-hook-form";
 
-interface Props {
-  register: (obj?) => (ref) => void;
-  errors: any;
-  setValue: (name, value) => void;
-}
+interface Props {}
 
 const AlgoliaFix = styled.div`
   .ap-suggestions svg {
@@ -25,11 +22,15 @@ const AlgoliaFix = styled.div`
   }
 `;
 
-export const ADRESS_BLOCKER_FIELD_NAME = "addressBlocker";
+export const ADDRESS_BLOCKER_FIELD_NAME = "addressBlocker";
 
 export const CompanyAddress = (props: Props) => {
-  const { register, errors, setValue } = props;
+  const { register, errors, setValue } = useFormContext();
   const [hasSearched, setHasSearched] = useState(false);
+
+  useEffect(() => {
+    register({ name: ADDRESS_BLOCKER_FIELD_NAME }, { required: true });
+  }, []);
 
   const onAlgoliaChanged = ({ suggestion }) => {
     triggerCompanyAddress();
@@ -40,7 +41,7 @@ export const CompanyAddress = (props: Props) => {
   };
 
   const triggerCompanyAddress = () => {
-    setValue(ADRESS_BLOCKER_FIELD_NAME, "true");
+    setValue(ADDRESS_BLOCKER_FIELD_NAME, "true");
     setHasSearched(true);
   };
 
@@ -62,7 +63,7 @@ export const CompanyAddress = (props: Props) => {
               onChange={onAlgoliaChanged}
             />
           </AlgoliaFix>
-          {errors[ADRESS_BLOCKER_FIELD_NAME] && (
+          {errors[ADDRESS_BLOCKER_FIELD_NAME] && (
             <Text color="red.500" mt="1">
               Please enter a company address
             </Text>

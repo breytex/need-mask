@@ -1,20 +1,23 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useEffect, useMemo, useCallback } from "react";
 import { ProductType } from "../../types/Supplier";
 import { Icon, Flex, Select, Box, Text } from "@chakra-ui/core";
 import Product from "./Product";
 import SectionTitle from "./SectionTitle";
+import { useFormContext } from "react-hook-form";
 interface Props {
-  register: (obj) => (ref) => void;
-  errors: any;
-  setValue: (name, value) => void;
   productTypes: ProductType[];
-  watch: any;
 }
 
 export const PRODUCT_FORM_FIELD_NAME = "productTypes";
 
 export const ProductConfigurator = (props: Props) => {
-  const { register, errors, setValue, productTypes, watch } = props;
+  const { productTypes } = props;
+  const { register, errors, setValue, watch } = useFormContext();
+
+  useEffect(() => {
+    register({ name: PRODUCT_FORM_FIELD_NAME }, { required: true });
+  }, []);
+
   const rawValue = watch(PRODUCT_FORM_FIELD_NAME) || "";
 
   const selectedProducts = useMemo(

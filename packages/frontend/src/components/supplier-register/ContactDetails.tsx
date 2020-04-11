@@ -3,14 +3,13 @@ import SectionTitle from "./SectionTitle";
 import { Field } from "../chakra/form/Field";
 import { Input } from "@chakra-ui/core";
 import { FieldRow } from "../chakra/form/FieldRow";
+import { useFormContext } from "react-hook-form";
 
-interface Props {
-  register: (obj?) => (ref) => void;
-  errors: any;
-}
+interface Props {}
 
 export const ContactDetails = (props: Props) => {
-  const { register, errors } = props;
+  const { register, errors } = useFormContext();
+
   return (
     <React.Fragment>
       <SectionTitle>Contact details</SectionTitle>

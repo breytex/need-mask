@@ -9,25 +9,14 @@ import {
 } from "../../graphql/queries/products";
 import { urqlConfig } from "../../graphql/urqlConfig";
 import { ContactDetails } from "../../components/supplier-register/ContactDetails";
-import {
-  CompanyAddress,
-  ADRESS_BLOCKER_FIELD_NAME,
-} from "../../components/supplier-register/CompanyAddress";
-import {
-  ProductConfigurator,
-  PRODUCT_FORM_FIELD_NAME,
-} from "../../components/supplier-register/ProductConfigurator";
+import { CompanyAddress } from "../../components/supplier-register/CompanyAddress";
+import { ProductConfigurator } from "../../components/supplier-register/ProductConfigurator";
+import Form from "../../components/chakra/form/Form";
 
 type Props = NextPage<ProductTypeResponse>;
 
 const Register: Props = (props) => {
   const { productTypes } = props;
-  const { handleSubmit, errors, register, setValue, watch } = useForm();
-
-  useEffect(() => {
-    // register({ name: ADRESS_BLOCKER_FIELD_NAME }, { required: true });
-    register({ name: PRODUCT_FORM_FIELD_NAME }, { required: true });
-  }, []);
 
   const onSubmit = (data) => {
     console.log({ data });
@@ -36,29 +25,19 @@ const Register: Props = (props) => {
   return (
     <Box shadow="sm" bg="white" p="6" maxW="800px" mx="auto">
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* <ContactDetails errors={errors} register={register} />
+        <Form onSubmit={onSubmit}>
+          <ContactDetails />
 
-          <CompanyAddress
-            errors={errors}
-            register={register}
-            setValue={setValue}
-          /> */}
+          <CompanyAddress />
 
-          <ProductConfigurator
-            errors={errors}
-            register={register}
-            setValue={setValue}
-            productTypes={productTypes}
-            watch={watch}
-          />
+          <ProductConfigurator productTypes={productTypes} />
 
           <Box>
             <Button type="submit" mt="8">
               Send
             </Button>
           </Box>
-        </form>
+        </Form>
       </Box>
     </Box>
   );

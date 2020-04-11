@@ -21,7 +21,7 @@ const Home: NextPage = () => {
       </Box>
 
       <Flex mb={8}>
-        <Box flex={1} textAlign="center">
+        <Box flex={1} textAlign="center" maxWidth="300px" mx="auto">
           <Image
             src="/images/undraw_medical_care_movn.svg"
             height={200}
@@ -30,8 +30,12 @@ const Home: NextPage = () => {
           <Button variantColor="blue" m={8} mx="auto">
             I supply masks
           </Button>
+          <Text>
+            Be part of our supplier base. In case you match a request, your
+            contact data will be shared with the potential client.
+          </Text>
         </Box>
-        <Box flex={1} textAlign="center">
+        <Box flex={1} textAlign="center" maxWidth="300px" mx="auto">
           <Image
             src="/images/undraw_medical_research.svg"
             height={200}
@@ -40,6 +44,10 @@ const Home: NextPage = () => {
           <Button variantColor="blue" m={8} mx="auto">
             I need masks
           </Button>
+          <Text>
+            We will collect your demand and communicate it to a suitable
+            supplier.
+          </Text>
         </Box>
       </Flex>
     </div>

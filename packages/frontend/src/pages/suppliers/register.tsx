@@ -112,7 +112,7 @@ const Register: NextPage = () => {
               )}
               <Box mt="4">
                 <Link onClick={triggerCompanyAddress} mt="2">
-                  (Enter addres manually)
+                  (Enter address manually)
                 </Link>
               </Box>
             </React.Fragment>

@@ -59,9 +59,9 @@ export const FilterBox = (props: Props) => {
         maxW="350px"
         size="lg"
       >
-        {Object.keys(CONTINENT).map((key) => (
-          <option value={CONTINENT[key]} key={key}>
-            {CONTINENT[key]}
+        {Object.entries(CONTINENT).map(([key, value]) => (
+          <option value={value} key={key}>
+            {value}
           </option>
         ))}
       </Select>

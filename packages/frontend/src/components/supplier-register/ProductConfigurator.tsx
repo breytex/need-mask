@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useCallback } from "react";
 import { ProductType } from "../../types/Supplier";
 import { Icon, Flex, Select, Box, Text } from "@chakra-ui/core";
 import Product from "./Product";
-import SectionTitle from "./SectionTitle";
 import { useFormContext } from "react-hook-form";
+import Error from "../chakra/form/Error";
 interface Props {
   productTypes: ProductType[];
 }
@@ -58,7 +58,6 @@ export const ProductConfigurator = (props: Props) => {
   const addWording = selectedProducts.length === 0 ? "the first" : "another";
   return (
     <React.Fragment>
-      <SectionTitle>Product portfolio</SectionTitle>
       {selectedProducts.map((productId) => (
         <Product
           onDelete={onDelete}
@@ -70,7 +69,7 @@ export const ProductConfigurator = (props: Props) => {
         <Box
           mb="12"
           p="4"
-          bg="gray.50"
+          bg="white"
           shadow="md"
           mx={{ base: "-15px", md: "0" }}
         >
@@ -97,7 +96,7 @@ export const ProductConfigurator = (props: Props) => {
         </Box>
       )}
       {errors[PRODUCT_FORM_FIELD_NAME] && (
-        <Text color="red.500">Please add at least one product.</Text>
+        <Error>Please add at least one product.</Error>
       )}
     </React.Fragment>
   );

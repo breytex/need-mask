@@ -25,7 +25,7 @@ const Product = (props: Props) => {
   const { register, errors } = useFormContext();
 
   return (
-    <Box mb="6" p="4" bg="gray.50" shadow="md" mx={{ base: "-15px", md: "0" }}>
+    <Box mb="6" p="4" bg="white" shadow="md" mx={{ base: "-15px", md: "0" }}>
       <Box float="right">
         <Icon name="close" onClick={() => onDelete(id)} mt="-5px" />
       </Box>

@@ -12,6 +12,7 @@ import { ContactDetails } from "../../components/supplier-register/ContactDetail
 import { CompanyAddress } from "../../components/supplier-register/CompanyAddress";
 import { ProductConfigurator } from "../../components/supplier-register/ProductConfigurator";
 import Form from "../../components/chakra/form/Form";
+import { Section } from "../../components/chakra/form/Section";
 
 type Props = NextPage<ProductTypeResponse>;
 
@@ -23,20 +24,21 @@ const Register: Props = (props) => {
   };
 
   return (
-    <Box shadow="sm" bg="white" p="6" maxW="800px" mx="auto">
+    <Box maxW="800px" mx="auto">
       <Box>
         <Form onSubmit={onSubmit}>
-          <ContactDetails />
-
-          <CompanyAddress />
-
-          <ProductConfigurator productTypes={productTypes} />
-
-          <Box>
-            <Button type="submit" mt="8">
-              Send
-            </Button>
-          </Box>
+          <Section title="Contact details">
+            <ContactDetails />
+          </Section>
+          <Section title="Company address">
+            <CompanyAddress />
+          </Section>
+          <Section title="Product portfolio">
+            <ProductConfigurator productTypes={productTypes} />
+          </Section>
+          <Button type="submit" variantColor="blue" mt="8">
+            Send application
+          </Button>
         </Form>
       </Box>
     </Box>

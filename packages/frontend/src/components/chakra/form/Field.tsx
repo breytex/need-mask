@@ -1,13 +1,7 @@
-import React, { ReactElement, useCallback, memo } from "react";
-import {
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  Box,
-  Text,
-} from "@chakra-ui/core";
-import { useTraceUpdate } from "../../../hooks/useTraceUpdate";
+import React, { ReactElement, memo } from "react";
+import { FormControl, FormLabel, FormHelperText, Box } from "@chakra-ui/core";
 import { useFormContext } from "react-hook-form";
+import Error from "./Error";
 
 interface Props {
   children: ReactElement;
@@ -26,7 +20,7 @@ const errorMessages = {
 
 export const Field = memo(
   (props: Props): ReactElement => {
-    const { children, name, hint, label, flexGrow, mb, mt } = props;
+    const { children: child, name, hint, label, flexGrow, mb, mt } = props;
     const { errors } = useFormContext();
 
     // useTraceUpdate(props);
@@ -36,13 +30,13 @@ export const Field = memo(
       <Box flexGrow={flexGrow} mr="4" mb={mb || "4"} mt={mt}>
         <FormControl>
           {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
-          {children}
-          {hint && <FormHelperText id={`hint-${name}`}>{hint}</FormHelperText>}
-          {fieldError && (
-            <Text color="red.500" mt="1">
-              {errorMessages[fieldError.type]}
-            </Text>
+          {React.cloneElement(child, { ...child.props, size: "lg" })}
+          {hint && (
+            <FormHelperText color="gray.700" id={`hint-${name}`}>
+              {hint}
+            </FormHelperText>
           )}
+          {fieldError && <Error>{errorMessages[fieldError.type]}</Error>}
         </FormControl>
       </Box>
     );

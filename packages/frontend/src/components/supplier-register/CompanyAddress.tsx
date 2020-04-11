@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import SectionTitle from "./SectionTitle";
 import { Field } from "../chakra/form/Field";
 import { Input, Select, Link, Box, Text } from "@chakra-ui/core";
 import { FieldRow } from "../chakra/form/FieldRow";
@@ -8,6 +7,7 @@ import { countries } from "../../types/countries";
 import styled from "@emotion/styled";
 import AlgoliaPlaces from "algolia-places-react";
 import { useFormContext } from "react-hook-form";
+import Error from "../chakra/form/Error";
 
 interface Props {}
 
@@ -47,7 +47,6 @@ export const CompanyAddress = (props: Props) => {
 
   return (
     <React.Fragment>
-      <SectionTitle>Company address</SectionTitle>
       {!hasSearched && (
         <React.Fragment>
           <AlgoliaFix>
@@ -64,9 +63,7 @@ export const CompanyAddress = (props: Props) => {
             />
           </AlgoliaFix>
           {errors[ADDRESS_BLOCKER_FIELD_NAME] && (
-            <Text color="red.500" mt="1">
-              Please enter a company address
-            </Text>
+            <Error>Please enter a company address</Error>
           )}
           <Box mt="4">
             <Link onClick={triggerCompanyAddress} mt="2">

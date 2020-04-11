@@ -1,6 +1,6 @@
 import { Product } from "./Supplier";
 
-export enum Location {
+export enum Continent {
   EUROPE = "Europe",
   N_AMERICA = "North America",
   S_AMERICA = "South America",

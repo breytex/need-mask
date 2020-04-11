@@ -9,7 +9,7 @@ import {
   Heading,
 } from "@chakra-ui/core";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
-import { Location } from "../../types/Filters";
+import { Continent } from "../../types/Filters";
 import { ProductType } from "../../types/Supplier";
 import { useRouter } from "next/router";
 import { useCsr } from "../../hooks/useCsr";
@@ -29,9 +29,9 @@ export const FilterBox = (props: Props) => {
 
   const { productTypes, onFilterChanged } = props;
 
-  const onLocationChanged = useCallback(
+  const onContinentChanged = useCallback(
     (event) => {
-      onFilterChanged({ page: 1, location: event.target.value });
+      onFilterChanged({ page: 1, continent: event.target.value });
     },
     [onFilterChanged]
   );
@@ -46,22 +46,22 @@ export const FilterBox = (props: Props) => {
     [onFilterChanged]
   );
 
-  const { location, products } = router.query;
+  const { continent, products } = router.query;
   return (
     <Flex direction="column" bg={"white"} p="4" shadow="sm">
       <Heading size={headingSize} mb={{ base: "2", md: "3", lg: "3" }}>
         Filters
       </Heading>
       <Select
-        placeholder="Select a region"
-        defaultValue={location || ""}
-        onChange={onLocationChanged}
+        placeholder="All continents"
+        defaultValue={continent || ""}
+        onChange={onContinentChanged}
         maxW="350px"
         size="lg"
       >
-        {Object.keys(Location).map((key) => (
-          <option value={key} key={key}>
-            {Location[key]}
+        {Object.keys(Continent).map((key) => (
+          <option value={Continent[key]} key={key}>
+            {Continent[key]}
           </option>
         ))}
       </Select>

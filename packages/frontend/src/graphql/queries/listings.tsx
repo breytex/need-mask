@@ -2,22 +2,32 @@ import { Supplier } from "../../types/Supplier";
 export const LISTINGS_PER_PAGE = 3;
 
 // recursively add where params
-const createAndWhereFilters = (products) => {
+const createAndWhereFilters = (products, firstWhere = false) => {
   if (products.length === 0) return "";
   const [first, ...rest] = products;
   const and = rest.length > 0 ? createAndWhereFilters([rest]) : "";
-  return `, _and: {products: {productType: {title: {_eq: "${first}"}}} ${and}}`;
+
+  if (firstWhere) {
+    return `{products: {productType: {title: {_eq: "${first}"}}} ${and}}`;
+  } else {
+    return `, _and: {products: {productType: {title: {_eq: "${first}"}}} ${and}}`;
+  }
 };
 
-export const GET_LISTINGS_FN = (products: String[]) => {
+export const GET_LISTINGS_FN = (products: String[], continent?: String) => {
   let productFilter = "";
   if (products.length > 0) {
-    const [first, ...elements] = products;
-    const and = createAndWhereFilters(elements);
-    productFilter = `where: {products: {productType: {title: {_eq: "${first}"}}}${and}}`;
+    productFilter = createAndWhereFilters(products, !continent);
   }
-  const getFilter = productFilter ? ", " + productFilter : "";
-  const aggregateFilter = productFilter ? `(${productFilter})` : "";
+
+  let combinedFilter = productFilter;
+  console.log({ continent });
+  if (!!continent) {
+    combinedFilter = `{continent: {_eq: "${continent}"}${productFilter}}`;
+  }
+
+  const getFilter = combinedFilter !== "" ? `, where: ${combinedFilter}` : "";
+  const aggregateFilter = productFilter ? `(where: ${combinedFilter})` : "";
   const query = `
         query GetListings($offset:Int) {
             suppliers(limit: ${LISTINGS_PER_PAGE}, offset: $offset${getFilter}) {
@@ -51,7 +61,7 @@ export const GET_LISTINGS_FN = (products: String[]) => {
             suppliers_aggregate${aggregateFilter}{aggregate{count}}
         }
     `;
-
+  console.log({ query });
   return query;
 };
 

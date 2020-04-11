@@ -31,13 +31,14 @@ export const listingInitialProps = async function (ctx: Context) {
   const { urqlClient, query } = ctx;
   const currentPage: number = parseInt("" + query.page || "1");
   const productFilter = query.products ? ("" + query.products).split(",") : [];
+  const continentFilter = query.continent ? "" + query.continent : undefined;
 
   let listingValues = {
     offset: (currentPage - 1) * LISTINGS_PER_PAGE,
   };
 
   const { data: supplierData } = await urqlClient
-    .query(GET_LISTINGS_FN(productFilter), listingValues)
+    .query(GET_LISTINGS_FN(productFilter, continentFilter), listingValues)
     .toPromise();
 
   const { data: productTypeData } = await urqlClient

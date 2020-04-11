@@ -9,7 +9,7 @@ const SiteHeader: React.FC = () => {
       w="100%"
       maxW="1332px"
       py="4"
-      px={{ base: "4", md: "2" }}
+      px={{ base: "2", md: "4" }}
     >
       <Link href="/">
         <a>

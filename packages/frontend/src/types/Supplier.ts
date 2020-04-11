@@ -8,7 +8,7 @@ export interface ProductType {
 
 export interface Product {
   id: string;
-  capacity?: string;
+  capacity?: number;
   description?: string;
   leadTime?: number;
   maxPrice?: number;
@@ -30,4 +30,11 @@ export interface Supplier {
   city: string;
   createdAt?: number;
   updatedAt?: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  continent: string;
+  published: string;
+  street: string;
+  vatNumber: string;
 }

@@ -14,16 +14,28 @@ const SupplierDetailPage: NextPage<{
 
   return (
     <>
-      <Flex mb={8}>
-        <Box mr={2}>
-          <img src="https://source.unsplash.com/200x200?medical" alt="" />
+      <Flex
+        mb={16}
+        flexDirection={{ base: "column", md: "row" }}
+        textAlign={{ base: "center", md: "left" }}
+      >
+        <Box mr={4} mx="auto" mb={{ base: 2, md: 0 }}>
+          <img
+            src="https://source.unsplash.com/200x200?medical"
+            width="200"
+            height="200"
+            alt=""
+          />
         </Box>
-        <Box flex={1} ml={2}>
+        <Box flex={1} ml={4}>
           <Text>
             {supplier.city}, {supplier.country}
           </Text>
           <Heading fontWeight="normal" as="h1" size="lg">
             {supplier.companyName}
+          </Heading>
+          <Heading fontWeight="normal" as="h1" size="lg">
+            Offers {supplier.products.length} Products
           </Heading>
         </Box>
       </Flex>
@@ -32,62 +44,74 @@ const SupplierDetailPage: NextPage<{
         Available Products
       </Heading>
 
-      <Flex flexWrap="wrap">
-        {supplier.products.map((product) => {
-          const createdAt = format(new Date(product.createdAt), "yyyy-mm-dd");
-          const updatedAt = format(new Date(product.updatedAt), "yyyy-mm-dd");
-          const wasUpdated = createdAt !== updatedAt;
+      <Flex flexWrap="wrap" flexDirection={{ base: "column", md: "row" }}>
+        {supplier.products.map(
+          ({
+            capacity,
+            createdAt,
+            description,
+            id,
+            leadTime,
+            maxPrice,
+            minOrderAmount,
+            minPrice,
+            productType: { title: title1 },
+            title,
+            unit,
+            updatedAt,
+          }) => {
+            const createdAtDate = format(new Date(createdAt), "yyyy-mm-dd");
+            const updatedAtDate = format(new Date(updatedAt), "yyyy-mm-dd");
+            const wasUpdated = createdAtDate !== updatedAtDate;
 
-          return (
-            <Flex key={product.id} mb={4} width="33%">
-              <Box mr={2} width="100px">
-                <img
-                  src={`https://source.unsplash.com/100x100?${product.productType.title}`}
-                  alt=""
-                  width="100"
-                  height="100"
-                />
-                <Box>
-                  <Text fontSize="sm">Listed Since {createdAt}</Text>
-                  {wasUpdated && (
-                    <Text fontSize="sm">updatedAt {updatedAt}</Text>
-                  )}
-                </Box>
-              </Box>
-              <Box flex="1" ml={2}>
-                <Box
-                  color="gray.500"
-                  fontWeight="semibold"
-                  letterSpacing="wide"
-                  fontSize="xs"
-                  textTransform="uppercase"
-                >
-                  {product.capacity} Units &bull;
-                  {product.minOrderAmount === 0
-                    ? " No Min"
-                    : " " + product.minOrderAmount}{" "}
-                  MOQ
-                </Box>
-                <Text fontSize="sm">{product.productType.title}</Text>
-                <Heading as="h3" size="sm">
-                  {product.title}
-                </Heading>
-                {product.description && (
-                  <Text>description: {product.description}</Text>
-                )}
-
-                <Text>Delivery in {product.leadTime} Days</Text>
-                <Text>
+            return (
+              <Flex key={id} mb={4} width={{ base: "100%", md: "33%" }}>
+                <Box mr={2} width="100px">
+                  <img
+                    src={`https://source.unsplash.com/100x100?${title1}`}
+                    alt=""
+                    width="100"
+                    height="100"
+                  />
                   <Box>
-                    {product.minPrice / 1000} EUR to {product.maxPrice / 1000}{" "}
-                    EUR
+                    <Text fontSize="sm">Listed Since {createdAtDate}</Text>
+                    {wasUpdated && (
+                      <Text fontSize="sm">updatedAt {updatedAtDate}</Text>
+                    )}
                   </Box>
-                </Text>
-                {product.unit && <Text>unit: {product.unit}</Text>}
-              </Box>
-            </Flex>
-          );
-        })}
+                </Box>
+                <Box flex="1" ml={2}>
+                  <Box
+                    color="gray.500"
+                    fontWeight="semibold"
+                    letterSpacing="wide"
+                    fontSize="xs"
+                    textTransform="uppercase"
+                  >
+                    {capacity} Units &bull;
+                    {minOrderAmount === 0
+                      ? " No Min"
+                      : " " + minOrderAmount}{" "}
+                    MOQ
+                  </Box>
+                  <Text fontSize="sm">{title1}</Text>
+                  <Heading as="h3" size="sm">
+                    {title}
+                  </Heading>
+                  {description && <Text>description: {description}</Text>}
+
+                  <Text>Delivery in {leadTime} Days</Text>
+
+                  <Box>
+                    {minPrice / 1000} EUR to {maxPrice / 1000} EUR
+                  </Box>
+
+                  {unit && <Text>unit: {unit}</Text>}
+                </Box>
+              </Flex>
+            );
+          }
+        )}
       </Flex>
     </>
   );

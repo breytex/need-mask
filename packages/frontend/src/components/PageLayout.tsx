@@ -18,7 +18,7 @@ export default function PageLayout(props: Props): ReactElement {
       >
         <SiteHeader />
       </Flex>
-      <Flex justify="center" flex="1">
+      <Flex justify="center" flex="1" justifyContent="center">
         <Box w="100%" maxW="1332px" p="4">
           {children}
         </Box>

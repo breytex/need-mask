@@ -5,7 +5,7 @@ import queryString from "query-string";
 import { Flex, Box } from "@chakra-ui/core";
 import { ListingRow } from "../../components/Listing/ListingRow";
 import { FilterBox } from "../../components/Listing/FilterBox";
-import { ListingResponses } from "../../pages/listings";
+import { ListingResponses } from "../../pages/suppliers";
 import { Pagination } from "../chakra/Pagination";
 import { NoResults } from "./NoResults";
 import { LISTINGS_PER_PAGE } from "../../graphql/queries/listings";
@@ -19,13 +19,14 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
 
   const { push, query } = router;
   const navigateTo = (queryParams) => {
-    const { page = 1, ...filterParams } = { ...query, ...queryParams };
+    const params = { ...query, ...queryParams };
+    if (!params.page) {
+      params.page = 1;
+    }
     const queryParamString =
-      Object.keys(filterParams).length > 0
-        ? "?" + queryString.stringify(filterParams)
-        : "";
-    const newUrl = `/listings/[page]${queryParamString}`;
-    push(newUrl, newUrl.replace("[page]", page));
+      Object.keys(params).length > 0 ? "?" + queryString.stringify(params) : "";
+    const newUrl = `/suppliers${queryParamString}`;
+    push(newUrl, newUrl);
   };
 
   const currentPage = parseInt("" + router.query.page) || 1;

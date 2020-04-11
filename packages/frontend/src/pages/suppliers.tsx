@@ -3,11 +3,11 @@ import { withUrqlClient, NextUrqlPageContext } from "next-urql";
 import {
   GET_LISTINGS_FN,
   LISTINGS_PER_PAGE,
-} from "../../graphql/queries/listings";
-import { urqlConfig } from "../../graphql/urqlConfig";
-import { GET_PRODUCT_TYPES } from "../../graphql/queries/products";
-import { Supplier, ProductType } from "../../types/Supplier";
-import { ListingPage } from "../../components/Listing/ListingPage";
+} from "../graphql/queries/listings";
+import { urqlConfig } from "../graphql/urqlConfig";
+import { GET_PRODUCT_TYPES } from "../graphql/queries/products";
+import { Supplier, ProductType } from "../types/Supplier";
+import { ListingPage } from "../components/Listing/ListingPage";
 
 export interface ListingResponses {
   supplierData: {

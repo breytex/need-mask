@@ -18,39 +18,39 @@ export const GET_LISTINGS_FN = (products: String[]) => {
   }
   const getFilter = productFilter ? ", " + productFilter : "";
   const aggregateFilter = productFilter ? `(${productFilter})` : "";
-  const query = `
-        query GetListings($offset:Int) {
-            suppliers(limit: ${LISTINGS_PER_PAGE}, offset: $offset${getFilter}) {
-                id 
-                country
-                city
-                companyName
-                createdAt
-                updatedAt
-                products {
-                    id
-                    capacity
-                    description
-                    leadTime
-                    maxPrice
-                    minOrderAmount
-                    minPrice
-                    title
-                    unit
-                    createdAt
-                    updatedAt
-                    productType {
-                        id
-                        title
-                        description
-                        createdAt
-                        updatedAt
-                    }
-                }
-            }
-            suppliers_aggregate${aggregateFilter}{aggregate{count}}
+  const query = /* GraphQL */ `
+    query GetListings($offset:Int) {
+      suppliers(limit: ${LISTINGS_PER_PAGE}, offset: $offset${getFilter}) {
+        id 
+        country
+        city
+        companyName
+        createdAt
+        updatedAt
+        products {
+          id
+          capacity
+          description
+          leadTime
+          maxPrice
+          minOrderAmount
+          minPrice
+          title
+          unit
+          createdAt
+          updatedAt
+          productType {
+            id
+            title
+            description
+            createdAt
+            updatedAt
+          }
         }
-    `;
+      }
+      suppliers_aggregate${aggregateFilter}{aggregate{count}}
+    }
+`;
 
   return query;
 };

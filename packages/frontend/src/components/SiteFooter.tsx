@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Box, Flex, Heading, Button } from "@chakra-ui/core";
+import Link from "next/link";
 
 const SiteFooter: React.FC = () => {
   return (
@@ -21,8 +22,16 @@ const SiteFooter: React.FC = () => {
           width={{ sm: "full", md: "auto" }}
           alignItems="center"
         >
-          <Box pr={2}>AGB</Box>
-          <Box pr={2}>Imprint</Box>
+          <Box pr={2}>
+            <Link href="/about-us">
+              <a>About Us</a>
+            </Link>
+          </Box>
+          <Box pr={2}>
+            <Link href="/imprint">
+              <a>Imprint</a>
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Box>

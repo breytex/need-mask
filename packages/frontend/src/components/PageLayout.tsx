@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Flex, Box } from "@chakra-ui/core";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
+import Testimonials from "./Testimonials";
 interface Props {
   children: ReactElement;
 }
@@ -19,6 +20,7 @@ export default function PageLayout(props: Props): ReactElement {
           {children}
         </Box>
       </Flex>
+      <Testimonials />
       <SiteFooter />
     </Flex>
   );

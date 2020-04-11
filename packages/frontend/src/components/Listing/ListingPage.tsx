@@ -1,13 +1,14 @@
 import React, { useCallback } from "react";
 import { NextPage } from "next";
+import { useRouter } from "next/router";
+import queryString from "query-string";
 import { Flex, Box } from "@chakra-ui/core";
 import { ListingRow } from "../../components/Listing/ListingRow";
 import { FilterBox } from "../../components/Listing/FilterBox";
 import { ListingResponses } from "../../pages/listings";
 import { Pagination } from "../chakra/Pagination";
+import { NoResults } from "./NoResults";
 import { LISTINGS_PER_PAGE } from "../../graphql/queries/listings";
-import { useRouter } from "next/router";
-import queryString from "query-string";
 
 export const ListingPage: NextPage<ListingResponses> = (props) => {
   const router = useRouter();
@@ -28,6 +29,9 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
   };
 
   const currentPage = parseInt("" + router.query.page) || 1;
+  const hasResults =
+    supplierData.suppliers && supplierData.suppliers.length > 0;
+
   return (
     <Flex flexDirection={{ base: "column-reverse", md: "row" }}>
       <Box
@@ -41,9 +45,11 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
           onPageChange={navigateTo}
           mb="2"
         />
-        {supplierData.suppliers.map((supplier) => (
-          <ListingRow key={supplier.id} {...supplier} />
-        ))}
+        {hasResults &&
+          supplierData.suppliers.map((supplier) => (
+            <ListingRow key={supplier.id} {...supplier} />
+          ))}
+        {!hasResults && <NoResults />}
         <Pagination
           maxPages={maxPages}
           currentPage={currentPage}

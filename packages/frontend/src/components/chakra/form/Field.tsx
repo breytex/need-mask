@@ -7,6 +7,7 @@ import {
   Text,
 } from "@chakra-ui/core";
 import { useTraceUpdate } from "../../../hooks/useTraceUpdate";
+import { useFormContext } from "react-hook-form";
 
 interface Props {
   children: ReactElement;
@@ -16,7 +17,6 @@ interface Props {
   flexGrow?: number;
   mt?: string;
   mb?: string;
-  errors: any;
 }
 
 const errorMessages = {
@@ -26,7 +26,8 @@ const errorMessages = {
 
 export const Field = memo(
   (props: Props): ReactElement => {
-    const { children, name, hint, label, flexGrow, errors, mb, mt } = props;
+    const { children, name, hint, label, flexGrow, mb, mt } = props;
+    const { errors } = useFormContext();
 
     // useTraceUpdate(props);
 

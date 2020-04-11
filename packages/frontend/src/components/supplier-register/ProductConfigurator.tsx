@@ -56,14 +56,11 @@ export const ProductConfigurator = (props: Props) => {
   );
 
   const addWording = selectedProducts.length === 0 ? "the first" : "another";
-  console.log({ stillAvailableProducts, selectedProducts, rawValue });
   return (
     <React.Fragment>
       <SectionTitle>Product portfolio</SectionTitle>
       {selectedProducts.map((productId) => (
         <Product
-          register={register}
-          errors={errors}
           onDelete={onDelete}
           key={"product-" + productId}
           {...productTypes.find((product) => product.id === productId)}

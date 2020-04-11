@@ -78,13 +78,13 @@ export const CompanyAddress = (props: Props) => {
       {hasSearched && (
         <React.Fragment>
           <FieldRow>
-            <Field name="street" label="Street" flexGrow={4} errors={errors}>
+            <Field name="street" label="Street" flexGrow={4}>
               <Input
                 name="street"
                 ref={register({ required: true, pattern: /.{3}/ })}
               />
             </Field>
-            <Field name="number" label="Number" flexGrow={1} errors={errors}>
+            <Field name="number" label="Number" flexGrow={1}>
               <Input
                 name="number"
                 ref={register({ required: true, pattern: /.{3}/ })}
@@ -92,20 +92,20 @@ export const CompanyAddress = (props: Props) => {
             </Field>
           </FieldRow>
           <FieldRow>
-            <Field name="city" label="City" flexGrow={4} errors={errors}>
+            <Field name="city" label="City" flexGrow={4}>
               <Input
                 name="city"
                 ref={register({ required: true, pattern: /.{3}/ })}
               />
             </Field>
-            <Field name="zip" label="ZIP" flexGrow={1} errors={errors}>
+            <Field name="zip" label="ZIP" flexGrow={1}>
               <Input
                 name="zip"
                 ref={register({ required: true, pattern: /.{3}/ })}
               />
             </Field>
           </FieldRow>
-          <Field name="country" label="Country" flexGrow={1} errors={errors}>
+          <Field name="country" label="Country" flexGrow={1}>
             <Select
               placeholder="Select option"
               name="country"

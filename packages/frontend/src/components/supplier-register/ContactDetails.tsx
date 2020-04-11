@@ -13,27 +13,27 @@ export const ContactDetails = (props: Props) => {
   return (
     <React.Fragment>
       <SectionTitle>Contact details</SectionTitle>
-      <Field name="companyName" label="Company name" errors={errors}>
+      <Field name="companyName" label="Company name">
         <Input
           name="companyName"
           ref={register({ required: true, pattern: /.{3}/ })}
         />
       </Field>
       <FieldRow mt="6">
-        <Field name="firstName" label="Firstname" flexGrow={1} errors={errors}>
+        <Field name="firstName" label="Firstname" flexGrow={1}>
           <Input
             name="firstName"
             ref={register({ required: true, pattern: /.{3}/ })}
           />
         </Field>
-        <Field name="lastName" label="Lastname" flexGrow={1} errors={errors}>
+        <Field name="lastName" label="Lastname" flexGrow={1}>
           <Input
             name="lastName"
             ref={register({ required: true, pattern: /.{3}/ })}
           />
         </Field>
       </FieldRow>
-      <Field name="email" label="E-Mail" errors={errors}>
+      <Field name="email" label="E-Mail">
         <Input
           name="email"
           ref={register({ required: true, pattern: /.{3}/ })}

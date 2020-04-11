@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { customTheme } from "./theme";
 
 // Credits: https://github.com/chakra-ui/chakra-ui/issues/409
@@ -14,7 +14,7 @@ export const useMediaQuery = (values) => {
 
   const [index, setIndex] = useState(getIndex());
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const onResize = () => setIndex(getIndex());
     onResize();
     window.addEventListener("resize", onResize);

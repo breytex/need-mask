@@ -21,7 +21,6 @@ export const GET_LISTINGS_FN = (products: String[], continent?: String) => {
   }
 
   let combinedFilter = productFilter;
-  console.log({ continent });
   if (!!continent) {
     combinedFilter = `{continent: {_eq: "${continent}"}${productFilter}}`;
   }
@@ -61,7 +60,7 @@ export const GET_LISTINGS_FN = (products: String[], continent?: String) => {
             suppliers_aggregate${aggregateFilter}{aggregate{count}}
         }
     `;
-  console.log({ query });
+
   return query;
 };
 

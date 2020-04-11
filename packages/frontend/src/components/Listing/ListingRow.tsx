@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import Link from "next/link";
 import { Box, Flex, Text, Heading, Badge } from "@chakra-ui/core";
 import { Supplier } from "../../types/Supplier";
 
@@ -15,7 +16,7 @@ const isLessOld = (date) => {
 };
 
 export const ListingRow = (props: Props) => {
-  const { companyName, city, country, updatedAt, products } = props;
+  const { id, companyName, city, country, updatedAt, products } = props;
 
   let productTypes = useMemo(() => {
     if (!products) return [];
@@ -43,7 +44,11 @@ export const ListingRow = (props: Props) => {
     >
       <Flex direction="row" justify="space-between">
         <Flex direction="column">
-          <Heading size="md">{companyName}</Heading>
+          <Link href={`/suppliers/[id]`} as={`/suppliers/${id}`}>
+            <a>
+              <Heading size="md">{companyName}</Heading>
+            </a>
+          </Link>
           <Box color="gray.500">
             {city && country && (
               <span>

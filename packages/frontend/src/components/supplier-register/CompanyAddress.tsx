@@ -60,6 +60,7 @@ export const CompanyAddress = (props: Props) => {
                 // Other options from https://community.algolia.com/places/documentation.html#options
               }}
               onChange={onAlgoliaChanged}
+              onError={triggerCompanyAddress}
             />
           </AlgoliaFix>
           {errors[ADDRESS_BLOCKER_FIELD_NAME] && (

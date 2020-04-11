@@ -30,4 +30,11 @@ export interface Supplier {
   city: string;
   createdAt?: number;
   updatedAt?: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  continent: string;
+  published: string;
+  street: string;
+  vatNumber: string;
 }

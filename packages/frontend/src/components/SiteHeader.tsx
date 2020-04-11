@@ -24,7 +24,7 @@ const SiteHeader: React.FC = () => {
 
       <Flex align="center">
         <Box m={2}>
-          <Link href="/listings">
+          <Link href="/suppliers">
             <a>Suppliers</a>
           </Link>
         </Box>

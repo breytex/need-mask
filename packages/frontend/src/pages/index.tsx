@@ -22,13 +22,21 @@ const Home: NextPage = () => {
 
       <Flex mb={8}>
         <Box flex={1} textAlign="center">
-          <Image src="/images/deliveries.svg" height={200} mx="auto" />
+          <Image
+            src="/images/undraw_medical_care_movn.svg"
+            height={200}
+            mx="auto"
+          />
           <Button variantColor="blue" m={8} mx="auto">
             I supply masks
           </Button>
         </Box>
         <Box flex={1} textAlign="center">
-          <Image src="/images/search.svg" height={200} mx="auto" />
+          <Image
+            src="/images/undraw_medical_research.svg"
+            height={200}
+            mx="auto"
+          />
           <Button variantColor="blue" m={8} mx="auto">
             I need masks
           </Button>

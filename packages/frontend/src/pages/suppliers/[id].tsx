@@ -11,17 +11,35 @@ import {
   Box,
   Heading,
   Text,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
 } from "@chakra-ui/core/dist";
 import format from "date-fns/format";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const SupplierDetailPage: NextPage<{
   props: { supplier: Supplier };
 }> = ({ props }) => {
+  const router = useRouter();
   const { supplier } = props;
 
   return (
     <>
       <Box mb={16}>
+        <Breadcrumb fontSize="sm">
+          <BreadcrumbItem>
+            <BreadcrumbLink onClick={() => router.push("/suppliers")}>
+              Suppliers
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink href="#">{supplier.companyName}</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+
         <Box mr={4} mx="auto" mb="2">
           <Image
             src="https://source.unsplash.com/100x100?medical"

@@ -91,12 +91,12 @@ export const ProductConfigurator = (props: Props) => {
                   {availProduct.title}
                 </option>
               ))}
+              {errors[PRODUCT_FORM_FIELD_NAME] && (
+                <Error>Please add at least one product.</Error>
+              )}
             </Select>
           </Box>
         </Box>
-      )}
-      {errors[PRODUCT_FORM_FIELD_NAME] && (
-        <Error>Please add at least one product.</Error>
       )}
     </React.Fragment>
   );

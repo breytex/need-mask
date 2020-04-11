@@ -26,7 +26,7 @@ export const GET_LISTINGS_FN = (products: String[], continent?: String) => {
   }
 
   const getFilter = combinedFilter !== "" ? `, where: ${combinedFilter}` : "";
-  const aggregateFilter = productFilter ? `(where: ${combinedFilter})` : "";
+  const aggregateFilter = combinedFilter ? `(where: ${combinedFilter})` : "";
   const query = `
         query GetListings($offset:Int) {
             suppliers(limit: ${LISTINGS_PER_PAGE}, offset: $offset${getFilter}) {

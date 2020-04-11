@@ -2,12 +2,20 @@
   "version": 2,
   "env": {
     "HASURA_ADMIN_SECRET": "@hasura_admin_secret",
-    "HASURA_URL": "@hasura_url"
+    "HASURA_URL": "@hasura_url",
+    "SPACES_KEY": "@spaces_key",
+    "SPACES_SECRET": "@spaces_secret",
+    "ALGOLIA_PLACES_APPID": "@algolia_places_appid",
+    "ALGOLIA_PLACES_KEY": "@algolia_places_key"
   },
   "build": {
     "env": {
       "HASURA_ADMIN_SECRET": "@hasura_admin_secret",
-      "HASURA_URL": "@hasura_url"
+      "HASURA_URL": "@hasura_url",
+      "SPACES_KEY": "@spaces_key",
+      "SPACES_SECRET": "@spaces_secret",
+      "ALGOLIA_PLACES_APPID": "@algolia_places_appid",
+      "ALGOLIA_PLACES_KEY": "@algolia_places_key"
     }
   },
   "builds": [

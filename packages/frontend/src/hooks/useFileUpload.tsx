@@ -71,15 +71,12 @@ const useFileUpload: IUseFileUpload = (props = {}) => {
         buffers.push(res);
       }
       const responses = [];
-      for (const buffer of buffers) {
+      for (const file of files) {
         const formData = new FormData();
-        formData.append("data", buffer);
+        formData.append("file", file);
         const res: Response = await fetch("/api/upload", {
           method: "POST",
           body: formData,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
         }).then((res) => res.json());
         responses.push(res);
       }

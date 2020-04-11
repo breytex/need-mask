@@ -5,10 +5,10 @@ import { Button } from "@chakra-ui/core";
 import useFileUpload from "../hooks/useFileUpload";
 
 const Upload: NextPage = () => {
-  // const [input, { isProcessing, checkForErrors, upload }] = useFileUpload();
   const { Input, checkForErrors, isProcessing, upload } = useFileUpload({
     multiple: true,
   });
+
   return (
     <div>
       {Input}

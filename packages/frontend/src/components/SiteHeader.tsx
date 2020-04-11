@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Box, Flex, Heading, Image, Button } from "@chakra-ui/core";
 import Link from "next/link";
+import { Box, Flex, Heading, Image, Button } from "@chakra-ui/core";
 
-const SiteHeader: React.FC = ({}) => {
+const SiteHeader: React.FC = () => {
   return (
     <Flex
       justify="space-between"
@@ -21,11 +21,22 @@ const SiteHeader: React.FC = ({}) => {
           </Flex>
         </a>
       </Link>
-      <Box>
-        <Button size="lg" variantColor="blue" mr={{ base: "0", md: "5" }}>
-          I am a supplier
-        </Button>
-      </Box>
+
+      <Flex align="center">
+        <Box m={2}>
+          <Link href="/listings">
+            <a>Suppliers</a>
+          </Link>
+        </Box>
+        <Box m={2}>
+          <Button
+            variantColor="blue"
+            onClick={() => alert("Please contact us (somehow)")}
+          >
+            I am a Supplier
+          </Button>
+        </Box>
+      </Flex>
     </Flex>
   );
 };

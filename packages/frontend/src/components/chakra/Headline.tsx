@@ -1,16 +1,18 @@
-import React, { ReactElement } from "react";
-import { Box, Text } from "@chakra-ui/core";
+import React, { memo } from "react";
+import { Heading } from "@chakra-ui/core";
+import { useMediaQuery } from "../../chakra/useMediaQuery";
 
 interface Props {
   children: string;
 }
 
-export default function Headline({ children }: Props): ReactElement {
+const Headline = ({ children }: Props) => {
+  const fontSize = useMediaQuery(["lg", "xl"]);
   return (
-    <Box borderBottom="1px solid" borderColor="blue.700" mt="10" mb="6">
-      <Text fontSize="25px" color="blue.700" fontWeight="bold">
-        {children}
-      </Text>
-    </Box>
+    <Heading color="blue.600" fontSize={fontSize} mb={{ base: "4", md: "6" }}>
+      {children}
+    </Heading>
   );
-}
+};
+
+export default memo(Headline);

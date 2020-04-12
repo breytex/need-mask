@@ -24,7 +24,7 @@ interface Props {
 
 const Product = (props: Props) => {
   const { title, onDelete, index, id } = props;
-  const { register, errors } = useFormContext();
+  const { register } = useFormContext();
   const name = `products.data[${index}]`;
   return (
     <Box mb="6" p="4" bg="white" shadow="md" mx={{ base: "-15px", md: "0" }}>

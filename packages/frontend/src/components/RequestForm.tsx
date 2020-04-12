@@ -93,12 +93,13 @@ type ProductFieldsType = {
 };
 
 const ProductFields: React.FC<ProductFieldsType> = ({ products }) => {
-  const { register, errors } = useFormContext();
+  const { register, errors, watch } = useFormContext();
 
   return (
     <Box>
-      {products.map((product) => {
+      {products.map((product, index) => {
         const [checked, check] = useState(false);
+        const name = `requestedProducts.data[${index}]`;
 
         return (
           <Box key={product.id}>
@@ -112,16 +113,24 @@ const ProductFields: React.FC<ProductFieldsType> = ({ products }) => {
             </FormLabel>
 
             {checked && (
-              <Field key={product.id} name={product.id}>
-                <Input
-                  type="number"
-                  name={product.id}
+              <>
+                <input
+                  type="hidden"
+                  name={`${name}.productId`}
+                  value={product.id}
                   ref={register({ required: true })}
-                  step={1000}
-                  min={product.minOrderAmount}
-                  defaultValue={product.minOrderAmount}
                 />
-              </Field>
+                <Field key={product.id} name={product.id}>
+                  <Input
+                    type="number"
+                    name={`${name}.amount`}
+                    ref={register({ required: true })}
+                    step={1000}
+                    min={product.minOrderAmount}
+                    defaultValue={product.minOrderAmount}
+                  />
+                </Field>
+              </>
             )}
           </Box>
         );
@@ -140,23 +149,16 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
   const [{ fetching, error, data }, mutateRequest] = useMutation(ADD_REQUEST);
 
   function onSubmit(d) {
-    const {
-      companyName,
-      companyType,
-      email,
-      firstName,
-      lastName,
-      phoneNumber,
-    } = d;
-
+    const { requestedProducts, ...fields } = d;
     mutateRequest({
       data: {
-        companyName,
-        companyType,
-        email,
-        firstName,
-        lastName,
-        phoneNumber,
+        ...fields,
+        products: {
+          data: requestedProducts.data.map((product) => ({
+            productId: product.productId,
+            amount: parseInt(product.amount),
+          })),
+        },
       },
     });
   }

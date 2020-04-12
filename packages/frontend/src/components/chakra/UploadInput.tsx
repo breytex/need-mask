@@ -7,7 +7,8 @@ import styled from "@emotion/styled";
 
 interface Props {
   name: string;
-  isRequired: boolean;
+  isRequired?: boolean;
+  description: string;
 }
 
 const UploadStyleWrapper = styled(Box)`
@@ -38,7 +39,7 @@ const UploadStyleWrapper = styled(Box)`
   }
 `;
 
-const UploadInput = ({ name, isRequired }: Props) => {
+const UploadInput = ({ name, isRequired = false, description }: Props) => {
   const { onChange, error, isLoading, fileName, reset } = useFileUpload(5);
   const { register, setValue, unregister } = useFormContext();
 
@@ -80,7 +81,7 @@ const UploadInput = ({ name, isRequired }: Props) => {
           >
             Delete
           </Button>
-          <Text>{fileName}</Text>
+          <Text mr="3">{fileName}</Text>
         </Flex>
       )}
       {!fileName && (
@@ -89,6 +90,9 @@ const UploadInput = ({ name, isRequired }: Props) => {
             <input type="file" id={`file-${name}`} onChange={onChange} />
             <label htmlFor={`file-${name}`}>choose a file</label>
           </UploadStyleWrapper>
+          <Text fontSize="lg" ml="3" mt="5px">
+            {description}
+          </Text>
         </Flex>
       )}
       {error && <Error>{error}</Error>}

@@ -6,4 +6,7 @@ const s3 = new AWS.S3({
   secretAccessKey: process.env.SPACES_SECRET,
 });
 
-export { s3 }
+const bucketName = 'need-mask'
+const getEdgeUrl = path => `https://${bucketName}.fra1.cdn.digitaloceanspaces.com/${path}`
+const tempFolder = 'definitelyNotTemp'
+export { s3, bucketName, getEdgeUrl, tempFolder }

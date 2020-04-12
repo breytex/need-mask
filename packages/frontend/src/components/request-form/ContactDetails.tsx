@@ -12,7 +12,7 @@ const ContactDetails: React.FC<Props> = () => {
   const { register, watch } = useFormContext();
 
   return (
-    <Box mx={-2}>
+    <Box>
       <Field name="firstName" label="First Name">
         <Input
           name="firstName"

@@ -21,6 +21,15 @@ export interface Product {
   updatedAt?: number;
 }
 
+enum SupplierStatus {
+  PUBLISHED = "published", // Listing is live
+  PENDING = "pending", // Listing was created and has to be moderated
+  SUSPENDED = "suspended", // Listing was suspended by user
+  DELETED = "deleted",
+  INACTIVE = "inactive", // Listing was suspended by admin
+  FEEDBACK = "feedback", // Listing was moderated and needs changes
+}
+
 export interface Supplier {
   id: string;
   country: string;
@@ -34,7 +43,7 @@ export interface Supplier {
   lastName: string;
   email: string;
   continent: string;
-  published: boolean;
   street: string;
   vatNumber: string;
+  status?: SupplierStatus;
 }

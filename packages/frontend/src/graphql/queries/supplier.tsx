@@ -13,7 +13,6 @@ export const GET_SUPPLIER_FN = (id: string) => {
         continent
         companyName
         city
-        published
         street
         updatedAt
         vatNumber
@@ -36,7 +35,6 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
         continent
         companyName
         city
-        published
         street
         updatedAt
         vatNumber

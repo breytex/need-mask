@@ -15,7 +15,6 @@ const s3 = new AWS.S3({
 });
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-  res.statusCode = 200;
   const form = new multiparty.Form()
 
   form.on('part', async function (part) {

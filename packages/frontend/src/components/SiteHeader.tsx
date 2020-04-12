@@ -7,40 +7,43 @@ const SiteHeader: React.FC = () => {
   const router = useRouter();
 
   return (
-    <Flex
-      justify="space-between"
-      w="100%"
-      maxW="1332px"
-      py="4"
-      px={{ base: "2", md: "4" }}
-    >
-      <Link href="/">
-        <a>
-          <Flex align="center">
-            <Image src="/images/logo.png" alt="need-mask.com" size="50px" />
-            <Heading color="gray.700" ml="4" size="lg" letterSpacing="-.1rem">
-              need-mask.com
-            </Heading>
-          </Flex>
-        </a>
-      </Link>
+    <Box backgroundColor="white" w="100%">
+      <Flex
+        justify="space-between"
+        w="100%"
+        maxW="1332px"
+        py="2"
+        mx="auto"
+        px={{ base: "2", md: "4" }}
+      >
+        <Link href="/">
+          <a>
+            <Flex align="center">
+              <Image src="/images/logo.png" alt="need-mask.com" size="50px" />
+              <Heading color="gray.700" ml="4" size="lg" letterSpacing="-.1rem">
+                need-mask.com
+              </Heading>
+            </Flex>
+          </a>
+        </Link>
 
-      <Flex align="center">
-        <Box m={2}>
-          <Link href="/suppliers">
-            <a>Suppliers</a>
-          </Link>
-        </Box>
-        <Box m={2}>
-          <Button
-            variantColor="blue"
-            onClick={() => router.push("/suppliers/register")}
-          >
-            I am a Supplier
-          </Button>
-        </Box>
+        <Flex align="center">
+          <Box m={2}>
+            <Link href="/suppliers">
+              <a>Suppliers</a>
+            </Link>
+          </Box>
+          <Box ml={2}>
+            <Button
+              variantColor="blue"
+              onClick={() => router.push("/suppliers/register")}
+            >
+              I am a Supplier
+            </Button>
+          </Box>
+        </Flex>
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 

@@ -1,8 +1,11 @@
 import * as React from "react";
 import Link from "next/link";
 import { Box, Flex, Heading, Image, Button } from "@chakra-ui/core";
+import { useRouter } from "next/router";
 
 const SiteHeader: React.FC = () => {
+  const router = useRouter();
+
   return (
     <Flex
       justify="space-between"
@@ -29,10 +32,11 @@ const SiteHeader: React.FC = () => {
           </Link>
         </Box>
         <Box m={2}>
-          <Button variantColor="blue">
-            <Link href="/suppliers/register">
-              <a>I am a Supplier</a>
-            </Link>
+          <Button
+            variantColor="blue"
+            onClick={() => router.push("/suppliers/register")}
+          >
+            I am a Supplier
           </Button>
         </Box>
       </Flex>

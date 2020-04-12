@@ -23,11 +23,7 @@ const Home: NextPage = () => {
 
       <Flex mb={8}>
         <Box flex={1} textAlign="center" maxWidth="300px" mx="auto">
-          <Image
-            src="/images/undraw_medical_care_movn.svg"
-            height={200}
-            mx="auto"
-          />
+          <Image src="/images/deliveries.svg" height={200} mx="auto" />
 
           <Button variantColor="blue" m={8} mx="auto">
             <Link href="/suppliers/register">

@@ -24,7 +24,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       if (errors) {
         return res.status(403).send(errors);
       }
-      const Key = `${randomBytes(16).toString("hex")}--${part.filename}`;
+      const Key = `${randomBytes(4).toString("hex")}--${part.filename}`;
       const params = {
         Bucket: "need-mask",
         Key,

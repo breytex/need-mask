@@ -2,6 +2,7 @@ import { GET_SUPPLIER_WITH_CODE } from "./../utils/queries";
 import { NextApiResponse, NextApiRequest } from "next";
 import { graphQuery } from "../utils/graphQuery";
 import { sign } from "jsonwebtoken";
+import { ACCESS_TOKEN_EXPIRE_MS } from "../../../constants/expireTimes";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.body.email) {
@@ -51,14 +52,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const expireMsJWT = 1000 * 60 * 60 * 3; // 3h
   const jwt = sign(
     {
       "x-hasura-default-role": "user",
       "x-hasura-allowed-roles": "user",
       "X-Hasura-User-Id": supplier.id,
       "X-Hasura-Jwt-Version": "1",
-      expiresIn: expireMsJWT,
+      expiresIn: ACCESS_TOKEN_EXPIRE_MS,
     },
     process.env.ACCESS_TOKEN_SECRET
   );

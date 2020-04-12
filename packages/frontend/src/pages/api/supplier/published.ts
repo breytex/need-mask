@@ -2,8 +2,8 @@ import { getPublishedMail } from "../../../mails/published";
 import { WebhookRequest } from "../../../types/webhooks";
 import { NextApiResponse } from "next";
 import { Supplier } from "../../../types/Supplier";
-import { authWebhook } from "../../../api-helpers/authWebhook";
-import { sendMail, SendMailParams } from "../../../api-helpers/mailer";
+import { authWebhook } from "../utils/authWebhook";
+import { sendMail, SendMailParams } from "../utils/sendMail";
 
 const handler = async (req: WebhookRequest<Supplier>, res: NextApiResponse) => {
   const { data } = req.body.event;

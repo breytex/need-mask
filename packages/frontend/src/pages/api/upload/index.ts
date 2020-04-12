@@ -24,10 +24,10 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       if (errors) {
         return res.status(403).send(errors);
       }
-      const Key = `temp/${randomBytes(4).toString("hex")}--${part.filename}`;
+      const hashedFilename = `${randomBytes(4).toString("hex")}--${part.filename}`;
       const params = {
         Bucket: "need-mask",
-        Key,
+        Key: `definitelyNotTemp/${hashedFilename}`,
         ContentType: mimeType,
         Body: data,
         acl: "public-read",

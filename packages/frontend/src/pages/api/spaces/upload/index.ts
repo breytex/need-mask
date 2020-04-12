@@ -1,19 +1,16 @@
-import AWS from "aws-sdk";
+
 import { NextApiRequest, NextApiResponse } from "next";
 import MultiParty from "multiparty";
 import { handleFile } from "./handleFile";
 import { randomBytes } from "crypto";
+import { s3 } from '../../utils/s3'
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-const s3 = new AWS.S3({
-  endpoint: "https://fra1.digitaloceanspaces.com",
-  accessKeyId: process.env.SPACES_KEY,
-  secretAccessKey: process.env.SPACES_SECRET,
-});
+
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   const form = new MultiParty.Form();

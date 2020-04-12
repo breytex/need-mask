@@ -9,6 +9,7 @@ import { ListingResponses } from "../../pages/suppliers";
 import { Pagination } from "../chakra/Pagination";
 import { NoResults } from "./NoResults";
 import { LISTINGS_PER_PAGE } from "../../graphql/queries/listings";
+import Headline from "../chakra/Headline";
 
 export const ListingPage: NextPage<ListingResponses> = (props) => {
   const router = useRouter();
@@ -45,13 +46,8 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
         width={{ base: "100%", md: "75%" }}
         pl={{ base: "0", md: "5", lg: "8" }}
         mt={{ base: "6", md: "0" }}
+        pt={{ base: "0", md: "52px" }}
       >
-        <Pagination
-          maxPages={maxPages}
-          currentPage={currentPage}
-          onPageChange={navigateTo}
-          mb="2"
-        />
         {hasResults &&
           supplierData.suppliers.map((supplier) => (
             <ListingRow key={supplier.id} {...supplier} />

@@ -37,7 +37,7 @@ export const Field = memo(
     // useTraceUpdate(props);
     const fieldError = get(errors, name, null);
     return (
-      <Box flexGrow={flexGrow} mr="4" mb={mb || "4"} mt={mt}>
+      <Box flexGrow={flexGrow} mb={mb || "4"} mt={mt}>
         <FormControl>
           {label && (
             <FormLabel htmlFor={name}>

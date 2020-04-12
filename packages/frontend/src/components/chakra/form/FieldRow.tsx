@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Flex } from "@chakra-ui/core";
+import { SimpleGrid } from "@chakra-ui/core";
 interface Props {
   children: ReactElement[];
   mt?: string;
@@ -7,12 +7,8 @@ interface Props {
 
 export function FieldRow({ children, mt }: Props): ReactElement {
   return (
-    <Flex
-      justify="stretch"
-      flexDirection={{ base: "column", md: "row" }}
-      mt={mt}
-    >
+    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} mt={mt}>
       {children}
-    </Flex>
+    </SimpleGrid>
   );
 }

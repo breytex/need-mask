@@ -1,17 +1,13 @@
 import { getPublishedMail } from "../../../mails/published";
-import { WebhookRequest } from "../../../types/webhooks";
-import { NextApiResponse } from "next";
 import { Supplier } from "../../../types/Supplier";
-import { authWebhook } from "../utils/authWebhook";
+import { createWebhooookHandler } from "../utils/createWebhooookHandler";
 import { sendMail, SendMailParams } from "../utils/sendMail";
 
-const handler = async (req: WebhookRequest<Supplier>, res: NextApiResponse) => {
+
+export default createWebhooookHandler<Supplier>((req, res) => {
   const { data } = req.body.event;
   if (data.old.status !== "pending" || data.new.status !== "published") {
-    res.end(
-      "Row's published was not switched from false to true; this is a no-op."
-    );
-    return;
+    return res.end("Row's published was not switched from false to true; this is a no-op.");
   }
 
   const mailTextParams = getPublishedMail(data.new.id, data.new.email);
@@ -22,8 +18,5 @@ const handler = async (req: WebhookRequest<Supplier>, res: NextApiResponse) => {
 
   sendMail(mailParams);
 
-  res.end("success");
-  return;
-};
-
-export default authWebhook(handler);
+  return res.end();
+});

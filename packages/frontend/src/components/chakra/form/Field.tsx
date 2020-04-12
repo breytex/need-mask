@@ -11,7 +11,6 @@ interface Props {
   flexGrow?: number;
   mt?: string;
   mb?: string;
-  mx?: string;
   isRequired?: boolean;
 }
 
@@ -30,7 +29,6 @@ export const Field = memo(
       flexGrow,
       mb,
       mt,
-      mx,
       isRequired = false,
     } = props;
     const { errors } = useFormContext();
@@ -39,7 +37,7 @@ export const Field = memo(
 
     const fieldError = errors[name];
     return (
-      <Box flexGrow={flexGrow} mb={mb || "4"} mt={mt} mx={mx || "2"}>
+      <Box flexGrow={flexGrow} mb={mb || "4"} mt={mt}>
         <FormControl>
           {label && (
             <FormLabel htmlFor={name}>

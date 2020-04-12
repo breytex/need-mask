@@ -1,11 +1,29 @@
-import { IncomingMessage, ServerResponse } from "http";
+import { getPublishedMail } from "./../../../../mails/published";
+import { WebhookRequest } from "./../../../../types/webhooks";
+import { NextApiResponse } from "next";
+import { Supplier } from "../../../../types/Supplier";
+import { authWebhook } from "../../../../api-helpers/authWebhook";
+import { sendMail, SendMailParams } from "../../../../api-helpers/mailer";
 
-interface RequestBody {
-  body: any;
-}
-type Request = IncomingMessage & RequestBody;
+const handler = async (req: WebhookRequest<Supplier>, res: NextApiResponse) => {
+  const { data } = req.body.event;
+  if (data.old.published !== false || data.new.published !== true) {
+    res.end(
+      "Row's published was not switched from false to true; this is a no-op."
+    );
+    return;
+  }
 
-export default async (req: Request, res: ServerResponse) => {
-  res.end(JSON.stringify(req.body));
+  const mailTextParams = getPublishedMail(data.new.id, data.new.email);
+  const mailParams: SendMailParams = {
+    subject: "Your request has been approved! 🎉",
+    to: data.new.email,
+    ...mailTextParams,
+  };
+  sendMail(mailParams);
+
+  res.end("success");
   return;
 };
+
+export default authWebhook(handler);

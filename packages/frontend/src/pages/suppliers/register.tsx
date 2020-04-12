@@ -1,27 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NextPage } from "next";
-import { Button, Box } from "@chakra-ui/core";
-import { useForm } from "react-hook-form";
+
 import { NextUrqlPageContext, withUrqlClient } from "next-urql";
 import {
   GET_PRODUCT_TYPES,
   ProductTypeResponse,
 } from "../../graphql/queries/products";
 import { urqlConfig } from "../../graphql/urqlConfig";
-import { ContactDetails } from "../../components/supplier-register/ContactDetails";
-import { CompanyAddress } from "../../components/supplier-register/CompanyAddress";
-import { ProductConfigurator } from "../../components/supplier-register/ProductConfigurator";
-import Form from "../../components/chakra/form/Form";
-import { Section } from "../../components/chakra/form/Section";
+
 import { useMutation } from "urql";
 import { ADD_SUPPLIER } from "../../graphql/mutations/addSupplier";
 import { Spinner } from "../../components/chakra/Spinner";
 import { cloneDeepWith } from "lodash";
 import { countries } from "../../types/countries";
 import { stringToInt } from "../../helpers/price";
-import { ErrorMessage } from "../../components/chakra/ErrorMessage";
+
 import SuccessMessage from "../../components/chakra/SuccessMessage";
 import SiteHero from "../../components/SiteHero";
+import SupplierForm from "./SupplierForm";
 
 type Props = NextPage<ProductTypeResponse>;
 
@@ -85,27 +81,11 @@ const Register: Props = (props) => {
         title="Register as a Supplier"
         description="Be part of our supplier base. In case you match a request, your contact data will be shared with the potential client."
       />
-      <Box maxW="800px" mx="auto">
-        <Box>
-          <ErrorMessage show={!!error} title="Oh no!">
-            An error happened
-          </ErrorMessage>
-          <Form onSubmit={onSubmit}>
-            <Section title="Contact details">
-              <ContactDetails />
-            </Section>
-            <Section title="Company address">
-              <CompanyAddress />
-            </Section>
-            <Section title="Product portfolio">
-              <ProductConfigurator productTypes={productTypes} />
-            </Section>
-            <Button type="submit" variantColor="blue" mt="8">
-              Send application
-            </Button>
-          </Form>
-        </Box>
-      </Box>
+      <SupplierForm
+        error={error}
+        onSubmit={onSubmit}
+        productTypes={productTypes}
+      />
     </>
   );
 };

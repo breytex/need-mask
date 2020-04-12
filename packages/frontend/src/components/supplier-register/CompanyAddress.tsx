@@ -9,7 +9,9 @@ import AlgoliaPlaces from "algolia-places-react";
 import { useFormContext } from "react-hook-form";
 import Error from "../chakra/form/Error";
 
-interface Props {}
+interface Props {
+  skipAlgolia?: boolean;
+}
 
 const AlgoliaFix = styled.div`
   .ap-suggestions svg {
@@ -25,8 +27,9 @@ const AlgoliaFix = styled.div`
 export const ADDRESS_BLOCKER_FIELD_NAME = "addressBlocker";
 
 export const CompanyAddress = (props: Props) => {
+  const { skipAlgolia } = props;
   const { register, errors, setValue } = useFormContext();
-  const [hasSearched, setHasSearched] = useState(false);
+  const [hasSearched, setHasSearched] = useState(skipAlgolia);
 
   useEffect(() => {
     register({ name: ADDRESS_BLOCKER_FIELD_NAME }, { required: true });

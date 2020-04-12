@@ -1,5 +1,4 @@
 import React from "react";
-import SectionTitle from "./SectionTitle";
 import { Field } from "../chakra/form/Field";
 import { Input } from "@chakra-ui/core";
 import { FieldRow } from "../chakra/form/FieldRow";
@@ -12,13 +11,6 @@ export const ContactDetails = (props: Props) => {
 
   return (
     <React.Fragment>
-      <SectionTitle>Contact details</SectionTitle>
-      <Field name="companyName" label="Company name">
-        <Input
-          name="companyName"
-          ref={register({ required: true, pattern: /.{3}/ })}
-        />
-      </Field>
       <FieldRow mt="6">
         <Field name="firstName" label="Firstname" flexGrow={1}>
           <Input
@@ -33,12 +25,30 @@ export const ContactDetails = (props: Props) => {
           />
         </Field>
       </FieldRow>
-      <Field name="email" label="E-Mail">
+      <Field
+        name="email"
+        label="E-Mail"
+        hint="You will receive a verification link to this address later"
+      >
         <Input
           name="email"
           ref={register({ required: true, pattern: /.{3}/ })}
         />
       </Field>
+      <FieldRow>
+        <Field name="companyName" label="Company name" flexGrow={1}>
+          <Input
+            name="companyName"
+            ref={register({ required: true, pattern: /.{3}/ })}
+          />
+        </Field>
+        <Field name="vatNumber" label="Company VAT number" flexGrow={1}>
+          <Input
+            name="vatNumber"
+            ref={register({ required: true, pattern: /.{3}/ })}
+          />
+        </Field>
+      </FieldRow>
     </React.Fragment>
   );
 };

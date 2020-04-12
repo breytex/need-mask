@@ -15,8 +15,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
 } from "@chakra-ui/core/dist";
-import format from "date-fns/format";
-import Link from "next/link";
+
 import { useRouter } from "next/router";
 
 const SupplierDetailPage: NextPage<{
@@ -66,7 +65,6 @@ const SupplierDetailPage: NextPage<{
         {supplier.products.map(
           ({
             capacity,
-            createdAt,
             description,
             id,
             leadTime,
@@ -76,12 +74,7 @@ const SupplierDetailPage: NextPage<{
             productType: { title: title1 },
             title,
             unit,
-            updatedAt,
           }) => {
-            const createdAtDate = format(new Date(createdAt), "yyyy-mm-dd");
-            const updatedAtDate = format(new Date(updatedAt), "yyyy-mm-dd");
-            const wasUpdated = createdAtDate !== updatedAtDate;
-
             return (
               <Flex key={id}>
                 <Box mr={2} width="100px">

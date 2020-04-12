@@ -1,6 +1,7 @@
 import * as React from "react";
 import { NextPage } from "next";
 import { Box, Flex, Heading, Text, Button, Image } from "@chakra-ui/core";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
@@ -22,13 +23,12 @@ const Home: NextPage = () => {
 
       <Flex mb={8}>
         <Box flex={1} textAlign="center" maxWidth="300px" mx="auto">
-          <Image
-            src="/images/undraw_medical_care_movn.svg"
-            height={200}
-            mx="auto"
-          />
+          <Image src="/images/deliveries.svg" height={200} mx="auto" />
+
           <Button variantColor="blue" m={8} mx="auto">
-            I supply masks
+            <Link href="/suppliers/register">
+              <a>I supply masks</a>
+            </Link>
           </Button>
           <Text>
             Be part of our supplier base. In case you match a request, your
@@ -42,7 +42,9 @@ const Home: NextPage = () => {
             mx="auto"
           />
           <Button variantColor="blue" m={8} mx="auto">
-            I need masks
+            <Link href="/suppliers/">
+              <a>I need masks</a>
+            </Link>
           </Button>
           <Text>
             We will collect your demand and communicate it to a suitable

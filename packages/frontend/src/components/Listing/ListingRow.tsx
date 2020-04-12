@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Link from "next/link";
 import { Box, Flex, Text, Heading, Badge } from "@chakra-ui/core";
 import { Supplier } from "../../types/Supplier";
-
+import { customTheme } from "../../chakra/theme";
 interface ComponentProps {}
 
 type Props = ComponentProps & Supplier;
@@ -38,7 +38,7 @@ export const ListingRow = (props: Props) => {
       p="4"
       bg="white"
       borderBottom="1px solid #E0E0E0"
-      borderLeft="5px solid #5fb4e4"
+      borderLeft={`5px solid ${customTheme.colors.blue["500"]}`}
       shadow="sm"
       borderRadius="sm"
     >
@@ -59,7 +59,7 @@ export const ListingRow = (props: Props) => {
         </Flex>
         {showNewBadge && (
           <Box>
-            <Badge mr="2" variantColor="green">
+            <Badge mr="2" variantColor="blue">
               New
             </Badge>
           </Box>

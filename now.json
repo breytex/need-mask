@@ -2,12 +2,32 @@
   "version": 2,
   "env": {
     "HASURA_ADMIN_SECRET": "@hasura_admin_secret",
-    "HASURA_URL": "@hasura_url"
+    "HASURA_URL": "@hasura_url",
+    "SPACES_KEY": "@spaces_key",
+    "SPACES_SECRET": "@spaces_secret",
+    "ALGOLIA_PLACES_APPID": "@algolia_places_appid",
+    "ALGOLIA_PLACES_KEY": "@algolia_places_key",
+    "WEBHOOK_AUTH_SECRET": "@webhook_auth_secret",
+    "SMTP_PORT": "@smtp_port",
+    "SMTP_HOST": "@smtp_host",
+    "SMTP_IS_SECURED": "@smtp_is_secured",
+    "SMTP_USER": "@smtp_user",
+    "SMTP_PASS": "@smtp_pass"
   },
   "build": {
     "env": {
       "HASURA_ADMIN_SECRET": "@hasura_admin_secret",
-      "HASURA_URL": "@hasura_url"
+      "HASURA_URL": "@hasura_url",
+      "SPACES_KEY": "@spaces_key",
+      "SPACES_SECRET": "@spaces_secret",
+      "ALGOLIA_PLACES_APPID": "@algolia_places_appid",
+      "ALGOLIA_PLACES_KEY": "@algolia_places_key",
+      "WEBHOOK_AUTH_SECRET": "@webhook_auth_secret",
+      "SMTP_PORT": "@smtp_port",
+      "SMTP_HOST": "@smtp_host",
+      "SMTP_IS_SECURED": "@smtp_is_secured",
+      "SMTP_USER": "@smtp_user",
+      "SMTP_PASS": "@smtp_pass"
     }
   },
   "builds": [

@@ -88,7 +88,7 @@ export const Pagination = (props: PaginationProps): ReactElement => {
   const pagesToRender = _getPagesToRender(maxPages, currentPage);
 
   return (
-    <Box mb={mb} mt={mt} minH="42px">
+    <Box mb={mb} mt={mt} ml="-5px" minH="42px">
       {pagesToRender.length > 1 && pagesToRender.map(_renderButton)}
     </Box>
   );

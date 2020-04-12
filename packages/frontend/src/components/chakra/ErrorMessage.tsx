@@ -18,7 +18,7 @@ export function ErrorMessage({ title, children, show }: Props): ReactElement {
 
   useEffect(() => setIsVisible(show), [show]);
 
-  if (!isVisible) return <></>;
+  if (!isVisible) return null;
   return (
     <Alert status="error">
       <AlertIcon />

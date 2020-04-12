@@ -63,7 +63,7 @@ const Register: Props = (props) => {
   };
 
   if (fetching) {
-    return <Spinner></Spinner>;
+    return <Spinner />;
   }
 
   if (data) {

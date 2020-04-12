@@ -7,7 +7,7 @@ import { sendMail, SendMailParams } from "../../../api-helpers/mailer";
 
 const handler = async (req: WebhookRequest<Supplier>, res: NextApiResponse) => {
   const { data } = req.body.event;
-  if (data.old.published !== false || data.new.published !== true) {
+  if (data.old.status !== "pending" || data.new.status !== "published") {
     res.end(
       "Row's published was not switched from false to true; this is a no-op."
     );

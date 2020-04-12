@@ -12,7 +12,8 @@
     "SMTP_HOST": "@smtp_host",
     "SMTP_IS_SECURED": "@smtp_is_secured",
     "SMTP_USER": "@smtp_user",
-    "SMTP_PASS": "@smtp_pass"
+    "SMTP_PASS": "@smtp_pass",
+    "ACCESS_TOKEN_SECRET": "@access_token_secret"
   },
   "build": {
     "env": {
@@ -27,7 +28,8 @@
       "SMTP_HOST": "@smtp_host",
       "SMTP_IS_SECURED": "@smtp_is_secured",
       "SMTP_USER": "@smtp_user",
-      "SMTP_PASS": "@smtp_pass"
+      "SMTP_PASS": "@smtp_pass",
+      "ACCESS_TOKEN_SECRET": "@access_token_secret"
     }
   },
   "builds": [

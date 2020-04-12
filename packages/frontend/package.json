@@ -20,6 +20,7 @@
     "graphql": "^15.0.0",
     "graphql-hooks": "^4.4.4",
     "isomorphic-unfetch": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "multiparty": "^4.2.1",
     "next": "9.3.4",

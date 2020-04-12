@@ -16,10 +16,10 @@ const handler = async (req: WebhookRequest<Supplier>, res: NextApiResponse) => {
 
   const mailTextParams = getPublishedMail(data.new.id, data.new.email);
   const mailParams: SendMailParams = {
-    subject: "Your request has been approved! 🎉",
     to: data.new.email,
     ...mailTextParams,
   };
+
   sendMail(mailParams);
 
   res.end("success");

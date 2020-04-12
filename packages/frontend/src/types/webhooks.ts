@@ -6,7 +6,7 @@ interface BodyData<T> {
     name: string;
   };
   event: {
-    op: string; // operation (e.g. "INSERT", "UPDATE", "DELETE", "CREATE")
+    op: "INSERT" | "UPDATE" | "DELETE";
     data: {
       old: T;
       new: T;

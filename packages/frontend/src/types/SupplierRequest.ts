@@ -7,11 +7,11 @@ export type RequestProducts = {
   requestId: string;
   productId: string;
   amount: number;
-  request?: Request;
+  request?: SupplierRequest;
   supplier: Supplier;
 };
 
-export type Request = {
+export type SupplierRequest = {
   id: string;
   firstName: string;
   lastName: string;

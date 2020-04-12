@@ -34,7 +34,7 @@ export interface Supplier {
   lastName: string;
   email: string;
   continent: string;
-  published: boolean;
+  published: string;
   street: string;
   vatNumber: string;
 }

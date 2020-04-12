@@ -12,6 +12,8 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "algolia-places-react": "^1.5.1",
+    "aws-sdk": "^2.656.0",
+    "canvas": "^2.6.1",
     "date-fns": "^2.12.0",
     "emotion-server": "^10.0.27",
     "emotion-theming": "^10.0.27",
@@ -19,6 +21,7 @@
     "graphql-hooks": "^4.4.4",
     "isomorphic-unfetch": "^3.0.0",
     "lodash": "^4.17.15",
+    "multiparty": "^4.2.1",
     "next": "9.3.4",
     "next-urql": "^0.3.6",
     "nodemailer": "^6.4.6",
@@ -27,11 +30,14 @@
     "react-dom": "16.13.1",
     "react-hook-form": "^5.3.1",
     "react-is": "^16.13.1",
+    "sharp": "^0.25.2",
     "urql": "^1.9.6"
   },
   "devDependencies": {
+    "@types/multiparty": "^0.0.32",
     "@types/node": "^13.11.1",
     "@types/react": "^16.9.34",
+    "@types/sharp": "^0.24.0",
     "dotenv-webpack": "^1.7.0",
     "prettier": "^2.0.4",
     "typescript": "^3.8.3"

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { NextPage } from "next";
-import { Supplier } from "../../types/Supplier";
-import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../graphql/queries/supplier";
+import { Supplier } from "../../../types/Supplier";
+import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
 import { NextUrqlPageContext, withUrqlClient } from "next-urql";
-import { urqlConfig } from "../../graphql/urqlConfig";
+import { urqlConfig } from "../../../graphql/urqlConfig";
 import {
   SimpleGrid,
   Image,
@@ -14,24 +14,31 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Button,
 } from "@chakra-ui/core/dist";
 
 import { useRouter } from "next/router";
+import Link from "next/link";
+import RequestForm from "../../../components/RequestForm";
+import Input from "@chakra-ui/core/dist/Input";
 
-const SupplierDetailPage: NextPage<{
-  props: { supplier: Supplier };
-}> = ({ props }) => {
+type Props = {
+  id: string;
+  supplier: Supplier;
+};
+
+const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
   const router = useRouter();
-  const { supplier } = props;
+  const { id, supplier } = props;
 
   return (
     <>
       <Box mb={16}>
         <Breadcrumb fontSize="sm">
           <BreadcrumbItem>
-            <BreadcrumbLink onClick={() => router.push("/suppliers")}>
-              Suppliers
-            </BreadcrumbLink>
+            <Link href="/suppliers">
+              <BreadcrumbLink>Suppliers</BreadcrumbLink>
+            </Link>
           </BreadcrumbItem>
 
           <BreadcrumbItem isCurrentPage>
@@ -61,7 +68,7 @@ const SupplierDetailPage: NextPage<{
         Available Products
       </Heading>
 
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
+      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4} mb={8}>
         {supplier.products.map(
           ({
             capacity,
@@ -122,6 +129,14 @@ const SupplierDetailPage: NextPage<{
           }
         )}
       </SimpleGrid>
+
+      <Heading fontWeight="600" size="lg" mb={12} textAlign="center">
+        Request product information
+      </Heading>
+
+      <Box maxWidth="500px" mx="auto">
+        <RequestForm products={supplier.products} supplerId={id} />
+      </Box>
     </>
   );
 };
@@ -135,6 +150,7 @@ SupplierDetailPage.getInitialProps = async (context: NextUrqlPageContext) => {
 
   return {
     props: {
+      id,
       supplier: data.suppliers_by_pk,
     },
   };

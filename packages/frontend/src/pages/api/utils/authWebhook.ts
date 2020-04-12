@@ -1,5 +1,5 @@
 import { NextApiResponse } from "next";
-import { WebhookRequest } from "../types/webhooks";
+import { WebhookRequest } from "../../../types/webhooks";
 
 export const authWebhook = (next) => (
   req: WebhookRequest<any>,

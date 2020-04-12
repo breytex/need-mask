@@ -1,4 +1,3 @@
-
 import { NextApiRequest, NextApiResponse } from "next";
 import MultiParty from "multiparty";
 import { handleFile } from "./handleFile";

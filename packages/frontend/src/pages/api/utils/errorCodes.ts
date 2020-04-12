@@ -17,5 +17,4 @@ const ERROR_CODES = {
   }))()
 }
 
-
 export { ERROR_CODES }

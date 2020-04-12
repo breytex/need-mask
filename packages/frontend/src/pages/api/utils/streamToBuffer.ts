@@ -18,4 +18,4 @@ function streamToBuffer<TStream extends Stream.Readable>(stream: TStream): Promi
   })
 }
 
-export default streamToBuffer
+export { streamToBuffer }

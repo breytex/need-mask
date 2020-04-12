@@ -1,7 +1,7 @@
 import Sharp from 'sharp'
 import { ERROR_CODES } from '../utils/errorCodes'
 import MultiParty from 'multiparty'
-import streamToBuffer from '../utils/streamToBuffer'
+import { streamToBuffer } from '../utils/streamToBuffer'
 
 const createUploadError = ERROR_CODES.UPLOAD
 

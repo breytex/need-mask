@@ -15,13 +15,11 @@ type handleFileReturn =
   | { data: Buffer, mimeType: SupportedContentTypes, errors?: undefined }
 
 async function handleFile(file: MultiParty.Part): Promise<handleFileReturn> {
-  console.log(file.byteCount)
   if (file.byteCount > 1024 * 1024)
     return createUploadError('SIZE_EXCEEDED')
   const buffer = await streamToBuffer(file)
   const getMimeType = (): SupportedContentTypes => {
     const signature = buffer.slice(0, 8).toString('hex').toUpperCase()
-    console.log(signature)
     switch (signature.substr(0, 8)) {
       case '89504E47':
         if (signature !== '89504E470D0A1A0A')
@@ -43,13 +41,6 @@ async function handleFile(file: MultiParty.Part): Promise<handleFileReturn> {
   if (!mimeType) return createUploadError('UNSUPPORTED_FILE_TYPE')
   if (mimeType !== 'image/png' && mimeType !== 'image/jpeg')
     return { data: buffer, mimeType }
-
-  // Commented out for now, needs further testing because of false positives
-  // const isNude = Nude.scan(buffer) as boolean
-  // if (isNude) {
-  //   console.log(file.filename)
-  //   return createUploadError('NUDE_MATERIAL_DETECTED')
-  // }
 
   return {
     data: await Sharp(buffer).resize(400, 400).toBuffer(),

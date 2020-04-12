@@ -2,7 +2,7 @@
 import AWS from 'aws-sdk'
 import { NextApiRequest, NextApiResponse } from 'next'
 import MultiParty from 'multiparty'
-import handlefile from './utils/handleFile'
+import handlefile from './handleFile'
 
 export const config = {
   api: {

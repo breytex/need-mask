@@ -17,6 +17,5 @@ const ERROR_CODES = {
   }))()
 }
 
-const createUploadError = ERROR_CODES.UPLOAD
 
-export { ERROR_CODES, createUploadError }
+export { ERROR_CODES }

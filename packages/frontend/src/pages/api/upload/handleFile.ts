@@ -1,8 +1,9 @@
 import Sharp from 'sharp'
-import { createUploadError } from './errorCodes'
+import { ERROR_CODES } from '../utils/errorCodes'
 import MultiParty from 'multiparty'
-import streamToBuffer from './streamToBuffer'
-import Nude from './Nude'
+import streamToBuffer from '../utils/streamToBuffer'
+
+const createUploadError = ERROR_CODES.UPLOAD
 
 type SupportedContentTypes =
   | "image/png"

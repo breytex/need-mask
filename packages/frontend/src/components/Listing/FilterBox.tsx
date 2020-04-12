@@ -22,7 +22,6 @@ interface Props {
 export const FilterBox = (props: Props) => {
   const router = useRouter();
   const isCheckboxInline = useMediaQuery([true, false]);
-  const headingSize = useMediaQuery(["sm", "md"]);
 
   // defer rendering of checkboxes to CSR, because of SSR glitches with `isInline`
   const isCsr = useCsr();
@@ -48,14 +47,7 @@ export const FilterBox = (props: Props) => {
 
   const { continent, products } = router.query;
   return (
-    <Flex direction="column" p="4">
-      <Heading
-        size={headingSize}
-        color="blue.600"
-        mb={{ base: "2", md: "3", lg: "3" }}
-      >
-        Filters
-      </Heading>
+    <Flex direction="column">
       <Select
         placeholder="All continents"
         defaultValue={continent || ""}

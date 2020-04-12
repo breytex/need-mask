@@ -8,6 +8,7 @@ type IUseFileUpload = (props?: {}) => {
   isLoading: boolean;
   error: string;
   fileName: string;
+  reset: () => void;
 };
 
 const useFileUpload: IUseFileUpload = (maxFileSizeMB: number = 5) => {
@@ -30,9 +31,10 @@ const useFileUpload: IUseFileUpload = (maxFileSizeMB: number = 5) => {
     setIsLoading(false);
   }
 
+  const reset = () => setFileName("");
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     upload(event.target.files[0]);
-  return { onChange, isLoading, error, fileName };
+  return { onChange, isLoading, error, fileName, reset };
 };
 
 export default useFileUpload;

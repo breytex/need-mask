@@ -39,7 +39,7 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
       data: {
         ...fields,
         products: {
-          data: requestedProducts.data.map((product) => ({
+          data: requestedProducts.filter(Boolean).data.map((product) => ({
             productId: product.productId,
             amount: parseInt(product.amount),
           })),

@@ -2,6 +2,7 @@ import React, { ReactElement, memo } from "react";
 import { FormControl, FormLabel, FormHelperText, Box } from "@chakra-ui/core";
 import { useFormContext } from "react-hook-form";
 import Error from "./Error";
+import { get } from "lodash";
 
 interface Props {
   children: ReactElement;
@@ -34,8 +35,7 @@ export const Field = memo(
     const { errors } = useFormContext();
 
     // useTraceUpdate(props);
-
-    const fieldError = errors[name];
+    const fieldError = get(errors, name, null);
     return (
       <Box flexGrow={flexGrow} mr="4" mb={mb || "4"} mt={mt}>
         <FormControl>

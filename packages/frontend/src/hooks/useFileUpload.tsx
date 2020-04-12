@@ -23,7 +23,7 @@ const useFileUpload: IUseFileUpload = (maxFileSizeMB: number = 5) => {
     setIsLoading(true);
     const formData = new FormData();
     formData.append("file", file);
-    const res: FileUploadResponse = await fetch("/api/upload", {
+    const res: FileUploadResponse = await fetch("/api/spaces/upload", {
       method: "POST",
       body: formData,
     }).then((res) => res.json());

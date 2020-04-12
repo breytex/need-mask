@@ -134,7 +134,6 @@ const Product = (props: Props) => {
           name={`${name}.description`}
           placeholder="Product description"
           ref={register()}
-          isRequired
         />
       </Field>
       <Field

@@ -10,6 +10,10 @@ import Text from "@chakra-ui/core/dist/Text";
 import Checkbox from "@chakra-ui/core/dist/Checkbox";
 import { useState } from "react";
 import FormLabel from "@chakra-ui/core/dist/FormLabel";
+import { useMutation } from "urql";
+import { ADD_REQUEST } from "../graphql/mutations/addRequest";
+import SuccessMessage from "./chakra/SuccessMessage";
+import { Spinner } from "./chakra/Spinner";
 
 type FormFieldProps = {
   id: string;
@@ -97,7 +101,7 @@ const ProductFields: React.FC<ProductFieldsType> = ({ products }) => {
         const [checked, check] = useState(false);
 
         return (
-          <Box>
+          <Box key={product.id}>
             <FormLabel>
               <Checkbox isChecked={checked} onChange={() => check((p) => !p)}>
                 {product.title}{" "}
@@ -133,8 +137,44 @@ type Props = {
 };
 
 const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
-  function onSubmit(data) {
-    console.log(data);
+  const [{ fetching, error, data }, mutateRequest] = useMutation(ADD_REQUEST);
+
+  function onSubmit(d) {
+    const {
+      companyName,
+      companyType,
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+    } = d;
+
+    mutateRequest({
+      data: {
+        companyName,
+        companyType,
+        email,
+        firstName,
+        lastName,
+        phoneNumber,
+      },
+    });
+  }
+
+  if (fetching) {
+    return <Spinner />;
+  }
+
+  if (data) {
+    return (
+      <SuccessMessage
+        title="Thanks!"
+        buttonTitle="Back to suppliers"
+        onClickPath="/suppliers"
+      >
+        You have successfully submitted your request to need-mask.com.
+      </SuccessMessage>
+    );
   }
 
   return (

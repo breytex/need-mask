@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useFileUpload from "../../hooks/useFileUpload";
-import { Input, Spinner, Flex, Icon, Text, Box, Button } from "@chakra-ui/core";
+import { Flex, Text, Box, Button } from "@chakra-ui/core";
 import Error from "./form/Error";
 import { useFormContext } from "react-hook-form";
 import styled from "@emotion/styled";
@@ -52,7 +52,13 @@ const UploadInput = ({ name, isRequired }: Props) => {
   }, [fileName]);
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <Flex h="40px">
+        <Button variantColor="blue" w="153px" isLoading>
+          choose a file
+        </Button>
+      </Flex>
+    );
   }
 
   const resetFn = () => {
@@ -66,16 +72,15 @@ const UploadInput = ({ name, isRequired }: Props) => {
     <React.Fragment>
       {fileName && (
         <Flex>
-          <Button variantColor="red" onClick={resetFn}>
+          <Button
+            variantColor="red"
+            variant="outline"
+            leftIcon="delete"
+            onClick={resetFn}
+          >
             Delete
           </Button>
-          <Input
-            isDisabled
-            w="300px"
-            borderColor="gray.500"
-            ml="2"
-            value={fileName}
-          />
+          <Text>{fileName}</Text>
         </Flex>
       )}
       {!fileName && (
@@ -84,7 +89,6 @@ const UploadInput = ({ name, isRequired }: Props) => {
             <input type="file" id={`file-${name}`} onChange={onChange} />
             <label htmlFor={`file-${name}`}>choose a file</label>
           </UploadStyleWrapper>
-          <Input isDisabled w="300px" borderColor="gray.500" ml="2" />
         </Flex>
       )}
       {error && <Error>{error}</Error>}

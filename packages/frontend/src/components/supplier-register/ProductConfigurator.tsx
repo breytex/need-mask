@@ -92,10 +92,10 @@ export const ProductConfigurator = (props: Props) => {
                   {availProduct.title}
                 </option>
               ))}
-              {errors[PRODUCT_FORM_FIELD_NAME] && (
-                <Error>Please add at least one product.</Error>
-              )}
             </Select>
+            {errors[PRODUCT_FORM_FIELD_NAME] && (
+              <Error>Please add at least one product.</Error>
+            )}
           </Box>
         </Box>
       )}

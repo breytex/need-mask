@@ -21,6 +21,7 @@ import { countries } from "../../types/countries";
 import { stringToInt } from "../../helpers/price";
 import { ErrorMessage } from "../../components/chakra/ErrorMessage";
 import SuccessMessage from "../../components/chakra/SuccessMessage";
+import SiteHero from "../../components/SiteHero";
 
 type Props = NextPage<ProductTypeResponse>;
 
@@ -79,27 +80,33 @@ const Register: Props = (props) => {
   }
 
   return (
-    <Box maxW="800px" mx="auto">
-      <Box>
-        <ErrorMessage show={!!error} title="Oh no!">
-          An error happened
-        </ErrorMessage>
-        <Form onSubmit={onSubmit}>
-          <Section title="Contact details">
-            <ContactDetails />
-          </Section>
-          <Section title="Company address">
-            <CompanyAddress />
-          </Section>
-          <Section title="Product portfolio">
-            <ProductConfigurator productTypes={productTypes} />
-          </Section>
-          <Button type="submit" variantColor="blue" mt="8">
-            Send application
-          </Button>
-        </Form>
+    <>
+      <SiteHero
+        title="Register as a Supplier"
+        description="Be part of our supplier base. In case you match a request, your contact data will be shared with the potential client."
+      />
+      <Box maxW="800px" mx="auto">
+        <Box>
+          <ErrorMessage show={!!error} title="Oh no!">
+            An error happened
+          </ErrorMessage>
+          <Form onSubmit={onSubmit}>
+            <Section title="Contact details">
+              <ContactDetails />
+            </Section>
+            <Section title="Company address">
+              <CompanyAddress />
+            </Section>
+            <Section title="Product portfolio">
+              <ProductConfigurator productTypes={productTypes} />
+            </Section>
+            <Button type="submit" variantColor="blue" mt="8">
+              Send application
+            </Button>
+          </Form>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

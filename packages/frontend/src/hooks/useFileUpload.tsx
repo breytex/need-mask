@@ -46,7 +46,7 @@ const useFileUpload: IUseFileUpload = (props = {}) => {
   const checkForErrors: ICheckForErrors = () => {
     const fileArray = files;
     const tooLargeFiles = fileArray
-      .filter((file) => file.size > 1024 * 1024)
+      .filter((file) => file.size > 1024 * 1024 * 5)
       .map(({ name }) => ({ name, message: "Size limit exceeded 1MB" }));
     if (tooLargeFiles.length > 0) {
       return tooLargeFiles;

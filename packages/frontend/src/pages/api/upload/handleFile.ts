@@ -15,7 +15,7 @@ type handleFileReturn =
   | { data: Buffer, mimeType: SupportedContentTypes, errors?: undefined }
 
 async function handleFile(file: MultiParty.Part): Promise<handleFileReturn> {
-  if (file.byteCount > 1024 * 1024)
+  if (file.byteCount > 1024 * 1024 * 5)
     return createUploadError('SIZE_EXCEEDED')
   const buffer = await streamToBuffer(file)
   const getMimeType = (): SupportedContentTypes => {
@@ -43,7 +43,7 @@ async function handleFile(file: MultiParty.Part): Promise<handleFileReturn> {
     return { data: buffer, mimeType }
 
   return {
-    data: await Sharp(buffer).resize(400, 400).toBuffer(),
+    data: await Sharp(buffer).resize(900, 900, { 'fit': 'inside' }).toBuffer(),
     mimeType
   }
 }

@@ -16,3 +16,22 @@ export const GET_SUPPLIER_WITH_CODE = `
     }
   }  
 `;
+
+export const GET_FILES_BY_SUPPLIER = `
+  query GetFilesBySupplier($supplierId: uuid!) {
+    files(
+      where: {
+        productFiles: {
+          product: {
+            supplierId: {
+              _eq: $supplierId
+            }
+          }
+        }
+      }
+    ) {
+      id
+      url
+    }
+  }
+`;

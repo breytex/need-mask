@@ -56,4 +56,4 @@ async function handleFile(file: MultiParty.Part): Promise<handleFileReturn> {
     mimeType
   }
 }
-export default handleFile
+export { handleFile }

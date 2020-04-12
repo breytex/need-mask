@@ -2,7 +2,7 @@
 import AWS from 'aws-sdk'
 import { NextApiRequest, NextApiResponse } from 'next'
 import MultiParty from 'multiparty'
-import handlefile from './handleFile'
+import { handleFile } from './handleFile'
 
 export const config = {
   api: {
@@ -21,7 +21,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 
   form.on('part', async function (part) {
     if (part.filename) {
-      const { errors, data, mimeType } = await handlefile(part)
+      const { errors, data, mimeType } = await handleFile(part)
       if (errors) {
         return res.status(403).send(errors)
       }

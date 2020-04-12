@@ -15,6 +15,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Button,
+  Divider,
 } from "@chakra-ui/core/dist";
 
 import { useRouter } from "next/router";
@@ -129,6 +130,8 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
           }
         )}
       </SimpleGrid>
+
+      <Divider my={8} />
 
       <Heading fontWeight="600" size="lg" mb={12} textAlign="center">
         Request product information

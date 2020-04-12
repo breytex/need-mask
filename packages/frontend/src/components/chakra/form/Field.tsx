@@ -27,7 +27,7 @@ export const Field = memo(
 
     const fieldError = errors[name];
     return (
-      <Box flexGrow={flexGrow} mr="4" mb={mb || "4"} mt={mt}>
+      <Box flexGrow={flexGrow} mb={mb || "4"} mt={mt}>
         <FormControl>
           {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
           {React.cloneElement(child, { ...child.props, size: "lg" })}

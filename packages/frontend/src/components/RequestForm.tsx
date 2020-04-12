@@ -6,6 +6,10 @@ import { useFormContext } from "react-hook-form";
 
 import Select from "@chakra-ui/core/dist/Select";
 import { Product } from "../types/Supplier";
+import Text from "@chakra-ui/core/dist/Text";
+import Checkbox from "@chakra-ui/core/dist/Checkbox";
+import { useState } from "react";
+import FormLabel from "@chakra-ui/core/dist/FormLabel";
 
 type FormFieldProps = {
   id: string;
@@ -80,13 +84,55 @@ const AddressFields: React.FC<FormFieldProps> = () => {
   );
 };
 
+type ProductFieldsType = {
+  products: Product[];
+};
+
+const ProductFields: React.FC<ProductFieldsType> = ({ products }) => {
+  const { register, errors } = useFormContext();
+
+  return (
+    <Box>
+      {products.map((product) => {
+        const [checked, check] = useState(false);
+
+        return (
+          <Box>
+            <FormLabel>
+              <Checkbox isChecked={checked} onChange={() => check((p) => !p)}>
+                {product.title}{" "}
+                <Text display="inline-block" fontSize="sm">
+                  ({product.productType.title})
+                </Text>
+              </Checkbox>
+            </FormLabel>
+
+            {checked && (
+              <Field key={product.id} name={product.id}>
+                <Input
+                  type="number"
+                  name={product.id}
+                  ref={register({ required: true })}
+                  step={1000}
+                  min={product.minOrderAmount}
+                  defaultValue={product.minOrderAmount}
+                />
+              </Field>
+            )}
+          </Box>
+        );
+      })}
+    </Box>
+  );
+};
+
 type Props = {
   supplerId: string;
   withAddress?: boolean;
   products: Product[];
 };
 
-const RequestForm: React.FC<Props> = ({ supplerId, withAddress }) => {
+const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
   function onSubmit(data) {
     console.log(data);
   }
@@ -95,6 +141,9 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress }) => {
     <Form onSubmit={onSubmit}>
       <UserFields id={supplerId} />
       {withAddress && <AddressFields id={supplerId} />}
+
+      <ProductFields products={products} />
+
       <Button type="submit" isFullWidth>
         Submit your request
       </Button>

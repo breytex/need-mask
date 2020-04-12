@@ -32,8 +32,8 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         Body: data,
         acl: "public-read",
       };
-      const result = await s3.upload(params).promise();
-      res.send({ fileName: Key });
+      await s3.upload(params).promise();
+      res.send({ fileName: hashedFilename });
     }
   });
 

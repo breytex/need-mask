@@ -13,6 +13,7 @@ import { CompanyAddress } from "../../components/supplier-register/CompanyAddres
 import { ProductConfigurator } from "../../components/supplier-register/ProductConfigurator";
 import Form from "../../components/chakra/form/Form";
 import { Section } from "../../components/chakra/form/Section";
+import SiteHero from "../../components/SiteHero";
 
 type Props = NextPage<ProductTypeResponse>;
 
@@ -24,24 +25,30 @@ const Register: Props = (props) => {
   };
 
   return (
-    <Box maxW="800px" mx="auto">
-      <Box>
-        <Form onSubmit={onSubmit}>
-          <Section title="Contact details">
-            <ContactDetails />
-          </Section>
-          <Section title="Company address">
-            <CompanyAddress />
-          </Section>
-          <Section title="Product portfolio">
-            <ProductConfigurator productTypes={productTypes} />
-          </Section>
-          <Button type="submit" variantColor="blue" mt="8">
-            Send application
-          </Button>
-        </Form>
+    <>
+      <SiteHero
+        title="Register as a Supplier"
+        description="Be part of our supplier base. In case you match a request, your contact data will be shared with the potential client."
+      />
+      <Box maxW="800px" mx="auto">
+        <Box>
+          <Form onSubmit={onSubmit}>
+            <Section title="Contact details">
+              <ContactDetails />
+            </Section>
+            <Section title="Company address">
+              <CompanyAddress />
+            </Section>
+            <Section title="Product portfolio">
+              <ProductConfigurator productTypes={productTypes} />
+            </Section>
+            <Button type="submit" variantColor="blue" mt="8">
+              Send application
+            </Button>
+          </Form>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

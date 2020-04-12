@@ -67,13 +67,7 @@ export const ProductConfigurator = (props: Props) => {
         />
       ))}
       {stillAvailableProducts.length > 0 && (
-        <Box
-          mb="12"
-          p="4"
-          bg="white"
-          shadow="md"
-          mx={{ base: "-15px", md: "0" }}
-        >
+        <Box mb="12">
           <Flex alignItems="center">
             <Icon name="add" size="20px" />
             <Text ml="4" fontSize="xl">

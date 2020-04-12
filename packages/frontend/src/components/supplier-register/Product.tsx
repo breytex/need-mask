@@ -13,6 +13,7 @@ import {
 import { Field } from "../chakra/form/Field";
 import { FieldRow } from "../chakra/form/FieldRow";
 import { useFormContext } from "react-hook-form";
+import UploadInput from "../chakra/UploadInput";
 
 interface Props {
   id: string;
@@ -32,7 +33,12 @@ const Product = (props: Props) => {
       </Box>
       <Heading fontSize="lg">{title}</Heading>
       <FieldRow mt="3">
-        <Field label="Min price" name={`${name}.minPrice`} flexGrow={1}>
+        <Field
+          label="Min price"
+          name={`${name}.minPrice`}
+          flexGrow={1}
+          isRequired
+        >
           <NumberInput defaultValue={0.3} precision={2} step={0.1}>
             <NumberInputField
               type="number"
@@ -45,7 +51,12 @@ const Product = (props: Props) => {
             </NumberInputStepper>
           </NumberInput>
         </Field>
-        <Field label="Max price" name={`${name}.maxPrice`} flexGrow={1}>
+        <Field
+          label="Max price"
+          name={`${name}.maxPrice`}
+          flexGrow={1}
+          isRequired
+        >
           <NumberInput defaultValue={0.3} precision={2} step={0.1}>
             <NumberInputField
               type="number"
@@ -65,6 +76,7 @@ const Product = (props: Props) => {
           hint="Amount per week"
           name={`${name}.capacity`}
           flexGrow={1}
+          isRequired
         >
           <NumberInput defaultValue={1000} min={1000} step={1000}>
             <NumberInputField
@@ -83,6 +95,7 @@ const Product = (props: Props) => {
           hint="Expected time to delivery in days"
           name={`${name}.leadTime`}
           flexGrow={1}
+          isRequired
         >
           <NumberInput defaultValue={14} min={1} max={28} step={1}>
             <NumberInputField
@@ -101,6 +114,7 @@ const Product = (props: Props) => {
           hint=" "
           name={`${name}.minOrderAmount`}
           flexGrow={1}
+          isRequired
         >
           <NumberInput defaultValue={1000} min={1000} step={1000}>
             <NumberInputField
@@ -120,6 +134,39 @@ const Product = (props: Props) => {
           name={`${name}.description`}
           placeholder="Product description"
           ref={register()}
+          isRequired
+        />
+      </Field>
+      <Field
+        name={`${name}.productImage`}
+        label="Product photo"
+        hint="Max 5 MB"
+        isRequired
+      >
+        <UploadInput
+          description="Upload a photo of the product..."
+          name={`${name}.productImage`}
+          isRequired
+        />
+      </Field>
+      <Field
+        name={`${name}.packageImage`}
+        label="Package photo"
+        hint="Max 5 MB"
+      >
+        <UploadInput
+          description="Upload a photo of the packaging..."
+          name={`${name}.packageImage`}
+        />
+      </Field>
+      <Field
+        name={`${name}.certificateFile`}
+        label="Certificate"
+        hint="Provide a photo or PDF file, max 5 MB"
+      >
+        <UploadInput
+          description="Upload a PDF certificate..."
+          name={`${name}.certificateFile`}
         />
       </Field>
       <input

@@ -1,15 +1,13 @@
-const nodemailer = require("nodemailer");
+import NodeMailer from 'nodemailer'
 
-const config = {
+const transporter = NodeMailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: process.env.SMTP_IS_SECURED !== "false", // true for 465, false for other ports
+  port: parseInt(process.env.SMTP_PORT),
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
-};
-const transporter = nodemailer.createTransport(config);
+});
 
 export interface SendMailParams {
   subject: string;
@@ -18,11 +16,8 @@ export interface SendMailParams {
   to: string;
 }
 
-export const sendMail = ({ subject, text, html, to }: SendMailParams) =>
+export const sendMail = (params: SendMailParams) =>
   transporter.sendMail({
-    from: '"Need-Mask.com 😷" <support@need-mask.com>',
-    to,
-    subject,
-    text,
-    html,
+    from: `"Need-Mask.com 😷" <support@need-mask.com>`,
+    ...params
   });

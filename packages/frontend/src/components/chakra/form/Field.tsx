@@ -11,6 +11,7 @@ interface Props {
   flexGrow?: number;
   mt?: string;
   mb?: string;
+  isRequired?: boolean;
 }
 
 const errorMessages = {
@@ -20,7 +21,16 @@ const errorMessages = {
 
 export const Field = memo(
   (props: Props): ReactElement => {
-    const { children: child, name, hint, label, flexGrow, mb, mt } = props;
+    const {
+      children: child,
+      name,
+      hint,
+      label,
+      flexGrow,
+      mb,
+      mt,
+      isRequired = false,
+    } = props;
     const { errors } = useFormContext();
 
     // useTraceUpdate(props);
@@ -29,7 +39,12 @@ export const Field = memo(
     return (
       <Box flexGrow={flexGrow} mb={mb || "4"} mt={mt}>
         <FormControl>
-          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {label && (
+            <FormLabel htmlFor={name}>
+              {label}
+              {isRequired ? " *" : ""}
+            </FormLabel>
+          )}
           {React.cloneElement(child, { ...child.props, size: "lg" })}
           {hint && (
             <FormHelperText color="gray.700" id={`hint-${name}`}>

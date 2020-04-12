@@ -1,7 +1,9 @@
 // import AWS from 'aws-sdk'
 import AWS from 'aws-sdk'
 import { NextApiRequest, NextApiResponse } from 'next'
-import multiparty from 'multiparty'
+import MultiParty from 'multiparty'
+import handlefile from './utils/handleFile'
+
 export const config = {
   api: {
     bodyParser: false,
@@ -15,23 +17,29 @@ const s3 = new AWS.S3({
 });
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-  const form = new multiparty.Form()
+  const form = new MultiParty.Form()
 
   form.on('part', async function (part) {
     if (part.filename) {
+      const { errors, data, mimeType } = await handlefile(part)
+      if (errors) {
+        return res.status(403).send(errors)
+      }
+
       const params = {
         Bucket: "need-mask",
         Key: part.filename,
-        Body: part
+        ContentType: mimeType,
+        Body: data
       }
       const result = await s3.upload(params).promise()
       res.send({ url: result.Location })
     }
   })
 
-  form.on('error', (err) => {
-    console.error(err)
-    res.status(500).send({ err });
+  form.on('error', (error) => {
+    console.error(error)
+    res.status(400).send({ errors: [error] });
   })
 
   form.parse(req)

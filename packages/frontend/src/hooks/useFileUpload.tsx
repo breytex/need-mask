@@ -1,7 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import { NextPage } from "next";
-import Link from "next/link";
-import { Button, IInputGroup } from "@chakra-ui/core";
+import React, { useState, useRef } from "react";
 
 type FileErrors = Array<{
   name: string;

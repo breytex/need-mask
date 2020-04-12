@@ -58,10 +58,11 @@ export const ProductConfigurator = (props: Props) => {
   const addWording = selectedProducts.length === 0 ? "the first" : "another";
   return (
     <React.Fragment>
-      {selectedProducts.map((productId) => (
+      {selectedProducts.map((productId, index) => (
         <Product
           onDelete={onDelete}
           key={"product-" + productId}
+          index={index}
           {...productTypes.find((product) => product.id === productId)}
         />
       ))}
@@ -91,10 +92,10 @@ export const ProductConfigurator = (props: Props) => {
                   {availProduct.title}
                 </option>
               ))}
-              {errors[PRODUCT_FORM_FIELD_NAME] && (
-                <Error>Please add at least one product.</Error>
-              )}
             </Select>
+            {errors[PRODUCT_FORM_FIELD_NAME] && (
+              <Error>Please add at least one product.</Error>
+            )}
           </Box>
         </Box>
       )}

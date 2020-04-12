@@ -58,10 +58,11 @@ export const ProductConfigurator = (props: Props) => {
   const addWording = selectedProducts.length === 0 ? "the first" : "another";
   return (
     <React.Fragment>
-      {selectedProducts.map((productId) => (
+      {selectedProducts.map((productId, index) => (
         <Product
           onDelete={onDelete}
           key={"product-" + productId}
+          index={index}
           {...productTypes.find((product) => product.id === productId)}
         />
       ))}

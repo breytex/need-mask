@@ -47,7 +47,12 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
           pl={{ base: "0", md: "5", lg: "8" }}
           mt={{ base: "6", md: "0" }}
         >
-          <Heading color="blue.600" fontSize="3xl" mb={{ base: "3", md: "6" }}>
+          <Heading
+            color="blue.600"
+            d={{ base: "none", md: "block" }}
+            fontSize="3xl"
+            mb={{ base: "3", md: "6" }}
+          >
             Discover suppliers in your area
           </Heading>
           {hasResults &&

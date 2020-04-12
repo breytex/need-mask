@@ -6,38 +6,19 @@ import { sendMail, SendMailParams } from "../utils/sendMail";
 import { graphQuery } from "../utils/graphQuery";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (!req.body.email) {
-    res.statusCode = 403;
-    res.end("Email missing in request");
-    return;
+  const { email } = req.body
+  if (!email) {
+    return res.status(403).send('Email missing in request')
   }
-  let suppliersResponse;
-  try {
-    suppliersResponse = await graphQuery(GET_SUPPLIER, {
-      email: req.body.email,
-    });
-  } catch (e) {
-    res.statusCode = 404;
-    res.end("Error requesting supplier");
-    return;
-  }
+  const code = Math.max(1e5, Math.floor(Math.random() * 1e6)).toString()
+  const codeString = "123456";
 
+  const suppliersResponse = await graphQuery(GET_SUPPLIER, { email })
   if (!suppliersResponse || suppliersResponse.data.suppliers.length === 0) {
-    res.statusCode = 404;
-    res.end("Supplier not found");
-    return;
+    return res.status(404).send("Supplier not found")
   }
 
   const supplier = suppliersResponse.data.suppliers[0];
-
-  let code = Math.floor(Math.random() * 1e6);
-  if (code < 1000000) {
-    code = code + 100000;
-  }
-
-  //   const codeString = "" + code; // to string
-  const codeString = "123456";
-
   const addResponse = await graphQuery(ADD_LOGINCODE, {
     supplierId: supplier.id,
     code: codeString,
@@ -49,8 +30,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     ...mailTextParams,
   };
 
-  sendMail(mailParams);
+  await sendMail(mailParams);
 
-  res.end("success");
-  return;
+  return res.end();
 };

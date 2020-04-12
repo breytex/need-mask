@@ -34,10 +34,16 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
     supplierData.suppliers && supplierData.suppliers.length > 0;
 
   return (
-    <Flex flexDirection={{ base: "column-reverse", md: "row" }}>
+    <Flex flexDirection={{ base: "column", md: "row" }}>
+      <Box width={{ base: "100%", md: "25%" }}>
+        <FilterBox
+          onFilterChanged={navigateTo}
+          productTypes={productTypeData.productTypes}
+        />
+      </Box>
       <Box
-        width={{ base: "100%", md: "66%" }}
-        pr={{ base: "0", md: "5", lg: "8" }}
+        width={{ base: "100%", md: "75%" }}
+        pl={{ base: "0", md: "5", lg: "8" }}
         mt={{ base: "6", md: "0" }}
       >
         <Pagination
@@ -56,12 +62,6 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
           currentPage={currentPage}
           onPageChange={navigateTo}
           mt="2"
-        />
-      </Box>
-      <Box width={{ base: "100%", md: "33%" }} pt={{ base: "0", md: "50px" }}>
-        <FilterBox
-          onFilterChanged={navigateTo}
-          productTypes={productTypeData.productTypes}
         />
       </Box>
     </Flex>

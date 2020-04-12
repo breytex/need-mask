@@ -48,8 +48,12 @@ export const FilterBox = (props: Props) => {
 
   const { continent, products } = router.query;
   return (
-    <Flex direction="column" bg={"white"} p="4" shadow="sm">
-      <Heading size={headingSize} mb={{ base: "2", md: "3", lg: "3" }}>
+    <Flex direction="column" p="4">
+      <Heading
+        size={headingSize}
+        color="blue.600"
+        mb={{ base: "2", md: "3", lg: "3" }}
+      >
         Filters
       </Heading>
       <Select
@@ -76,7 +80,11 @@ export const FilterBox = (props: Props) => {
           mt="3"
         >
           {productTypes.map((type) => (
-            <Checkbox value={type.title} key={type.id}>
+            <Checkbox
+              mr={{ base: "2", md: "0" }}
+              value={type.title}
+              key={type.id}
+            >
               {type.title}
             </Checkbox>
           ))}

@@ -11,19 +11,31 @@ const ContactAddress: React.FC<Props> = () => {
   return (
     <Box>
       <Field name="continent" label="Continent">
-        <Input name="continent" ref={register({ required: true })} />
+        <Input
+          name="continent"
+          ref={register({ required: true, pattern: /.{3}/ })}
+        />
       </Field>
       <Field name="country" label="Country">
-        <Input name="country" ref={register({ required: true })} />
+        <Input
+          name="country"
+          ref={register({ required: true, pattern: /.{3}/ })}
+        />
       </Field>
       <Field name="city" label="City">
-        <Input name="city" ref={register({ required: true })} />
+        <Input
+          name="city"
+          ref={register({ required: true, pattern: /.{3}/ })}
+        />
       </Field>
       <Field name="zip" label="Zip">
-        <Input name="zip" ref={register({ required: true })} />
+        <Input name="zip" ref={register({ required: true, pattern: /.{3}/ })} />
       </Field>
       <Field name="street" label="Street">
-        <Input name="street" ref={register({ required: true })} />
+        <Input
+          name="street"
+          ref={register({ required: true, pattern: /.{3}/ })}
+        />
       </Field>
     </Box>
   );

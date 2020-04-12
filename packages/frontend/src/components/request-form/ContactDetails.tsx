@@ -14,11 +14,17 @@ const ContactDetails: React.FC<Props> = () => {
   return (
     <Box mx={-2}>
       <Field name="firstName" label="First Name">
-        <Input name="firstName" ref={register({ required: true })} />
+        <Input
+          name="firstName"
+          ref={register({ required: true, pattern: /.{3}/ })}
+        />
       </Field>
 
       <Field name="lastName" label="Last Name">
-        <Input name="lastName" ref={register({ required: true })} />
+        <Input
+          name="lastName"
+          ref={register({ required: true, pattern: /.{3}/ })}
+        />
       </Field>
 
       <Field name="email" label="Email">

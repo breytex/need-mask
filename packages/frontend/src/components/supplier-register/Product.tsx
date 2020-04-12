@@ -13,6 +13,7 @@ import {
 import { Field } from "../chakra/form/Field";
 import { FieldRow } from "../chakra/form/FieldRow";
 import { useFormContext } from "react-hook-form";
+import UploadInput from "../chakra/UploadInput";
 
 interface Props {
   id: string;
@@ -121,6 +122,27 @@ const Product = (props: Props) => {
           placeholder="Product description"
           ref={register()}
         />
+      </Field>
+      <Field
+        name={`${name}.productImage`}
+        label="Product photo"
+        hint="Max 5 MB"
+      >
+        <UploadInput name={`${name}.productImage`} isRequired />
+      </Field>
+      <Field
+        name={`${name}.packageImage`}
+        label="Package photo"
+        hint="Max 5 MB"
+      >
+        <UploadInput name={`${name}.packageImage`} isRequired />
+      </Field>
+      <Field
+        name={`${name}.certificateFile`}
+        label="Certificate"
+        hint="Provide a photo or PDF file, max 5 MB"
+      >
+        <UploadInput name={`${name}.certificateFile`} isRequired />
       </Field>
       <input
         type="hidden"

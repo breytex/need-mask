@@ -5,40 +5,22 @@ import { sign } from "jsonwebtoken";
 import { ACCESS_TOKEN_EXPIRE_MS } from "../../../constants/expireTimes";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (!req.body.email) {
-    res.statusCode = 403;
-    res.end("Email missing in request");
-    return;
+  const { email, code } = req.body
+  if (!email) {
+    return res.status(403).send("Email missing in request")
   }
-  if (!req.body.code) {
-    res.statusCode = 403;
-    res.end("Code missing in request");
-    return;
-  }
-  let suppliersResponse;
-  try {
-    suppliersResponse = await graphQuery(GET_SUPPLIER_WITH_CODE, {
-      email: req.body.email,
-      code: req.body.code,
-    });
-  } catch (e) {
-    res.statusCode = 404;
-    res.end("Error requesting supplier");
-    return;
+  if (!code) {
+    return res.status(403).send("Code missing in request")
   }
 
+  const suppliersResponse = await graphQuery(GET_SUPPLIER_WITH_CODE, { email })
   if (!suppliersResponse || suppliersResponse.data.suppliers.length === 0) {
-    res.statusCode = 404;
-    res.end("Could not find supplier with that email and code");
-    return;
+    return res.status(404).send("Supplier not found")
   }
 
   const supplier = suppliersResponse.data.suppliers[0];
-
   if (!supplier.loginCodes || supplier.loginCodes.length === 0) {
-    res.statusCode = 404;
-    res.end("Could not find supplier with that email and code"); // yes, same error to obfuscate
-    return;
+    return res.status(404).send("Could not find supplier with that email and code")
   }
 
   const loginCode = supplier.loginCodes[0];
@@ -47,9 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const now = new Date().getTime();
   const expireMS = 1000 * 60 * 10; // 10 min
   if (loginCodeCreated + expireMS < now) {
-    res.statusCode = 404;
-    res.end("Could not find supplier with that email and code"); // yes, same error to obfuscate
-    return;
+    return res.status(404).send("Code is expired")
   }
 
   const jwt = sign(
@@ -59,10 +39,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       "X-Hasura-User-Id": supplier.id,
       "X-Hasura-Jwt-Version": "1",
       expiresIn: ACCESS_TOKEN_EXPIRE_MS,
+      "iss": "need-mask.com",
     },
     process.env.ACCESS_TOKEN_SECRET
   );
 
-  res.end(JSON.stringify({ jwt }));
-  return;
+  return res.send({ jwt });
 };

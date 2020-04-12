@@ -1,4 +1,4 @@
-import NodeMailer from 'nodemailer'
+import NodeMailer from "nodemailer";
 
 const transporter = NodeMailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -19,5 +19,5 @@ export interface SendMailParams {
 export const sendMail = (params: SendMailParams) =>
   transporter.sendMail({
     from: `"Need-Mask.com 😷" <support@need-mask.com>`,
-    ...params
+    ...params,
   });

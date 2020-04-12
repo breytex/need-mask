@@ -1,8 +1,7 @@
 import { UPDATE_FILE_URL } from './../../utils/mutations';
 import { GET_FILES_BY_SUPPLIER } from './../../utils/queries';
 import { Supplier } from './../../../../types/Supplier';
-import { randomBytes } from 'crypto';
-import { s3 } from '../../utils/s3'
+import { s3, getEdgeUrl, bucketName, tempFolder } from '../../utils/s3'
 import { createWebhooookHandler } from "../../utils/createWebhooookHandler";
 import { graphQuery } from "../../utils/graphQuery";
 
@@ -16,14 +15,24 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
   const results = []
   for (const file of files) {
     const newURL = `${supplierId}/${file.url}`
-    const params = {
-      Bucket: 'need-mask',
-      CopySource: `need-mask/definitelyNotTemp/${file.url}`,
-      Key: newURL
-    };
-    const result = await s3.copyObject(params).promise()
-    results.push(result)
-    // await graphQuery(UPDATE_FILE_URL, {fileId: file.id, newURL })
+    await s3.copyObject({
+      Bucket: bucketName,
+      CopySource: `${bucketName}/${tempFolder}/${file.url}`,
+      Key: newURL,
+      ACL: "public-read",
+    }).promise()
+    await graphQuery(UPDATE_FILE_URL, { fileId: file.id, newURL: getEdgeUrl(newURL) })
+    await s3.deleteObject({
+      Bucket: bucketName,
+      Key: `/${tempFolder}/${file.url}`
+    }).promise()
+    results.push({
+      old: file,
+      new: {
+        ...file,
+        url: getEdgeUrl(newURL)
+      }
+    })
   }
 
   res.send(results)

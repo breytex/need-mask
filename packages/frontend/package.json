@@ -38,6 +38,7 @@
   "devDependencies": {
     "@types/multiparty": "^0.0.32",
     "@types/node": "^13.11.1",
+    "@types/nodemailer": "^6.4.0",
     "@types/react": "^16.9.34",
     "@types/sharp": "^0.24.0",
     "dotenv-webpack": "^1.7.0",

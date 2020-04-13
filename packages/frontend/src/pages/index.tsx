@@ -1,57 +1,103 @@
 import * as React from "react";
 import { NextPage } from "next";
-import { Box, Flex, Heading, Text, Button, Image } from "@chakra-ui/core";
+import { Box, Flex, Text, Button, Image, Heading } from "@chakra-ui/core";
 import Link from "next/link";
+import SiteHero from "../components/SiteHero";
+import ProductCapacityStats from "../components/ProductCapacityStats";
 
 const Home: NextPage = () => {
   return (
     <div>
-      <Box maxWidth="36rem" textAlign="center" mx="auto" my="3rem">
-        <Heading as="h1" mb={4} fontWeight="500">
-          You NEED or PRODUCE protective masks?
-        </Heading>
-        <Heading as="h3" size="lg" mb={4} fontWeight="normal">
-          Register yourself and receive or provide help
-        </Heading>
-        <Text>
-          In recent days the request for medical masks and protective wear
-          across Europe has risen due to the spread of COVID-19. We want to help
-          providing a connection between NEED and SUPPLY of protective wear,
-          especially face masks.
-        </Text>
+      <SiteHero
+        title="You NEED or SUPPLY masks?"
+        description="COVID-19 has changed all our lives in the recent weeks. While a
+          vaccine is still far away we can only protect ourselves by social
+          distancing and by using face masks and other protective equipment."
+      />
+
+      <Box maxWidth="700px" mx="auto">
+        <Flex
+          textAlign="center"
+          mb="8rem"
+          flexDirection={{ base: "column", md: "row" }}
+        >
+          <Box flex={2}>
+            <Image src="/images/deliveries.svg" height={200} mx="auto" />
+          </Box>
+
+          <Box flex={3}>
+            <Text m={8}>
+              If you are a reliable producer or vendor of protective gear click
+              here to list the protective gear that you SUPPLY
+            </Text>
+
+            <Button variantColor="blue" mx="auto">
+              <Link href="/suppliers/register">
+                <a>I supply protective gear and masks</a>
+              </Link>
+            </Button>
+          </Box>
+        </Flex>
+
+        <Flex
+          textAlign="center"
+          mb="8rem"
+          flexDirection={{ base: "column-reverse", md: "row" }}
+        >
+          <Box flex={3}>
+            <Text m={8}>
+              If you NEED masks and other protective equipment find a reliable
+              supplier here.
+            </Text>
+
+            <Button variantColor="blue" mx="auto">
+              <Link href="/suppliers">
+                <a>I need masks</a>
+              </Link>
+            </Button>
+          </Box>
+          <Box flex={2}>
+            <Image
+              src="/images/undraw_medical_research.svg"
+              height={200}
+              mx="auto"
+            />
+          </Box>
+        </Flex>
+
+        <Flex
+          textAlign="center"
+          mb="8rem"
+          flexDirection={{ base: "column", md: "row" }}
+        >
+          <Box flex={2}>
+            <Image src="/images/social_distancing.svg" height={200} mx="auto" />
+          </Box>
+
+          <Box flex={3}>
+            <Text m={8}>
+              Safe lives! Help medical professionals in poor countries with weak
+              healthcare infrastructure. Click here to DONATE masks and
+              protective equipment to those in need.
+            </Text>
+
+            <Button variantColor="blue" mx="auto">
+              <Link href="">
+                <a>I save lives</a>
+              </Link>
+            </Button>
+          </Box>
+        </Flex>
       </Box>
 
-      <Flex mb={8}>
-        <Box flex={1} textAlign="center" maxWidth="300px" mx="auto">
-          <Image src="/images/deliveries.svg" height={200} mx="auto" />
+      <Box maxWidth="720px" mx="auto" textAlign="center">
+        <Heading size="lg" fontWeight="500" mb={12}>
+          Our suppliers currently provide access to the following weekly
+          capacities
+        </Heading>
 
-          <Button variantColor="blue" m={8} mx="auto">
-            <Link href="/suppliers/register">
-              <a>I supply masks</a>
-            </Link>
-          </Button>
-          <Text>
-            Be part of our supplier base. In case you match a request, your
-            contact data will be shared with the potential client.
-          </Text>
-        </Box>
-        <Box flex={1} textAlign="center" maxWidth="300px" mx="auto">
-          <Image
-            src="/images/undraw_medical_research.svg"
-            height={200}
-            mx="auto"
-          />
-          <Button variantColor="blue" m={8} mx="auto">
-            <Link href="/suppliers/">
-              <a>I need masks</a>
-            </Link>
-          </Button>
-          <Text>
-            We will collect your demand and communicate it to a suitable
-            supplier.
-          </Text>
-        </Box>
-      </Flex>
+        <ProductCapacityStats />
+      </Box>
     </div>
   );
 };

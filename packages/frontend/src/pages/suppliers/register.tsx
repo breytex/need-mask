@@ -21,6 +21,21 @@ import SupplierForm from "./SupplierForm";
 
 type Props = NextPage<ProductTypeResponse>;
 
+const addImageFile = (product, fieldName, array) => {
+  if (product[fieldName]) {
+    array.push({
+      file: {
+        data: {
+          url: product[fieldName],
+          fileType: product[fieldName].split(".").slice(-1)[0],
+        },
+      },
+    });
+  }
+};
+
+const filesFields = ["productImage", "packageImage", "certificateFile"];
+
 const Register: Props = (props) => {
   const [{ fetching, error, data }, mutateSupplier] = useMutation(ADD_SUPPLIER);
   const { productTypes } = props;
@@ -50,6 +65,19 @@ const Register: Props = (props) => {
       product.capacity = parseInt(product.capacity);
       product.minOrderAmount = parseInt(product.minOrderAmount);
 
+      // Adding files with correct data structure
+      if (filesFields.some((filesField) => product[filesField] !== "")) {
+        product.files = {
+          data: [],
+        };
+        filesFields.forEach((fileField) =>
+          addImageFile(product, fileField, product.files.data)
+        );
+      }
+
+      // Remove file fields
+      filesFields.forEach((filesField) => delete product[filesField]);
+
       return product;
     });
 
@@ -57,10 +85,6 @@ const Register: Props = (props) => {
     delete data.addressBlocker;
     mutateSupplier({ data });
   };
-
-  if (fetching) {
-    return <Spinner />;
-  }
 
   if (data) {
     return (
@@ -85,6 +109,7 @@ const Register: Props = (props) => {
         error={error}
         onSubmit={onSubmit}
         productTypes={productTypes}
+        isLoading={fetching}
       />
     </>
   );

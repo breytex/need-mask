@@ -39,6 +39,7 @@ const Register: Props = (props) => {
   const router = useRouter();
   const { supplierId } = router.query;
   const { productTypes, supplierData } = props;
+
   // If no jwt is found in local storage, or its expired
   // redirect to login page
   useEffect(() => {
@@ -126,7 +127,6 @@ export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
   const { supplierId } = query;
 
   if (!supplierId) {
-    console.log("supplier id not set");
     redirect(ctx, "/suppliers");
     return;
   }

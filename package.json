@@ -1,0 +1,11 @@
+{
+  "name": "need-mask",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write \"packages/frontend/src/**/*.+(js|jsx|ts|tsx|css)\""
+  },
+  "devDependencies": {
+    "prettier": "^2.0.4"
+  }
+}

@@ -6,7 +6,7 @@ import SiteHero from "../components/SiteHero";
 import ProductCapacityStats from "../components/ProductCapacityStats";
 import { GET_CAPACITY_PER_PRODUCT } from "../graphql/queries/capacity";
 import { Capacity, CapacityResponse } from "../types/Capacity";
-import { graphQuery } from "./api/utils/graphQuery";
+import { graphQuery } from "../graphql/graphQuery";
 
 type Props = {
   capacities: Capacity[];

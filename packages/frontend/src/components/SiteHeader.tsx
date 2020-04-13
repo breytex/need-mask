@@ -29,16 +29,19 @@ const SiteHeader: React.FC = () => {
 
         <Flex align="center">
           <Box m={2}>
-            <Link href="/suppliers">
-              <a>Suppliers</a>
-            </Link>
+            <Button
+              variant="outline"
+              onClick={() => router.push("/suppliers/register")}
+            >
+              Need
+            </Button>
           </Box>
           <Box ml={2}>
             <Button
               variantColor="blue"
               onClick={() => router.push("/suppliers/register")}
             >
-              I am a Supplier
+              Supply
             </Button>
           </Box>
         </Flex>

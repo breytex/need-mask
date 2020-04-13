@@ -1,5 +1,4 @@
 import * as React from "react";
-import fetch from "isomorphic-unfetch";
 import { NextPage } from "next";
 import { Box, Flex, Text, Button, Image, Heading } from "@chakra-ui/core";
 import Link from "next/link";
@@ -7,6 +6,7 @@ import SiteHero from "../components/SiteHero";
 import ProductCapacityStats from "../components/ProductCapacityStats";
 import { GET_CAPACITY_PER_PRODUCT } from "../graphql/queries/capacity";
 import { Capacity, CapacityResponse } from "../types/Capacity";
+import { graphQuery } from "./api/utils/graphQuery";
 
 type Props = {
   capacities: Capacity[];
@@ -112,17 +112,14 @@ const Home: NextPage<Props> = (props) => {
 };
 
 export async function getServerSideProps() {
-  const response = await fetch(process.env.HASURA_URL, {
-    method: "POST",
-    body: JSON.stringify({ query: GET_CAPACITY_PER_PRODUCT }),
+  const response = await graphQuery<CapacityResponse>({
+    query: GET_CAPACITY_PER_PRODUCT,
   });
-
-  const jsonData: CapacityResponse = await response.json();
   const {
     data: {
       productTypes_aggregate: { nodes },
     },
-  } = jsonData;
+  } = response;
 
   const capacities = nodes.map((node) => ({
     title: node.title,

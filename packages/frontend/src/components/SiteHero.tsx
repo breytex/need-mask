@@ -13,7 +13,7 @@ const SiteHero: React.FC<Props> = ({ title, description }) => {
       mb={{ base: 4, md: 12, lg: 24 }}
       mx="auto"
       textAlign="center"
-      maxWidth="600px"
+      maxWidth="720px"
     >
       <Heading as="h1" mb={description ? 4 : 0} fontWeight="500">
         {title}

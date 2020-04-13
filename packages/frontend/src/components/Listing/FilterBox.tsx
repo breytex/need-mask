@@ -1,24 +1,21 @@
 import React, { useState, useCallback, useEffect } from "react";
-import {
-  Flex,
-  Box,
-  Text,
-  Select,
-  Checkbox,
-  CheckboxGroup,
-  Heading,
-} from "@chakra-ui/core";
+import { Flex, Text, Select, Checkbox, CheckboxGroup } from "@chakra-ui/core";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
 import { Continent } from "../../types/Geographic";
 import { ProductType } from "../../types/Product";
 import { useRouter } from "next/router";
 import { useCsr } from "../../hooks/useCsr";
+import Headline from "../chakra/Headline";
 
 interface Props {
   onFilterChanged: (params) => void;
   productTypes: ProductType[];
 }
-
+const Title = ({ children, ...rest }) => (
+  <Text fontSize="lg" {...rest}>
+    {children}
+  </Text>
+);
 export const FilterBox = (props: Props) => {
   const router = useRouter();
   const isCheckboxInline = useMediaQuery([true, false]);
@@ -48,19 +45,7 @@ export const FilterBox = (props: Props) => {
   const { continent, products } = router.query;
   return (
     <Flex direction="column">
-      <Select
-        placeholder="All continents"
-        defaultValue={continent || ""}
-        onChange={onContinentChanged}
-        maxW="350px"
-        size="lg"
-      >
-        {Object.entries(Continent).map(([key, value]) => (
-          <option value={value} key={key}>
-            {value}
-          </option>
-        ))}
-      </Select>
+      <Headline mb="2">What products should the supplier provide?</Headline>
       {isCsr && (
         <CheckboxGroup
           size="lg"
@@ -82,6 +67,22 @@ export const FilterBox = (props: Props) => {
           ))}
         </CheckboxGroup>
       )}
+      <Headline mt="8" mb="2">
+        Where should the supplier be located?
+      </Headline>
+      <Select
+        placeholder="All continents"
+        defaultValue={continent || ""}
+        onChange={onContinentChanged}
+        maxW="350px"
+        size="lg"
+      >
+        {Object.entries(Continent).map(([key, value]) => (
+          <option value={value} key={key}>
+            {value}
+          </option>
+        ))}
+      </Select>
     </Flex>
   );
 };

@@ -4,12 +4,19 @@ import { useMediaQuery } from "../../chakra/useMediaQuery";
 
 interface Props {
   children: string;
+  mt?: string;
+  mb?: string;
 }
 
-const Headline = ({ children }: Props) => {
+const Headline = ({ children, mt, mb }: Props) => {
   const fontSize = useMediaQuery(["lg", "xl"]);
   return (
-    <Heading color="blue.600" fontSize={fontSize} mb={{ base: "4", md: "6" }}>
+    <Heading
+      color="blue.600"
+      fontSize={fontSize}
+      mb={mb || { base: "4", md: "6" }}
+      mt={mt}
+    >
       {children}
     </Heading>
   );

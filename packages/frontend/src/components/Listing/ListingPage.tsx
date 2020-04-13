@@ -38,7 +38,6 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
     <React.Fragment>
       <Flex flexDirection={{ base: "column", md: "row" }}>
         <Box width={{ base: "100%", md: "25%" }}>
-          <Headline>Tell us, what you need</Headline>
           <FilterBox
             onFilterChanged={navigateTo}
             productTypes={productTypeData.productTypes}
@@ -49,7 +48,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
           pl={{ base: "0", md: "8", lg: "12" }}
           mt={{ base: "10", md: "0" }}
         >
-          <Headline>Find suppliers that meet your needs</Headline>
+          <Headline>Discover new suppliers</Headline>
           {hasResults &&
             supplierData.suppliers.map((supplier) => (
               <ListingRow key={supplier.id} {...supplier} />

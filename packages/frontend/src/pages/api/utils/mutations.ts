@@ -8,7 +8,7 @@ export const ADD_LOGINCODE = `
 export const UPDATE_FILE_URL = `
   mutation UpdateFileURL($fileId: uuid!, $newURL: String!) {
     update_files(
-      _set: { url: $newUrl }
+      _set: { url: $newURL }
       where: { id: { _eq: $fileId } }
     ) {
       returning {

@@ -47,7 +47,6 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
           }
           files {
             file {
-              id
               url
               fileType
               fileKind

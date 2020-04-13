@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useFileUpload from "../../hooks/useFileUpload";
 import { Flex, Text, Box, Button } from "@chakra-ui/core";
 import Error from "./form/Error";
@@ -41,19 +41,30 @@ const UploadStyleWrapper = styled(Box)`
 
 const UploadInput = ({ name, isRequired = false, description }: Props) => {
   const { register, setValue, unregister, watch } = useFormContext();
+  const fileIdField = `${name}-id`;
   let defaultValue = watch(name);
+  let defaultValueFileId = watch(fileIdField);
+  const [fileId, setFileId] = useState(defaultValueFileId);
   const { onChange, error, isLoading, fileName, reset } = useFileUpload(
     5,
     defaultValue
   );
   useEffect(() => {
     register(name, { required: isRequired });
-    return () => unregister(name);
+    register(fileIdField);
+    return () => {
+      unregister(name);
+      unregister(fileIdField);
+    };
   }, []);
 
   useEffect(() => {
     setValue(name, fileName || "");
   }, [fileName]);
+
+  useEffect(() => {
+    setValue(fileIdField, fileId);
+  }, [fileId]);
 
   if (isLoading) {
     return (
@@ -69,6 +80,7 @@ const UploadInput = ({ name, isRequired = false, description }: Props) => {
     const input = confirm("Do you really want to delete this file?");
     if (input) {
       reset();
+      setFileId("");
     }
   };
   const cleanFileName = fileName.split("/").splice(-1)[0];

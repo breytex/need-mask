@@ -30,14 +30,21 @@ export const filesFields = ["productImage", "packageImage", "certificateFile"];
 
 const addImageFile = (product, fieldName, array) => {
   if (product[fieldName]) {
-    array.push({
-      file: {
-        data: {
-          url: product[fieldName],
-          fileType: product[fieldName].split(".").slice(-1)[0],
+    console.log({ FOO: product[`${fieldName}-id`] });
+    if (product[`${fieldName}-id`] && product[`${fieldName}-id`] !== "") {
+      console.log("a");
+      array.push({ fileId: product[`${fieldName}-id`] });
+    } else {
+      console.log("b");
+      array.push({
+        file: {
+          data: {
+            url: product[fieldName],
+            fileType: product[fieldName].split(".").slice(-1)[0],
+          },
         },
-      },
-    });
+      });
+    }
   }
 };
 
@@ -74,6 +81,7 @@ const onSubmit = (mutateSupplier) => (values) => {
 
     // Remove file fields
     filesFields.forEach((filesField) => delete product[filesField]);
+    filesFields.forEach((filesField) => delete product[`${filesField}-id`]);
 
     return product;
   });

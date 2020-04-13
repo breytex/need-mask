@@ -13,18 +13,18 @@ export const ProductCapacityStats: React.FC = () => {
       method: "POST",
       body: JSON.stringify({ query: GET_CAPACITY_PER_PRODUCT }),
     })
-      .then((r) => r.json())
-      .then((r) => {
+      .then((response) => response.json())
+      .then((json) => {
         const {
           data: {
             productTypes_aggregate: { nodes },
           },
-        } = r;
+        } = json;
 
         setCapacities(
-          nodes.map((n) => ({
-            title: n.title,
-            capacity: n.products_aggregate.aggregate.sum.capacity,
+          nodes.map((node) => ({
+            title: node.title,
+            capacity: node.products_aggregate.aggregate.sum.capacity,
           }))
         );
       });
@@ -34,9 +34,9 @@ export const ProductCapacityStats: React.FC = () => {
 
   return (
     <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} mx="auto" mb="24">
-      {capacities.map((c) => {
+      {capacities.map((capacity) => {
         return (
-          <Box bg="white" p={8} key={c.title}>
+          <Box bg="white" p={8} key={capacity.title}>
             <Heading
               size="sm"
               textTransform="uppercase"
@@ -45,9 +45,9 @@ export const ProductCapacityStats: React.FC = () => {
               fontWeight="semibold"
               letterSpacing="wide"
             >
-              {c.title}
+              {capacity.title}
             </Heading>
-            <Heading size="lg">{c.capacity || 0}</Heading>
+            <Heading size="lg">{capacity.capacity || 0}</Heading>
             <Image src="/images/productTypes/gown.svg" alt="" mx="auto" />
           </Box>
         );

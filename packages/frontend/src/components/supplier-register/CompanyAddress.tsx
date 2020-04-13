@@ -3,7 +3,7 @@ import { Field } from "../chakra/form/Field";
 import { Input, Select, Link, Box, Text } from "@chakra-ui/core";
 import { FieldRow } from "../chakra/form/FieldRow";
 import { get } from "lodash";
-import { countries } from "../../types/countries";
+import { countries } from "../../types/Geographic";
 import styled from "@emotion/styled";
 import AlgoliaPlaces from "algolia-places-react";
 import { useFormContext } from "react-hook-form";

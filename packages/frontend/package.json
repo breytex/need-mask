@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write \"src/**/*.+(js|jsx|ts|tsx|css)\""
   },
   "dependencies": {
     "@chakra-ui/core": "^0.7.0",

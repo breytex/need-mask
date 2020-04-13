@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useCallback } from "react";
-import { ProductType } from "../../types/Supplier";
+import { ProductType } from "../../types/Product";
 import { Icon, Flex, Select, Box, Text } from "@chakra-ui/core";
 import Product from "./Product";
 import { useFormContext } from "react-hook-form";

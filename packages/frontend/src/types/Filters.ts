@@ -1,4 +1,4 @@
-import { Product } from "./Supplier";
+import { Product } from "./Product";
 
 export interface Filters {
   location?: Location;

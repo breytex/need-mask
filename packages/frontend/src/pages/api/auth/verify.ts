@@ -22,10 +22,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const supplier = suppliersResponse.data.suppliers[0];
-  if (!supplier.loginCodes || supplier.loginCodes.length === 0) {
-    return res
-      .status(404)
-      .send("Could not find supplier with that email and code");
+  if (supplier.loginCodes.length === 0) {
+    return res.status(404).send("Could not find supplier with that email and code");
   }
 
   const loginCode = supplier.loginCodes[0];

@@ -29,9 +29,7 @@ type Props = {
 
 const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
   const router = useRouter();
-  const { id, supplier } = props;
-
-  console.log(router);
+  const { supplier } = props;
 
   return (
     <>
@@ -135,7 +133,11 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
       <Divider my={8} />
 
       <Box maxWidth="500px" mx="auto" textAlign="center">
-        <Button onClick={() => router.push(`${router.asPath}/request`)}>
+        <Button
+          onClick={() =>
+            router.push(`/suppliers/[id]/request`, `${router.asPath}/request`)
+          }
+        >
           Request product information
         </Button>
       </Box>

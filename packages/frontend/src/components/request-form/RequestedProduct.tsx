@@ -12,7 +12,7 @@ import FormLabel from "@chakra-ui/core/dist/FormLabel";
 import Checkbox from "@chakra-ui/core/dist/Checkbox";
 import Text from "@chakra-ui/core/dist/Text";
 import { Field } from "../chakra/form/Field";
-import { Product } from "../../types/Supplier";
+import { Product } from "../../types/Product";
 import { useFormContext } from "react-hook-form";
 
 type Props = {

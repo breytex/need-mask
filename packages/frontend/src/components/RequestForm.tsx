@@ -1,7 +1,7 @@
 import * as React from "react";
 import Form from "./chakra/form/Form";
 import { Box, Button } from "@chakra-ui/core/dist";
-import { Product } from "../types/Supplier";
+import { Product } from "../types/Product";
 import { useMutation } from "urql";
 import { ADD_REQUEST } from "../graphql/mutations/addRequest";
 import SuccessMessage from "./chakra/SuccessMessage";

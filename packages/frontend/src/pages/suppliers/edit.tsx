@@ -101,7 +101,7 @@ const EditFormPage = (props) => {
         description="Change your listing below. Our moderators will review your changes in the next 48 houres. Your listing will be offline for the meantime."
       />
       <SupplierForm
-        error={errors}
+        errors={errors}
         mutateSupplier={mutateSupplierFn}
         productTypes={productTypes}
         defaultValues={defaultValues}

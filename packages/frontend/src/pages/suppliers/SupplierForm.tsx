@@ -14,7 +14,7 @@ import { stringToInt } from "../../helpers/price";
 interface Props {
   mutateSupplier: any;
   productTypes: any;
-  error: any;
+  errors: Array<Error>;
   defaultValues?: object;
   isLoading?: boolean;
 }
@@ -92,7 +92,7 @@ const onSubmit = (mutateSupplier) => (values) => {
 const SupplierForm = (props: Props) => {
   const {
     productTypes,
-    error,
+    errors,
     defaultValues,
     isLoading,
     mutateSupplier,
@@ -108,7 +108,7 @@ const SupplierForm = (props: Props) => {
     <Box mx="auto">
       <Box>
         <a ref={errorBoxRef}></a>
-        <ErrorMessage show={error.length} title="Oh no!">
+        <ErrorMessage show={errors?.length > 0} title="Oh no!">
           <React.Fragment>
             An error happened
             <br />

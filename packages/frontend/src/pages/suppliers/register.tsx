@@ -42,7 +42,7 @@ const Register: Props = (props) => {
         description="Be part of our supplier base. In case you match a request, your contact data will be shared with the potential client."
       />
       <SupplierForm
-        error={errors}
+        errors={errors}
         mutateSupplier={mutateSupplier}
         productTypes={productTypes}
         isLoading={isLoading}

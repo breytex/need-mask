@@ -166,4 +166,4 @@ export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
 
 Edit.getInitialProps = listingInitialProps;
 
-export default withUrqlClient(urqlConfig)(Edit);
+export default withUrqlClient(urqlConfig(true))(Edit);

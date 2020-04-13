@@ -161,4 +161,4 @@ SupplierDetailPage.getInitialProps = async (context: NextUrqlPageContext) => {
   };
 };
 
-export default withUrqlClient(urqlConfig)(SupplierDetailPage);
+export default withUrqlClient(urqlConfig())(SupplierDetailPage);

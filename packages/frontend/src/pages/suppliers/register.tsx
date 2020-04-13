@@ -64,4 +64,4 @@ export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
 
 Register.getInitialProps = listingInitialProps;
 
-export default withUrqlClient(urqlConfig)(Register);
+export default withUrqlClient(urqlConfig())(Register);

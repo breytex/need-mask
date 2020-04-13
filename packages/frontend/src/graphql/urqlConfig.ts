@@ -17,15 +17,13 @@ if (typeof window !== "undefined") {
   }
 }
 
-export const urqlConfig = {
+export const urqlConfig = (addAuthHeaders = false) => ({
   url: process.env.HASURA_URL,
   fetch,
   fetchOptions: {
-    headers: {
-      ...headers,
-    },
+    headers: addAuthHeaders ? headers : {},
   },
-};
+});
 
 export type PageWithData<T> = {
   data: T;

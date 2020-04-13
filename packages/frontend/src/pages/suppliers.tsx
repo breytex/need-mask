@@ -52,4 +52,4 @@ export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
 
 Listings.getInitialProps = listingInitialProps;
 
-export default withUrqlClient(urqlConfig)(Listings);
+export default withUrqlClient(urqlConfig())(Listings);

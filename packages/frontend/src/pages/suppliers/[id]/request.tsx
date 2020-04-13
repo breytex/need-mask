@@ -62,4 +62,4 @@ Request.getInitialProps = async (context: NextUrqlPageContext) => {
   };
 };
 
-export default withUrqlClient(urqlConfig)(Request);
+export default withUrqlClient(urqlConfig())(Request);

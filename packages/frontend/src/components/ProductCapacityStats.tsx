@@ -24,7 +24,7 @@ export const ProductCapacityStats: React.FC<Props> = ({ items }) => {
             </Heading>
             <Heading size="lg">{capacity.capacity || 0}</Heading>
             <Image
-              src={`/images/productTypes/${capacity.title}.svg`}
+              src={`/images/productTypes/${capacity.title.toLowerCase()}.svg`}
               alt=""
               mx="auto"
             />

@@ -50,7 +50,7 @@ export const GET_LISTINGS_FN = (products: String[], continent?: String) => {
                     productType {
                         id
                         title
-                        description
+                        subTypes
                         createdAt
                         updatedAt
                     }

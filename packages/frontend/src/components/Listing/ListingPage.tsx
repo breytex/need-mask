@@ -18,7 +18,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
     supplierData.suppliers_aggregate.aggregate.count / LISTINGS_PER_PAGE
   );
 
-  const { push, query } = router;
+  const { replace, query } = router;
   const navigateTo = (queryParams) => {
     const params = { ...query, ...queryParams };
     if (!params.page) {
@@ -27,7 +27,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
     const queryParamString =
       Object.keys(params).length > 0 ? "?" + queryString.stringify(params) : "";
     const newUrl = `/suppliers${queryParamString}`;
-    push(newUrl, newUrl);
+    replace(newUrl, newUrl);
   };
 
   const currentPage = parseInt("" + router.query.page) || 1;

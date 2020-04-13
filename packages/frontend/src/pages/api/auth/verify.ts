@@ -23,7 +23,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const supplier = suppliersResponse.data.suppliers[0];
   if (supplier.loginCodes.length === 0) {
-    return res.status(404).send("Could not find supplier with that email and code");
+    return res
+      .status(404)
+      .send("Could not find supplier with that email and code");
   }
 
   const loginCode = supplier.loginCodes[0];
@@ -37,11 +39,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const jwt = sign(
     {
-      "x-hasura-default-role": "user",
-      "x-hasura-allowed-roles": "user",
-      "X-Hasura-User-Id": supplier.id,
-      "X-Hasura-Jwt-Version": "1",
-      expiresIn: ACCESS_TOKEN_EXPIRE_MS,
+      "https://hasura.io/jwt/claims": {
+        "x-hasura-default-role": "user",
+        "x-hasura-allowed-roles": ["user", "anonymous"],
+        "X-Hasura-User-Id": supplier.id,
+        "X-Hasura-Jwt-Version": "1",
+      },
+      expiresIn: ACCESS_TOKEN_EXPIRE_MS * 10,
       iss: "need-mask.com",
     },
     process.env.ACCESS_TOKEN_SECRET

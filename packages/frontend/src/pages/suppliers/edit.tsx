@@ -19,7 +19,7 @@ import SiteHero from "../../components/SiteHero";
 import SupplierForm from "./SupplierForm";
 import { useRouter } from "next/router";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../graphql/queries/supplier";
+import { GET_FULL_SUPPLIER_WITH_PRODUCTS } from "../../graphql/queries/supplier";
 import { redirect } from "../../helpers/redirect";
 import { PRODUCT_FORM_FIELD_NAME } from "../../components/supplier-register/ProductConfigurator";
 import queryString from "query-string";
@@ -119,7 +119,7 @@ const Edit: Props = (props) => {
   const { productTypes } = props;
 
   const [{ data, fetching, error }] = useQuery({
-    query: GET_SUPPLIER_FN_WITH_PRODUCTS("" + supplierId),
+    query: GET_FULL_SUPPLIER_WITH_PRODUCTS("" + supplierId),
   });
 
   // If no jwt is found in local storage, or request to fetch supplier data fails,
@@ -134,7 +134,7 @@ const Edit: Props = (props) => {
     }
   }, [isCsr, error]);
 
-  if (fetching) {
+  if (fetching || !data) {
     return <Spinner />;
   }
 

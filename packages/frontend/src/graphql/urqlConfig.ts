@@ -11,7 +11,6 @@ if (typeof window !== "undefined") {
       if (checkTokenValid(storedToken)) {
         headers = {
           Authorization: `Bearer ${JSON.stringify(storedToken.jwt)}`,
-          "X-Hasura-Role": "user",
         };
       }
     } catch (e) {}

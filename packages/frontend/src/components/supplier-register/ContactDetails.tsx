@@ -13,10 +13,10 @@ export const ContactDetails = (props: Props) => {
   return (
     <React.Fragment>
       <FieldRow mt="6">
-        <Field name="firstName" label="Firstname" flexGrow={1} isRequired>
+        <Field name="firstName" label="First name" flexGrow={1} isRequired>
           <Input name="firstName" ref={register({ required: true })} />
         </Field>
-        <Field name="lastName" label="Lastname" flexGrow={1} isRequired>
+        <Field name="lastName" label="Last name" flexGrow={1} isRequired>
           <Input name="lastName" ref={register({ required: true })} />
         </Field>
       </FieldRow>

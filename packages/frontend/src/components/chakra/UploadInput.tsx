@@ -70,7 +70,7 @@ const UploadInput = ({ name, isRequired = false, description }: Props) => {
     return (
       <Flex h="40px">
         <Button variantColor="blue" w="153px" isLoading>
-          choose a file
+          Choose a file
         </Button>
       </Flex>
     );
@@ -105,7 +105,7 @@ const UploadInput = ({ name, isRequired = false, description }: Props) => {
         <Flex>
           <UploadStyleWrapper>
             <input type="file" id={`file-${name}`} onChange={onChange} />
-            <label htmlFor={`file-${name}`}>choose a file</label>
+            <label htmlFor={`file-${name}`}>Choose a file</label>
           </UploadStyleWrapper>
           <Text fontSize="lg" ml="3" mt="5px">
             {description}

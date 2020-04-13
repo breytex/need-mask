@@ -49,7 +49,7 @@ const Product = (props: Props) => {
       </Heading>
       <Field name={`${name}.title`} label="Product type" mt="4" isRequired>
         <Select
-          placeholder="Select an option..."
+          placeholder="Select an option"
           name={`${name}.title`}
           ref={register({ required: true })}
         >
@@ -198,7 +198,7 @@ const Product = (props: Props) => {
         isRequired
       >
         <UploadInput
-          description="Upload a photo of the product..."
+          description="Upload a photo of the product"
           name={`${name}.productImage`}
           isRequired
         />
@@ -209,7 +209,7 @@ const Product = (props: Props) => {
         hint="Max 5 MB"
       >
         <UploadInput
-          description="Upload a photo of the packaging..."
+          description="Upload a photo of the packaging"
           name={`${name}.packageImage`}
         />
       </Field>
@@ -219,7 +219,7 @@ const Product = (props: Props) => {
         hint="Provide a photo or PDF file, max 5 MB"
       >
         <UploadInput
-          description="Upload a PDF certificate..."
+          description="Upload a PDF certificate"
           name={`${name}.certificateFile`}
         />
       </Field>

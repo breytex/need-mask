@@ -30,21 +30,24 @@ export const filesFields = ["productImage", "packageImage", "certificateFile"];
 
 const addImageFile = (product, fieldName, array) => {
   if (product[fieldName]) {
-    array.push({
-      file: {
-        data: {
-          url: product[fieldName],
-          fileType: product[fieldName].split(".").slice(-1)[0],
+    if (product[`${fieldName}-id`] && product[`${fieldName}-id`] !== "") {
+      array.push({ fileId: product[`${fieldName}-id`] });
+    } else {
+      array.push({
+        file: {
+          data: {
+            url: product[fieldName],
+            fileType: product[fieldName].split(".").slice(-1)[0],
+          },
         },
-      },
-    });
+      });
+    }
   }
 };
 
 const onSubmit = (mutateSupplier) => (values) => {
   // Normalize data to match schema
   const data = cloneDeepWith(values);
-  console.log({ data });
 
   // Resolve continent name
   data.continent = countries.filter(
@@ -74,6 +77,7 @@ const onSubmit = (mutateSupplier) => (values) => {
 
     // Remove file fields
     filesFields.forEach((filesField) => delete product[filesField]);
+    filesFields.forEach((filesField) => delete product[`${filesField}-id`]);
 
     return product;
   });

@@ -33,10 +33,9 @@ const filesFields = ["productImage", "packageImage", "certificateFile"];
 
 const transformSupplierDataToFormState = (supplierData) => {
   const defaultValues = cloneDeepWith(supplierData);
-  console.log({ supplierData });
 
   defaultValues[PRODUCT_FORM_FIELD_NAME] = supplierData.products
-    .map((product) => product.id)
+    .map((product) => product.typeId)
     .join(",");
 
   defaultValues.products = {
@@ -52,15 +51,15 @@ const transformSupplierDataToFormState = (supplierData) => {
       // Get file names from file object structure
       filesFields.forEach((filesField) => (product[filesField] = ""));
       product.files.forEach((element) => {
-        const { fileKind, url } = element.file;
+        const { fileKind, url, id } = element.file;
         product[fileKind] = url;
+        product[`${fileKind}-id`] = id;
       });
 
       return product;
     }),
   };
 
-  console.log({ defaultValues });
   return defaultValues;
 };
 
@@ -79,7 +78,7 @@ const Edit: Props = (props) => {
   const defaultValues = transformSupplierDataToFormState(supplierData);
 
   const mutateSupplierFn = ({ data }) => {
-    mutateSupplier({ data, id: supplierId });
+    mutateSupplier({ data: { ...data, id: supplierId }, supplierId });
   };
 
   // If no jwt is found in local storage, or its expired

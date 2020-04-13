@@ -11,7 +11,7 @@ interface Props {
 export const PRODUCT_FORM_FIELD_NAME = "productTypes";
 
 export const ProductConfigurator = (props: Props) => {
-  const { productTypes } = props;
+  const { productTypes = [] } = props;
   const { register, errors, setValue, watch } = useFormContext();
 
   useEffect(() => {

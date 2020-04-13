@@ -2,10 +2,10 @@ import { Product } from "./Supplier";
 
 export interface Filters {
   location?: Location;
-  produts?: Product[];
+  products?: Product[];
 }
 
 export const defaultFilter = {
   location: null,
-  produt: [],
+  products: [],
 };

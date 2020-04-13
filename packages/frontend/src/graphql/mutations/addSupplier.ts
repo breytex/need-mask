@@ -7,8 +7,11 @@ export const ADD_SUPPLIER = `
 `;
 
 export const UPDATE_SUPPLIER = `
-  mutation UpdateSupplier($data: suppliers_set_input, $id:uuid) {
-    update_suppliers( _set: $data, where: {id:{_eq: $id}}) {
+  mutation MyMutation($data: [suppliers_insert_input!]!, $supplierId: uuid!) {
+    delete_suppliers(where: {id: {_eq: $supplierId}}) {
+      affected_rows
+    }
+    insert_suppliers(objects: $data) {
       affected_rows
     }
   }

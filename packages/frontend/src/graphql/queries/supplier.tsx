@@ -53,6 +53,7 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
           unit
           createdAt
           updatedAt
+          typeId
           productType {
             id
             title
@@ -62,6 +63,7 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
           }
           files {
             file {
+              id
               url
               fileType
               fileKind

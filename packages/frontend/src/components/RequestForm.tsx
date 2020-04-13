@@ -1,6 +1,6 @@
 import * as React from "react";
 import Form from "./chakra/form/Form";
-import { Box, Button } from "@chakra-ui/core/dist";
+import { Box, Button, Flex } from "@chakra-ui/core/dist";
 import { Product } from "../types/Product";
 import { ADD_REQUEST } from "../graphql/mutations/addRequest";
 import SuccessMessage from "./chakra/SuccessMessage";
@@ -8,7 +8,6 @@ import { Spinner } from "./chakra/Spinner";
 import RequestedProduct from "./request-form/RequestedProduct";
 import ContactDetails from "./request-form/ContactDetails";
 import ContactAddress from "./request-form/ContactAddress";
-import SimpleGrid from "@chakra-ui/core/dist/SimpleGrid";
 import { useMutation } from "../hooks/useMutation";
 
 type Props = {
@@ -37,10 +36,6 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
     });
   }
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
   if (data) {
     return (
       <SuccessMessage
@@ -55,8 +50,8 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} alignItems="start">
-        <Box>
+      <Flex>
+        <Box flexGrow={1}>
           {products.map((product, index) => (
             <RequestedProduct
               key={product.id}
@@ -66,14 +61,21 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
           ))}
         </Box>
 
-        <Box bg="white" p={6}>
+        <Box ml={{ base: "0", md: "6" }} bg="white" p={6} flexGrow={2}>
           <ContactDetails id={supplerId} />
           {withAddress && <ContactAddress />}
-          <Button type="submit" isFullWidth>
+          <Button
+            type="submit"
+            isFullWidth
+            variantColor="blue"
+            size="lg"
+            mt="4"
+            isLoading={isLoading}
+          >
             Submit your request
           </Button>
         </Box>
-      </SimpleGrid>
+      </Flex>
     </Form>
   );
 };

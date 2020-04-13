@@ -16,7 +16,8 @@ import { Field } from "../chakra/form/Field";
 import { FieldRow } from "../chakra/form/FieldRow";
 import { useFormContext } from "react-hook-form";
 import UploadInput from "../chakra/UploadInput";
-
+import InputMask from "react-input-mask";
+import MyNumberInput from "../chakra/form/NumberInput";
 interface Props {
   id: string;
   title: string;
@@ -67,21 +68,11 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput
-            defaultValue={watch(`${name}.minPrice`) || 0.3}
-            precision={2}
-            step={0.1}
-          >
-            <NumberInputField
-              type="number"
-              name={`${name}.minPrice`}
-              ref={register()}
-            />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+          <MyNumberInput
+            percision={2}
+            step={0.01}
+            name={`${name}.minPrice`}
+          ></MyNumberInput>
         </Field>
         <Field
           label="Max price"
@@ -92,7 +83,7 @@ const Product = (props: Props) => {
           <NumberInput
             defaultValue={watch(`${name}.maxPrice`) || 0.3}
             precision={2}
-            step={0.1}
+            step={0.01}
           >
             <NumberInputField
               type="number"

@@ -26,7 +26,7 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
       data: {
         ...fields,
         products: {
-          data: requestedProducts.filter(Boolean).data.map((product) => ({
+          data: requestedProducts.data.filter(Boolean).map((product) => ({
             productId: product.productId,
             amount: parseInt(product.amount),
           })),
@@ -72,7 +72,6 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
           </Button>
         </Box>
       </SimpleGrid>
-      <></>
     </Form>
   );
 };

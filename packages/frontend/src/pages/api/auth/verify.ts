@@ -39,10 +39,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const jwt = sign(
     {
-      "x-hasura-default-role": "user",
-      "x-hasura-allowed-roles": ["user", "anonymous"],
-      "X-Hasura-User-Id": supplier.id,
-      "X-Hasura-Jwt-Version": "1",
+      "https://hasura.io/jwt/claims": {
+        "x-hasura-default-role": "user",
+        "x-hasura-allowed-roles": ["user", "anonymous"],
+        "X-Hasura-User-Id": supplier.id,
+        "X-Hasura-Jwt-Version": "1",
+      },
       expiresIn: ACCESS_TOKEN_EXPIRE_MS * 10,
       iss: "need-mask.com",
     },

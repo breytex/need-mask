@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect, ReactNode } from "react";
 import {
   Alert,
   AlertIcon,
@@ -10,7 +10,7 @@ import {
 interface Props {
   show: boolean;
   title: string;
-  children: string;
+  children: ReactNode;
 }
 
 export function ErrorMessage({ title, children, show }: Props): ReactElement {

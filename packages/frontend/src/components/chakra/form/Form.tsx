@@ -15,7 +15,7 @@ const formConfigs: UseFormOptions<object, ValidationContext> = {
 const Form = (props: Props) => {
   const { defaultValues, children, onSubmit } = props;
   const methods = useForm({ ...formConfigs, defaultValues });
-
+  console.log({ errors: methods.errors });
   return (
     <FormContext {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>

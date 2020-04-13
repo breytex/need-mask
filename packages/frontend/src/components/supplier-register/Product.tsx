@@ -24,7 +24,7 @@ interface Props {
 
 const Product = (props: Props) => {
   const { title, onDelete, index, id } = props;
-  const { register } = useFormContext();
+  const { register, watch } = useFormContext();
   const name = `products.data[${index}]`;
   return (
     <Box mb="6" p="4" bg="white" shadow="md" mx={{ base: "-15px", md: "0" }}>
@@ -39,7 +39,11 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput defaultValue={0.3} precision={2} step={0.1}>
+          <NumberInput
+            defaultValue={watch(`${name}.minPrice`) || 0.3}
+            precision={2}
+            step={0.1}
+          >
             <NumberInputField
               type="number"
               name={`${name}.minPrice`}
@@ -57,7 +61,11 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput defaultValue={0.3} precision={2} step={0.1}>
+          <NumberInput
+            defaultValue={watch(`${name}.maxPrice`) || 0.3}
+            precision={2}
+            step={0.1}
+          >
             <NumberInputField
               type="number"
               name={`${name}.maxPrice`}
@@ -78,7 +86,11 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput defaultValue={1000} min={1000} step={1000}>
+          <NumberInput
+            defaultValue={watch(`${name}.capacity`) || 1000}
+            min={1000}
+            step={1000}
+          >
             <NumberInputField
               type="number"
               name={`${name}.capacity`}
@@ -97,7 +109,12 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput defaultValue={14} min={1} max={28} step={1}>
+          <NumberInput
+            defaultValue={watch(`${name}.leadTime`) || 14}
+            min={1}
+            max={28}
+            step={1}
+          >
             <NumberInputField
               type="number"
               name={`${name}.leadTime`}
@@ -116,7 +133,11 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput defaultValue={1000} min={1000} step={1000}>
+          <NumberInput
+            defaultValue={watch(`${name}.minOrderAmount`) || 1000}
+            min={1000}
+            step={1000}
+          >
             <NumberInputField
               type="number"
               name={`${name}.minOrderAmount`}

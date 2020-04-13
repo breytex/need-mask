@@ -3,7 +3,10 @@ import React, { useState, useRef } from "react";
 type FileUploadResponse = {
   fileName: string;
 };
-type IUseFileUpload = (props?: {}) => {
+type IUseFileUpload = (
+  maxFileSizeMB?: number,
+  defaultValue?: string
+) => {
   onChange: any;
   isLoading: boolean;
   error: string;
@@ -11,8 +14,11 @@ type IUseFileUpload = (props?: {}) => {
   reset: () => void;
 };
 
-const useFileUpload: IUseFileUpload = (maxFileSizeMB: number = 5) => {
-  const [fileName, setFileName] = useState("");
+const useFileUpload: IUseFileUpload = (
+  maxFileSizeMB = 5,
+  defaultValue = ""
+) => {
+  const [fileName, setFileName] = useState(defaultValue);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 

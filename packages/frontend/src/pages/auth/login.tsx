@@ -22,6 +22,7 @@ const Login: Props = (props) => {
     "/api/auth/request"
   );
   const router = useRouter();
+  const { supplierId } = router.query;
 
   const checkResponse = async (data) => {
     if (data.status !== 200) {
@@ -29,7 +30,8 @@ const Login: Props = (props) => {
       setError(response);
       return;
     }
-    router.push(`/auth/verify?email=${email}`);
+    const queryParam = supplierId ? `&supplierId=${supplierId}` : "";
+    router.push(`/auth/verify?email=${email}${queryParam}`);
   };
 
   useEffect(() => {

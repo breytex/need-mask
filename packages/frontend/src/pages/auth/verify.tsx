@@ -25,7 +25,7 @@ const Verify: Props = (props) => {
   );
   const [_, setAccessToken] = useLocalStorage("accessToken", {});
   const router = useRouter();
-  const { email } = router.query;
+  const { email, supplierId } = router.query;
 
   const checkResponse = async (data) => {
     if (data.status !== 200) {
@@ -38,7 +38,8 @@ const Verify: Props = (props) => {
       jwt: response.jwt,
       expire: new Date().getTime() + ACCESS_TOKEN_EXPIRE_MS,
     });
-    router.push("/suppliers/edit");
+    const queryParam = supplierId ? `?supplierId=${supplierId}` : "";
+    router.push(`/suppliers/edit${queryParam}`);
   };
 
   useEffect(() => {

@@ -20,7 +20,6 @@ export const urqlConfig = {
   fetch,
   fetchOptions: {
     headers: {
-      "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
       Authorization,
     },
   },

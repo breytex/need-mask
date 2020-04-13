@@ -29,17 +29,18 @@ const SiteHeader: React.FC = () => {
 
         <Flex align="center">
           <Box m={2}>
-            <Button variant="outline" onClick={() => router.push("/suppliers")}>
-              Need
-            </Button>
+            <Link href="/suppliers">
+              <a>
+                <Button variant="outline">Need</Button>
+              </a>
+            </Link>
           </Box>
           <Box ml={2}>
-            <Button
-              variantColor="blue"
-              onClick={() => router.push("/suppliers/register")}
-            >
-              Supply
-            </Button>
+            <Link href="/suppliers/register">
+              <a>
+                <Button variantColor="blue">Supply</Button>
+              </a>
+            </Link>
           </Box>
         </Flex>
       </Flex>

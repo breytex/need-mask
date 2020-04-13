@@ -112,9 +112,7 @@ const Home: NextPage<Props> = (props) => {
 };
 
 export async function getServerSideProps() {
-  const response = await graphQuery<CapacityResponse>({
-    query: GET_CAPACITY_PER_PRODUCT,
-  });
+  const response = await graphQuery<CapacityResponse>(GET_CAPACITY_PER_PRODUCT);
   const {
     data: {
       productTypes_aggregate: { nodes },

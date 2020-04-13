@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-export async function graphQuery(query, variables?) {
+export async function graphQuery<T>(query, variables?): Promise<T> {
   try {
     const res = await fetch(process.env.HASURA_URL, {
       method: "POST",

@@ -3,24 +3,29 @@ import { NextApiResponse, NextApiRequest } from "next";
 import { graphQuery } from "../utils/graphQuery";
 import { sign } from "jsonwebtoken";
 import { ACCESS_TOKEN_EXPIRE_MS } from "../../../constants/expireTimes";
+import { Supplier } from "../../../types/Supplier";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, code } = req.body
+  const { email, code } = req.body;
   if (!email) {
-    return res.status(403).send("Email missing in request")
+    return res.status(403).send("Email missing in request");
   }
   if (!code) {
-    return res.status(403).send("Code missing in request")
+    return res.status(403).send("Code missing in request");
   }
 
-  const suppliersResponse = await graphQuery(GET_SUPPLIER_WITH_CODE, { email })
+  const suppliersResponse = await graphQuery<{
+    data: { suppliers: Supplier[] };
+  }>(GET_SUPPLIER_WITH_CODE, { email });
   if (!suppliersResponse || suppliersResponse.data.suppliers.length === 0) {
-    return res.status(404).send("Supplier not found")
+    return res.status(404).send("Supplier not found");
   }
 
   const supplier = suppliersResponse.data.suppliers[0];
   if (!supplier.loginCodes || supplier.loginCodes.length === 0) {
-    return res.status(404).send("Could not find supplier with that email and code")
+    return res
+      .status(404)
+      .send("Could not find supplier with that email and code");
   }
 
   const loginCode = supplier.loginCodes[0];
@@ -29,7 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const now = new Date().getTime();
   const expireMS = 1000 * 60 * 10; // 10 min
   if (loginCodeCreated + expireMS < now) {
-    return res.status(404).send("Code is expired")
+    return res.status(404).send("Code is expired");
   }
 
   const jwt = sign(
@@ -39,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       "X-Hasura-User-Id": supplier.id,
       "X-Hasura-Jwt-Version": "1",
       expiresIn: ACCESS_TOKEN_EXPIRE_MS,
-      "iss": "need-mask.com",
+      iss: "need-mask.com",
     },
     process.env.ACCESS_TOKEN_SECRET
   );

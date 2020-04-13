@@ -1,6 +1,6 @@
-import { Supplier } from "./Supplier";
+import { Product, Supplier } from "./Supplier";
 
-export type RequestProducts = {
+export type RequestProduct = {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -9,6 +9,7 @@ export type RequestProducts = {
   amount: number;
   request?: SupplierRequest;
   supplier: Supplier;
+  product: Product;
 };
 
 export type SupplierRequest = {
@@ -26,5 +27,5 @@ export type SupplierRequest = {
   createdAt: string;
   updatedAt: string;
   phoneNumber: string;
-  products?: RequestProducts[];
+  products?: RequestProduct[];
 };

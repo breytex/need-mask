@@ -10,7 +10,7 @@ type Props = {
 const SiteHero: React.FC<Props> = ({ title, description }) => {
   return (
     <Box
-      mb={{ base: "4", md: "12", lg: "20" }}
+      mb={{ base: 4, md: 12, lg: 24 }}
       mx="auto"
       textAlign="center"
       maxWidth="600px"

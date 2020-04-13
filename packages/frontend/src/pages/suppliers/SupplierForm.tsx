@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Button, Box, Text } from "@chakra-ui/core";
+import { Button, Box, Text, Flex } from "@chakra-ui/core";
 import { ErrorMessage } from "../../components/chakra/ErrorMessage";
 import Form from "../../components/chakra/form/Form";
 import { Section } from "../../components/chakra/form/Section";
@@ -104,7 +104,7 @@ const SupplierForm = (props: Props) => {
   };
 
   return (
-    <Box maxW="800px" mx="auto">
+    <Box maxW="1150px" mx="auto">
       <Box>
         <a ref={errorBoxRef}></a>
         <ErrorMessage show={!!error} title="Oh no!">
@@ -121,23 +121,37 @@ const SupplierForm = (props: Props) => {
           </React.Fragment>
         </ErrorMessage>
         <Form onSubmit={onSubmitFn} defaultValues={defaultValues}>
-          <Section title="Contact details">
-            <ContactDetails />
-          </Section>
-          <Section title="Company address">
-            <CompanyAddress skipAlgolia={!!defaultValues} />
-          </Section>
-          <Section title="Product portfolio">
-            <ProductConfigurator productTypes={productTypes} />
-          </Section>
-          <Button
-            type="submit"
-            variantColor="blue"
-            mt="8"
-            isLoading={isLoading}
+          <Flex
+            flexDirection={{ base: "column", md: "row" }}
+            justify={{ base: "flex-start", md: "space-around" }}
           >
-            Send application
-          </Button>
+            <Box w={{ base: "100%", md: "48%" }} bg="white" shadow="md" p="6">
+              <Section title="Product portfolio">
+                <ProductConfigurator productTypes={productTypes} />
+              </Section>
+            </Box>
+
+            <Box bg="white" shadow="md" p="6" w={{ base: "100%", md: "48%" }}>
+              <Section title="Contact details" mb="6">
+                <ContactDetails />
+              </Section>
+              <Section title="Company address">
+                <CompanyAddress skipAlgolia={!!defaultValues} />
+              </Section>
+            </Box>
+          </Flex>
+          <Flex justify="center">
+            <Button
+              mx="auto"
+              type="submit"
+              variantColor="blue"
+              mt={{ base: "5", md: "10" }}
+              isLoading={isLoading}
+              size="lg"
+            >
+              Send application
+            </Button>
+          </Flex>
         </Form>
       </Box>
     </Box>

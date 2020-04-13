@@ -1,14 +1,15 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Text, Box } from "@chakra-ui/core";
 import { BorderHeadline } from "../BorderHeadline";
 interface Props {
-  children: string;
+  children: ReactNode;
   title: string;
+  mb?: string;
 }
 
-export const Section = ({ children, title }) => (
-  <React.Fragment>
+export const Section = ({ children, title, mb }: Props) => (
+  <Box mb={mb}>
     <BorderHeadline>{title}</BorderHeadline>
-    <Box px={{ base: "0", md: "30px" }}>{children}</Box>
-  </React.Fragment>
+    <Box>{children}</Box>
+  </Box>
 );

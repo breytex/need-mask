@@ -71,8 +71,8 @@ export const CompanyAddress = (props: Props) => {
             <Error>Please enter a company address</Error>
           )}
           <Box mt="4">
-            <Link onClick={triggerCompanyAddress} mt="2">
-              (Enter address manually)
+            <Link onClick={triggerCompanyAddress} mt="1" color="gray.700">
+              Enter address manually
             </Link>
           </Box>
         </React.Fragment>
@@ -89,7 +89,10 @@ export const CompanyAddress = (props: Props) => {
             <Field name="houseNumber" label="Number" flexGrow={1}>
               <Input
                 name="houseNumber"
-                ref={register({ required: true, pattern: /.{3}/ })}
+                ref={register({
+                  required: true,
+                  pattern: /^[a-zA-Z\ \.]*\d+[a-zA-Z\ \.]*$/,
+                })}
               />
             </Field>
           </FieldRow>
@@ -97,14 +100,11 @@ export const CompanyAddress = (props: Props) => {
             <Field name="city" label="City" flexGrow={4}>
               <Input
                 name="city"
-                ref={register({ required: true, pattern: /.{3}/ })}
+                ref={register({ required: true, pattern: /.{2}/ })}
               />
             </Field>
             <Field name="zip" label="ZIP" flexGrow={1}>
-              <Input
-                name="zip"
-                ref={register({ required: true, pattern: /.{3}/ })}
-              />
+              <Input name="zip" ref={register({ pattern: /.{3}/ })} />
             </Field>
           </FieldRow>
           <Field name="country" label="Country" flexGrow={1}>

@@ -10,9 +10,9 @@ import {
   Button,
 } from "@chakra-ui/core";
 import { usePost } from "../../hooks/usePost";
-import { Spinner } from "../../components/chakra/Spinner";
 import { useRouter } from "next/router";
 import Error from "../../components/chakra/form/Error";
+import queryString from "query-string";
 
 type Props = NextPage;
 
@@ -23,7 +23,6 @@ const Login: Props = (props) => {
   const { trigger, isLoading, data, error, setError } = usePost(
     "/api/auth/request"
   );
-  const { supplierId } = router.query;
 
   const checkResponse = async (data) => {
     if (data.status !== 200) {
@@ -31,8 +30,9 @@ const Login: Props = (props) => {
       setError(response);
       return;
     }
-    const queryParam = supplierId ? `&supplierId=${supplierId}` : "";
-    router.push(`/auth/verify?email=${email}${queryParam}`);
+    const { supplierId } = await data.json();
+    const params = queryString.stringify({ supplierId, email });
+    router.push(`/auth/verify?${params}}`);
   };
 
   useEffect(() => {

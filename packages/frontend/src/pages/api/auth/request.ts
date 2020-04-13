@@ -35,5 +35,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   await sendMail(mailParams);
 
-  return res.end();
+  return res.end(JSON.stringify({ supplierId: supplier.id }));
 };

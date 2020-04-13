@@ -1,23 +1,31 @@
-import { useState, useEffect } from "react";
-import { graphQuery, GraphQueryProps } from "../graphql/graphQuery";
+import { useState } from "react";
+import {
+  graphQuery,
+  GraphQueryProps,
+  HasuraResponse,
+} from "../graphql/graphQuery";
 
-export const useMutation = <T,>(query: string, props: GraphQueryProps) => {
+export const useMutation = <T,>(query: string, props?: GraphQueryProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<object>(null);
-  const [data, setData] = useState<T>(null);
+  const [errors, setErrors] = useState([] as Array<Error>);
+  const [data, setData] = useState(null as T);
 
-  const trigger = async (variables): Promise<T> => {
+  const trigger = (variables: { [key: string]: any }) => {
     setIsLoading(true);
-    let data;
-    try {
-      data = await graphQuery<T>(query, variables, { ...props });
-      setData(data);
-    } catch (e) {
-      setError(e);
-    }
-    setIsLoading(false);
-    return data;
+    return graphQuery<HasuraResponse<T>>(query, variables, { ...props })
+      .then(({ data, errors = [] }) => {
+        setData(data);
+        setErrors(
+          errors.map((error) => ({
+            name: error.extensions.code,
+            message: error.message,
+          }))
+        );
+        setIsLoading(false);
+        return { data, errors };
+      })
+      .catch((error) => setErrors([error]));
   };
 
-  return [trigger, data, isLoading, error];
+  return { trigger, data, isLoading, errors };
 };

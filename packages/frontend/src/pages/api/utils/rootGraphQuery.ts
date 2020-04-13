@@ -11,11 +11,11 @@ export const rootGraphQuery = <T>(
   variables?: object,
   props?: GraphQueryProps
 ) => {
-  const { additionalHeaders, ...rest } = props;
+  const { headers = {}, ...rest } = props || {};
 
   const queryProps = {
     ...rest,
-    additionalHeaders: { ...additionalHeaders, ...adminHeader },
+    headers: { ...headers, ...adminHeader },
   };
 
   return graphQuery<T>(query, variables, queryProps);

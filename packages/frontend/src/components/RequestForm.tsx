@@ -2,7 +2,6 @@ import * as React from "react";
 import Form from "./chakra/form/Form";
 import { Box, Button } from "@chakra-ui/core/dist";
 import { Product } from "../types/Product";
-import { useMutation } from "urql";
 import { ADD_REQUEST } from "../graphql/mutations/addRequest";
 import SuccessMessage from "./chakra/SuccessMessage";
 import { Spinner } from "./chakra/Spinner";
@@ -10,6 +9,7 @@ import RequestedProduct from "./request-form/RequestedProduct";
 import ContactDetails from "./request-form/ContactDetails";
 import ContactAddress from "./request-form/ContactAddress";
 import SimpleGrid from "@chakra-ui/core/dist/SimpleGrid";
+import { useMutation } from "../hooks/useMutation";
 
 type Props = {
   supplerId: string;
@@ -18,7 +18,9 @@ type Props = {
 };
 
 const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
-  const [{ fetching, data }, mutateRequest] = useMutation(ADD_REQUEST);
+  const { trigger: mutateRequest, data, isLoading } = useMutation<any>(
+    ADD_REQUEST
+  );
 
   function onSubmit(d) {
     const { requestedProducts, ...fields } = d;
@@ -35,7 +37,7 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
     });
   }
 
-  if (fetching) {
+  if (isLoading) {
     return <Spinner />;
   }
 

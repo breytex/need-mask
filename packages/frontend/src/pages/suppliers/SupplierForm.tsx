@@ -108,17 +108,17 @@ const SupplierForm = (props: Props) => {
     <Box mx="auto">
       <Box>
         <a ref={errorBoxRef}></a>
-        <ErrorMessage show={!!error} title="Oh no!">
+        <ErrorMessage show={error.length} title="Oh no!">
           <React.Fragment>
             An error happened
             <br />
-            {Object.entries(errorMapping).map(([key, value]) => {
+            {/* {Object.entries(errorMapping).map(([key, value]) => {
               if (!error || !error.message) return null;
               if (error.message.includes(key)) {
                 return <Text>{value}</Text>;
               }
               return null;
-            })}
+            })} */}
           </React.Fragment>
         </ErrorMessage>
         <Form onSubmit={onSubmitFn} defaultValues={defaultValues}>

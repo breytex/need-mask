@@ -15,9 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const suppliersResponse = await rootGraphQuery<{
-    variables: {
-      data: { suppliers: Supplier[] };
-    };
+    data: { suppliers: Supplier[] };
   }>(GET_SUPPLIER_WITH_CODE, { email });
   if (!suppliersResponse || suppliersResponse.data.suppliers.length === 0) {
     return res.status(404).send("Supplier not found");

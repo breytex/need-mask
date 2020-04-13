@@ -1,9 +1,20 @@
 import fetch from "node-fetch";
-import { checkTokenValid } from "../helpers/jwt";
 
 export interface GraphQueryProps {
-  additionalHeaders?: object;
+  headers?: object;
   auth?: boolean;
+}
+interface HasuraError {
+  extensions: {
+    code: string;
+    path: string;
+  };
+  message: string;
+}
+
+export interface HasuraResponse<T> {
+  errors: Array<HasuraError> | [];
+  data?: T;
 }
 
 export async function graphQuery<T>(
@@ -11,27 +22,20 @@ export async function graphQuery<T>(
   variables?: object,
   props?: GraphQueryProps
 ): Promise<T> {
-  const { additionalHeaders, auth = false } = props;
+  const { headers = {}, auth = false } = props || {};
 
-  let headers = { "Content-Type": "application/json", ...additionalHeaders };
-
-  if (auth && typeof window !== "undefined") {
-    let authHeaders = {};
-    const storedTokenJson = window.localStorage.getItem("accessToken");
-    if (storedTokenJson) {
-      try {
-        const storedToken = JSON.parse(storedTokenJson);
-        if (checkTokenValid(storedToken)) {
-          authHeaders = {
-            Authorization: `Bearer ${storedToken.jwt}`,
-          };
-        }
-      } catch (e) {
-        console.error(e);
-      }
+  const getAuthorization = () => {
+    if (!auth || window === undefined) return {};
+    const token = localStorage.getItem("accessToken");
+    if (!token) return {};
+    const claims = JSON.parse(atob(token.split(".")[1]));
+    const { expiresIn, iat: issuedAt } = claims;
+    if (expiresIn + issuedAt < Date.now()) {
+      localStorage.removeItem("accessToken");
+      return {};
     }
-    headers = { ...headers, ...authHeaders };
-  }
+    return { Authorization: `Bearer ${token}` };
+  };
 
   try {
     const res = await fetch(process.env.HASURA_URL, {
@@ -40,29 +44,18 @@ export async function graphQuery<T>(
         query,
         variables,
       }),
-      headers,
+      headers: {
+        "Content-Type": "application/json",
+        ...headers,
+        ...getAuthorization(),
+      },
     });
+    if (!res.ok) {
+      const text = res.text();
+      throw new Error(text);
+    }
     return await res.json();
   } catch (e) {
     throw new Error(e.message);
   }
 }
-
-// export default async (req, res) => {
-//   const hasuraProductTypes = await graphQuery(`
-//     query {
-//       productTypes {
-//         id
-//         title
-//       }
-//     }
-//   `)
-//   const {
-//     productTypes
-//   } = hasuraProductTypes.data
-//   res.send(productTypes)
-// }
-
-// export { graphQuery }
-
-// "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,

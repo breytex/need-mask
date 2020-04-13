@@ -1,10 +1,8 @@
 import * as React from "react";
 import RequestForm from "../../../components/RequestForm";
 import SiteHero from "../../../components/SiteHero";
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../../types/Supplier";
-import { NextUrqlPageContext, withUrqlClient } from "next-urql";
-import { urqlConfig } from "../../../graphql/urqlConfig";
 import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
 import {
   Breadcrumb,
@@ -12,6 +10,7 @@ import {
   BreadcrumbLink,
 } from "@chakra-ui/core/dist";
 import Link from "next/link";
+import { graphQuery } from "../../../graphql/graphQuery";
 
 type Props = {
   props: {
@@ -47,12 +46,10 @@ export const Request: NextPage<Props> = ({ props: { id, supplier } }) => {
   );
 };
 
-Request.getInitialProps = async (context: NextUrqlPageContext) => {
-  const { query, urqlClient } = context;
+Request.getInitialProps = async (context: NextPageContext) => {
+  const { query } = context;
   const id = query.id as string;
-  const { data } = await urqlClient
-    .query(GET_SUPPLIER_FN_WITH_PRODUCTS(id))
-    .toPromise();
+  const { data } = await graphQuery(GET_SUPPLIER_FN_WITH_PRODUCTS(id));
 
   return {
     props: {
@@ -62,4 +59,4 @@ Request.getInitialProps = async (context: NextUrqlPageContext) => {
   };
 };
 
-export default withUrqlClient(urqlConfig())(Request);
+export default Request;

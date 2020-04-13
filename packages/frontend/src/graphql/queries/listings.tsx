@@ -1,5 +1,5 @@
 import { Supplier } from "../../types/Supplier";
-export const LISTINGS_PER_PAGE = 3;
+export const LISTINGS_PER_PAGE = 35;
 
 // recursively add where params
 const createAndWhereFilters = (products, firstWhere = false) => {

@@ -1,11 +1,20 @@
 import * as React from "react";
+import fetch from "isomorphic-unfetch";
 import { NextPage } from "next";
 import { Box, Flex, Text, Button, Image, Heading } from "@chakra-ui/core";
 import Link from "next/link";
 import SiteHero from "../components/SiteHero";
 import ProductCapacityStats from "../components/ProductCapacityStats";
+import { GET_CAPACITY_PER_PRODUCT } from "../graphql/queries/capacity";
+import { Capacity, CapacityResponse } from "../types/Capacity";
 
-const Home: NextPage = () => {
+type Props = {
+  capacities: Capacity[];
+};
+
+const Home: NextPage<Props> = (props) => {
+  const { capacities } = props;
+
   return (
     <div>
       <SiteHero
@@ -82,8 +91,8 @@ const Home: NextPage = () => {
             </Text>
 
             <Button variantColor="blue" mx="auto">
-              <Link href="">
-                <a>I save lives</a>
+              <Link href="/donation">
+                <a>I'd like to donate</a>
               </Link>
             </Button>
           </Box>
@@ -91,15 +100,40 @@ const Home: NextPage = () => {
       </Box>
 
       <Box maxWidth="720px" mx="auto" textAlign="center">
-        <Heading size="lg" fontWeight="500" mb={12}>
+        <Heading maxWidth="520px" size="lg" fontWeight="500" mb={12} mx="auto">
           Our suppliers currently provide access to the following weekly
           capacities
         </Heading>
 
-        <ProductCapacityStats />
+        <ProductCapacityStats items={capacities} />
       </Box>
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  const response = await fetch(process.env.HASURA_URL, {
+    method: "POST",
+    body: JSON.stringify({ query: GET_CAPACITY_PER_PRODUCT }),
+  });
+
+  const jsonData: CapacityResponse = await response.json();
+  const {
+    data: {
+      productTypes_aggregate: { nodes },
+    },
+  } = jsonData;
+
+  const capacities = nodes.map((node) => ({
+    title: node.title,
+    capacity: node.products_aggregate.aggregate.sum.capacity,
+  }));
+
+  return {
+    props: {
+      capacities,
+    },
+  };
+}
 
 export default Home;

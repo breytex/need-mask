@@ -1,40 +1,15 @@
 import * as React from "react";
-import { GET_CAPACITY_PER_PRODUCT } from "../graphql/queries/capacity";
 import { Box, Heading, Image, SimpleGrid } from "@chakra-ui/core/dist";
+import { Capacity } from "../types/Capacity";
 
-type Capacity = {
-  title: string;
-  capacity: number;
+type Props = {
+  items: Capacity[];
 };
 
-export const ProductCapacityStats: React.FC = () => {
-  React.useEffect(() => {
-    fetch(process.env.HASURA_URL, {
-      method: "POST",
-      body: JSON.stringify({ query: GET_CAPACITY_PER_PRODUCT }),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        const {
-          data: {
-            productTypes_aggregate: { nodes },
-          },
-        } = json;
-
-        setCapacities(
-          nodes.map((node) => ({
-            title: node.title,
-            capacity: node.products_aggregate.aggregate.sum.capacity,
-          }))
-        );
-      });
-  }, []);
-
-  const [capacities, setCapacities] = React.useState<Capacity[]>([]);
-
+export const ProductCapacityStats: React.FC<Props> = ({ items }) => {
   return (
     <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} mx="auto" mb="24">
-      {capacities.map((capacity) => {
+      {items.map((capacity) => {
         return (
           <Box bg="white" p={8} key={capacity.title}>
             <Heading

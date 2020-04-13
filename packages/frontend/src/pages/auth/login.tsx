@@ -32,7 +32,7 @@ const Login: Props = (props) => {
     }
     const { supplierId } = await data.json();
     const params = queryString.stringify({ supplierId, email });
-    router.push(`/auth/verify?${params}}`);
+    router.push(`/auth/verify?${params}`);
   };
 
   useEffect(() => {

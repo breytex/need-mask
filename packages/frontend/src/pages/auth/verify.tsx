@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import Error from "../../components/chakra/form/Error";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { ACCESS_TOKEN_EXPIRE_MS } from "../../constants/expireTimes";
+import queryString from "query-string";
 
 type Props = NextPage;
 
@@ -38,8 +39,8 @@ const Verify: Props = (props) => {
       jwt: response.jwt,
       expire: new Date().getTime() + ACCESS_TOKEN_EXPIRE_MS,
     });
-    const queryParam = supplierId ? `?supplierId=${supplierId}` : "";
-    router.push(`/suppliers/edit${queryParam}`);
+    const params = queryString.stringify({ supplierId });
+    router.push(`/suppliers/edit?${params}`);
   };
 
   useEffect(() => {

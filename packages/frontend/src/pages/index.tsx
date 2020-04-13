@@ -4,8 +4,17 @@ import { Box, Flex, Text, Button, Image, Heading } from "@chakra-ui/core";
 import Link from "next/link";
 import SiteHero from "../components/SiteHero";
 import ProductCapacityStats from "../components/ProductCapacityStats";
+import { GET_CAPACITY_PER_PRODUCT } from "../graphql/queries/capacity";
+import { Capacity, CapacityResponse } from "../types/Capacity";
+import { graphQuery } from "./api/utils/graphQuery";
 
-const Home: NextPage = () => {
+type Props = {
+  capacities: Capacity[];
+};
+
+const Home: NextPage<Props> = (props) => {
+  const { capacities } = props;
+
   return (
     <div>
       <SiteHero
@@ -82,8 +91,8 @@ const Home: NextPage = () => {
             </Text>
 
             <Button variantColor="blue" mx="auto">
-              <Link href="">
-                <a>I save lives</a>
+              <Link href="/donation">
+                <a>I'd like to donate</a>
               </Link>
             </Button>
           </Box>
@@ -91,15 +100,35 @@ const Home: NextPage = () => {
       </Box>
 
       <Box maxWidth="720px" mx="auto" textAlign="center">
-        <Heading size="lg" fontWeight="500" mb={12}>
+        <Heading maxWidth="520px" size="lg" fontWeight="500" mb={12} mx="auto">
           Our suppliers currently provide access to the following weekly
           capacities
         </Heading>
 
-        <ProductCapacityStats />
+        <ProductCapacityStats items={capacities} />
       </Box>
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  const response = await graphQuery<CapacityResponse>(GET_CAPACITY_PER_PRODUCT);
+  const {
+    data: {
+      productTypes_aggregate: { nodes },
+    },
+  } = response;
+
+  const capacities = nodes.map((node) => ({
+    title: node.title,
+    capacity: node.products_aggregate.aggregate.sum.capacity,
+  }));
+
+  return {
+    props: {
+      capacities,
+    },
+  };
+}
 
 export default Home;

@@ -10,6 +10,7 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Button,
+  Select,
 } from "@chakra-ui/core";
 import { Field } from "../chakra/form/Field";
 import { FieldRow } from "../chakra/form/FieldRow";
@@ -21,12 +22,16 @@ interface Props {
   title: string;
   onDelete: (id) => void;
   index: number;
+  subTypes: string;
 }
 
 const Product = (props: Props) => {
-  const { title, onDelete, index, id } = props;
+  const { title, onDelete, index, id, subTypes } = props;
   const { register, watch } = useFormContext();
   const name = `products.data[${index}]`;
+
+  const titleOptions = subTypes.split(",").map((t) => t.trim());
+
   return (
     <Box mb="6" p="4" bg="white" shadow="md" mx={{ base: "-15px", md: "0" }}>
       <Box float="right">
@@ -42,6 +47,19 @@ const Product = (props: Props) => {
       <Heading fontSize="lg">
         Product {index + 1}: {title}
       </Heading>
+      <Field name={`${name}.title`} label="Product type" mt="4" isRequired>
+        <Select
+          placeholder="Select an option..."
+          name={`${name}.title`}
+          ref={register({ required: true })}
+        >
+          {titleOptions.map((option) => (
+            <option value={option} key={option}>
+              {option}
+            </option>
+          ))}
+        </Select>
+      </Field>
       <FieldRow mt="3">
         <Field
           label="Min price"
@@ -160,6 +178,7 @@ const Product = (props: Props) => {
           </NumberInput>
         </Field>
       </FieldRow>
+
       <Field
         name={`${name}.description`}
         label="Description"

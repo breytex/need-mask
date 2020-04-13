@@ -56,7 +56,7 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
           productType {
             id
             title
-            description
+            subType
             createdAt
             updatedAt
           }

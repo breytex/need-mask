@@ -4,7 +4,7 @@ export const GET_PRODUCT_TYPES = /* GraphQL */ `
   query GetProductTypes {
     productTypes {
       title
-      description
+      subTypes
       id
     }
   }

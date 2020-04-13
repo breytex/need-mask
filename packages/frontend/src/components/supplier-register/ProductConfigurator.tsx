@@ -25,18 +25,10 @@ export const ProductConfigurator = (props: Props) => {
     [rawValue]
   );
 
-  const stillAvailableProducts = useMemo(
-    () =>
-      productTypes.filter(
-        (productType) =>
-          !selectedProducts.some((product) => product === productType.id),
-        selectedProducts
-      ),
-    [selectedProducts]
-  );
-
   const onProductSelected = (event) => {
     const id = event.target.value;
+
+    if (!productTypes.some((productType) => productType.id === id)) return;
     const newValue = [...selectedProducts, id].join(",");
     setValue(PRODUCT_FORM_FIELD_NAME, newValue);
   };
@@ -61,40 +53,39 @@ export const ProductConfigurator = (props: Props) => {
       {selectedProducts.map((productId, index) => (
         <Product
           onDelete={onDelete}
-          key={"product-" + productId}
+          key={`product-${productId}-${index}`}
           index={index}
           {...productTypes.find((product) => product.id === productId)}
         />
       ))}
-      {stillAvailableProducts.length > 0 && (
-        <Flex mb="12" flexDirection="column" alignItems="center">
-          <Flex alignItems="center">
-            <Icon name="add" size="20px" />
-            <Text ml="4" fontSize="xl">
-              Add {addWording} product to your portfolio
-            </Text>
-          </Flex>
-          <Box maxW="500px">
-            <Select
-              mt="3"
-              size="lg"
-              w="300px"
-              onChange={onProductSelected}
-              value={null}
-              placeholder="Choose a product type to add..."
-            >
-              {stillAvailableProducts.map((availProduct) => (
-                <option value={availProduct.id} key={availProduct.id}>
-                  {availProduct.title}
-                </option>
-              ))}
-            </Select>
-            {errors[PRODUCT_FORM_FIELD_NAME] && (
-              <Error>Please add at least one product.</Error>
-            )}
-          </Box>
+
+      <Flex mb="12" flexDirection="column" alignItems="center">
+        <Flex alignItems="center">
+          <Icon name="add" size="20px" />
+          <Text ml="4" fontSize="xl">
+            Add {addWording} product to your portfolio
+          </Text>
         </Flex>
-      )}
+        <Box maxW="500px">
+          <Select
+            mt="3"
+            size="lg"
+            w="300px"
+            onChange={onProductSelected}
+            value={""}
+            placeholder="Choose a product type to add..."
+          >
+            {productTypes.map((type) => (
+              <option value={type.id} key={type.id}>
+                {type.title}
+              </option>
+            ))}
+          </Select>
+          {errors[PRODUCT_FORM_FIELD_NAME] && (
+            <Error>Please add at least one product.</Error>
+          )}
+        </Box>
+      </Flex>
     </React.Fragment>
   );
 };

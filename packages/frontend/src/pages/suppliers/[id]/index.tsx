@@ -21,6 +21,7 @@ import {
 import Link from "next/link";
 
 import { useRouter } from "next/router";
+import { redirect } from "../../../helpers/redirect";
 
 type Props = {
   id: string;
@@ -147,6 +148,10 @@ SupplierDetailPage.getInitialProps = async (context: NextUrqlPageContext) => {
   const { data } = await urqlClient
     .query(GET_SUPPLIER_FN_WITH_PRODUCTS(id))
     .toPromise();
+
+  if (!data || !data.suppliers_by_pk) {
+    redirect(context, "/suppliers");
+  }
 
   return {
     props: {

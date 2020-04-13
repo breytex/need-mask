@@ -1,6 +1,6 @@
+import { rootGraphQuery } from "./../utils/rootGraphQuery";
 import { GET_SUPPLIER_WITH_CODE } from "./../utils/queries";
 import { NextApiResponse, NextApiRequest } from "next";
-import { graphQuery } from "../utils/graphQuery";
 import { sign } from "jsonwebtoken";
 import { ACCESS_TOKEN_EXPIRE_MS } from "../../../constants/expireTimes";
 import { Supplier } from "../../../types/Supplier";
@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(403).send("Code missing in request");
   }
 
-  const suppliersResponse = await graphQuery<{
+  const suppliersResponse = await rootGraphQuery<{
     data: { suppliers: Supplier[] };
   }>(GET_SUPPLIER_WITH_CODE, { email });
   if (!suppliersResponse || suppliersResponse.data.suppliers.length === 0) {

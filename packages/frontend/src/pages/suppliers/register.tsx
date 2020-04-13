@@ -1,24 +1,25 @@
 import React from "react";
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 
-import { NextUrqlPageContext, withUrqlClient } from "next-urql";
 import {
   GET_PRODUCT_TYPES,
   ProductTypeResponse,
 } from "../../graphql/queries/products";
-import { urqlConfig } from "../../graphql/urqlConfig";
 
-import { useMutation } from "urql";
 import { ADD_SUPPLIER } from "../../graphql/mutations/addSupplier";
 
 import SuccessMessage from "../../components/chakra/SuccessMessage";
 import SiteHero from "../../components/SiteHero";
 import SupplierForm from "./SupplierForm";
+import { graphQuery } from "../../graphql/graphQuery";
+import { useMutation } from "../../hooks/useMutation";
 
 type Props = NextPage<ProductTypeResponse>;
 
 const Register: Props = (props) => {
-  const [{ fetching, error, data }, mutateSupplier] = useMutation(ADD_SUPPLIER);
+  const { trigger: mutateSupplier, data, isLoading, errors } = useMutation(
+    ADD_SUPPLIER
+  );
   const { productTypes } = props;
 
   if (data) {
@@ -41,21 +42,17 @@ const Register: Props = (props) => {
         description="Be part of our supplier base. In case you match a request, your contact data will be shared with the potential client."
       />
       <SupplierForm
-        error={error}
+        errors={errors}
         mutateSupplier={mutateSupplier}
         productTypes={productTypes}
-        isLoading={fetching}
+        isLoading={isLoading}
       />
     </>
   );
 };
 
-export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
-  const { urqlClient } = ctx;
-
-  const { data: productTypeData } = await urqlClient
-    .query(GET_PRODUCT_TYPES)
-    .toPromise();
+export const listingInitialProps = async function (ctx: NextPageContext) {
+  const { data: productTypeData } = await graphQuery(GET_PRODUCT_TYPES);
 
   return {
     productTypes: productTypeData.productTypes,
@@ -64,4 +61,4 @@ export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
 
 Register.getInitialProps = listingInitialProps;
 
-export default withUrqlClient(urqlConfig())(Register);
+export default Register;

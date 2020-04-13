@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 
-import { NextUrqlPageContext, withUrqlClient } from "next-urql";
 import {
   GET_PRODUCT_TYPES,
   ProductTypeResponse,
 } from "../../graphql/queries/products";
-import { urqlConfig } from "../../graphql/urqlConfig";
 
-import { useMutation, useQuery } from "urql";
 import { UPDATE_SUPPLIER } from "../../graphql/mutations/addSupplier";
 import { Spinner } from "../../components/chakra/Spinner";
 import { cloneDeepWith } from "lodash";
@@ -23,7 +20,9 @@ import { GET_FULL_SUPPLIER_WITH_PRODUCTS } from "../../graphql/queries/supplier"
 import { redirect } from "../../helpers/redirect";
 import { PRODUCT_FORM_FIELD_NAME } from "../../components/supplier-register/ProductConfigurator";
 import queryString from "query-string";
-import { checkTokenValid } from "../../helpers/jwt";
+import { graphQuery } from "../../graphql/graphQuery";
+import { useQuery } from "../../hooks/useQuery";
+import { useMutation } from "../../hooks/useMutation";
 
 type Props = NextPage<ProductTypeResponse>;
 
@@ -62,9 +61,12 @@ const transformSupplierDataToFormState = (supplierData) => {
 };
 
 const EditFormPage = (props) => {
-  const [{ fetching, error, data }, mutateSupplier] = useMutation(
-    UPDATE_SUPPLIER
-  );
+  const {
+    trigger: mutateSupplier,
+    data,
+    isLoading,
+    errors,
+  } = useMutation(UPDATE_SUPPLIER, { auth: true });
 
   const router = useRouter();
   const { supplierId, email } = router.query;
@@ -76,7 +78,7 @@ const EditFormPage = (props) => {
     mutateSupplier({ data: { ...data, id: supplierId }, supplierId });
   };
 
-  if (fetching) {
+  if (isLoading) {
     return <Spinner />;
   }
 
@@ -99,7 +101,7 @@ const EditFormPage = (props) => {
         description="Change your listing below. Our moderators will review your changes in the next 48 houres. Your listing will be offline for the meantime."
       />
       <SupplierForm
-        error={error}
+        errors={errors}
         mutateSupplier={mutateSupplierFn}
         productTypes={productTypes}
         defaultValues={defaultValues}
@@ -109,32 +111,30 @@ const EditFormPage = (props) => {
 };
 
 const Edit: Props = (props) => {
-  const [accessToken, setAccessToken, { isCsr }] = useLocalStorage(
-    "accessToken",
-    {}
-  );
+  const [_, setAccessToken, { isCsr }] = useLocalStorage("accessToken", {});
 
   const router = useRouter();
   const { supplierId, email } = router.query;
   const { productTypes } = props;
 
-  const [{ data, fetching, error }] = useQuery({
-    query: GET_FULL_SUPPLIER_WITH_PRODUCTS("" + supplierId),
-  });
+  const [data, isLoading, errors] = useQuery(
+    GET_FULL_SUPPLIER_WITH_PRODUCTS("" + supplierId),
+    { auth: true }
+  );
 
   // If no jwt is found in local storage, or request to fetch supplier data fails,
   // redirect to login page
   useEffect(() => {
     if (!isCsr) return;
-    const now = new Date().getTime();
-    if (!checkTokenValid(accessToken) || !!error) {
-      setAccessToken({});
+
+    if (errors.length) {
+      setAccessToken("");
       const params = queryString.stringify({ supplierId, email });
       router.push(`/auth/login?${params}`);
     }
-  }, [isCsr, error]);
+  }, [isCsr, errors]);
 
-  if (fetching || !data) {
+  if (isLoading || !data) {
     return <Spinner />;
   }
 
@@ -146,8 +146,8 @@ const Edit: Props = (props) => {
   );
 };
 
-export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
-  const { urqlClient, query } = ctx;
+export const listingInitialProps = async function (ctx: NextPageContext) {
+  const { query } = ctx;
   const { supplierId } = query;
 
   if (!supplierId) {
@@ -155,9 +155,7 @@ export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
     return;
   }
 
-  const { data: productTypeData } = await urqlClient
-    .query(GET_PRODUCT_TYPES)
-    .toPromise();
+  const { data: productTypeData } = await graphQuery(GET_PRODUCT_TYPES);
 
   return {
     productTypes: productTypeData.productTypes,
@@ -166,4 +164,4 @@ export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
 
 Edit.getInitialProps = listingInitialProps;
 
-export default withUrqlClient(urqlConfig(true))(Edit);
+export default Edit;

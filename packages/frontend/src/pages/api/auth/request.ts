@@ -1,9 +1,9 @@
+import { rootGraphQuery } from "./../utils/rootGraphQuery";
 import { ADD_LOGINCODE } from "./../utils/mutations";
 import { GET_SUPPLIER } from "./../utils/queries";
 import { getLoginRequestMail } from "./../../../mails/loginRequest";
 import { NextApiResponse, NextApiRequest } from "next";
 import { sendMail, SendMailParams } from "../utils/sendMail";
-import { graphQuery } from "../utils/graphQuery";
 import { Supplier } from "../../../types/Supplier";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const code = Math.max(1e5, Math.floor(Math.random() * 1e6)).toString();
   const codeString = "123456";
 
-  const suppliersResponse = await graphQuery<{
+  const suppliersResponse = await rootGraphQuery<{
     data: { suppliers: Supplier[] };
   }>(GET_SUPPLIER, { email });
   if (!suppliersResponse || suppliersResponse.data.suppliers.length === 0) {
@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const supplier = suppliersResponse.data.suppliers[0];
-  const addResponse = await graphQuery(ADD_LOGINCODE, {
+  const addResponse = await rootGraphQuery(ADD_LOGINCODE, {
     supplierId: supplier.id,
     code: codeString,
   });

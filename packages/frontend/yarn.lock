@@ -1202,6 +1202,13 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.11.1.tgz#49a2a83df9d26daacead30d0ccc8762b128d53c7"
   integrity sha512-eWQGP3qtxwL8FGneRrC5DwrJLGN4/dH1clNTuLfN81HCrxVtxRjygDTUoZJ5ASlDEeo0ppYFQjQIlXhtXpOn6g==
 
+"@types/nodemailer@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.4.0.tgz#d8c039be3ed685c4719a026455555be82c124b74"
+  integrity sha512-KY7bFWB0MahRZvVW4CuW83qcCDny59pJJ0MQ5ifvfcjNwPlIT0vW4uARO4u1gtkYnWdhSvURegecY/tzcukJcA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -4666,10 +4673,10 @@ query-string@^4.1.0:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
-query-string@^6.12.0:
-  version "6.12.0"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.12.0.tgz#fa0fe5b3ddf4d040d1236b80672949ab33d5cf80"
-  integrity sha512-aoiFW9ZU7jP8Itjqfpw80Qe7RoyCIhFrW522sdsp9LG92pat6CCG3d8qNZBaUi71FsEjIfLjx9Ky347FtVoqXA==
+query-string@^6.12.1:
+  version "6.12.1"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.12.1.tgz#2ae4d272db4fba267141665374e49a1de09e8a7c"
+  integrity sha512-OHj+zzfRMyj3rmo/6G8a5Ifvw3AleL/EbcHMD27YA31Q+cO5lfmQxECkImuNVjcskLcvBRVHNAB3w6udMs1eAA==
   dependencies:
     decode-uri-component "^0.2.0"
     split-on-first "^1.0.0"
@@ -4752,10 +4759,10 @@ react-focus-lock@^2.2.1:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
-react-hook-form@^5.3.1:
-  version "5.3.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-5.3.1.tgz#96b6f26d823d008e22a6f4ab85628a82d2f0b52e"
-  integrity sha512-n73nVyBaTBL4r2//6ZWi5x41ZYsKRtrqbNf40KILv4XrNO/DQbzFRdr/s53Ua+M0y76TKS3xmOEnk6hWhVTR/w==
+react-hook-form@^5.4.1:
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-5.4.1.tgz#165ba810839ebfada5d0fc52c4ca3a154553366f"
+  integrity sha512-CxuJsmhlK/AMRm1tuI04ZUanAvy5+fx1gNjQWpvePAkFz0kNI0ie0UOMv8KgWBiyyTHHp1j+aSxiYdZuI/yXyw==
 
 react-is@16.8.6:
   version "16.8.6"

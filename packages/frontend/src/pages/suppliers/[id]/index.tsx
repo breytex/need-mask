@@ -1,12 +1,10 @@
 import * as React from "react";
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../../types/Supplier";
 import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
-import { NextUrqlPageContext, withUrqlClient } from "next-urql";
-import { urqlConfig } from "../../../graphql/urqlConfig";
 import {
-  SimpleGrid,
   Image,
+  SimpleGrid,
   Flex,
   Box,
   Heading,
@@ -22,6 +20,7 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 import { redirect } from "../../../helpers/redirect";
+import { graphQuery } from "../../../graphql/graphQuery";
 import SemiBoldTitle from "../../../components/chakra/SemiBoldTitle";
 import { getProductIconUrl } from "../../../helpers/getProductIcon";
 
@@ -79,7 +78,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
             return (
               <Flex key={id}>
                 <Box mr={2} width="100px">
-                  <img
+                  <Image
                     src={getProductIconUrl(title, productType.title)}
                     alt=""
                     width="100"
@@ -138,12 +137,11 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
   );
 };
 
-SupplierDetailPage.getInitialProps = async (context: NextUrqlPageContext) => {
-  const { query, urqlClient } = context;
+SupplierDetailPage.getInitialProps = async (context: NextPageContext) => {
+  const { query } = context;
   const id = query.id as string;
-  const { data } = await urqlClient
-    .query(GET_SUPPLIER_FN_WITH_PRODUCTS(id))
-    .toPromise();
+
+  const { data } = await graphQuery(GET_SUPPLIER_FN_WITH_PRODUCTS(id));
 
   if (!data || !data.suppliers_by_pk) {
     redirect(context, "/suppliers");
@@ -157,4 +155,4 @@ SupplierDetailPage.getInitialProps = async (context: NextUrqlPageContext) => {
   };
 };
 
-export default withUrqlClient(urqlConfig())(SupplierDetailPage);
+export default SupplierDetailPage;

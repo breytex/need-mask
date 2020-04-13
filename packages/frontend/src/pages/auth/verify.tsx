@@ -35,10 +35,7 @@ const Verify: Props = (props) => {
       return;
     }
     const response = await data.json();
-    setAccessToken({
-      jwt: response.jwt,
-      expire: new Date().getTime() + ACCESS_TOKEN_EXPIRE_MS,
-    });
+    setAccessToken(response.jwt);
     const params = queryString.stringify({ supplierId });
     router.push(`/suppliers/edit?${params}`);
   };

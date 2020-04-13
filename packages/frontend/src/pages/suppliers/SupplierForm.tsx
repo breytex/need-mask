@@ -30,12 +30,9 @@ export const filesFields = ["productImage", "packageImage", "certificateFile"];
 
 const addImageFile = (product, fieldName, array) => {
   if (product[fieldName]) {
-    console.log({ FOO: product[`${fieldName}-id`] });
     if (product[`${fieldName}-id`] && product[`${fieldName}-id`] !== "") {
-      console.log("a");
       array.push({ fileId: product[`${fieldName}-id`] });
     } else {
-      console.log("b");
       array.push({
         file: {
           data: {
@@ -51,7 +48,6 @@ const addImageFile = (product, fieldName, array) => {
 const onSubmit = (mutateSupplier) => (values) => {
   // Normalize data to match schema
   const data = cloneDeepWith(values);
-  console.log({ data });
 
   // Resolve continent name
   data.continent = countries.filter(

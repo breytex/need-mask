@@ -30,14 +30,14 @@ const SiteHeader: React.FC = () => {
         <Flex align="center">
           <Box m={2}>
             <Link href="/suppliers">
-              <a>
+              <a style={{ display: "inline-block" }}>
                 <Button variant="outline">Need</Button>
               </a>
             </Link>
           </Box>
           <Box ml={2}>
             <Link href="/suppliers/register">
-              <a>
+              <a style={{ display: "inline-block" }}>
                 <Button variantColor="blue">Supply</Button>
               </a>
             </Link>

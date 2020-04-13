@@ -4,7 +4,6 @@ export const ADD_LOGINCODE = `
   }
 `;
 
-
 export const UPDATE_FILE_URL = `
   mutation UpdateFileURL($fileId: uuid!, $newURL: String!) {
     update_files(
@@ -17,4 +16,4 @@ export const UPDATE_FILE_URL = `
       }
     }
   }
-`
+`;

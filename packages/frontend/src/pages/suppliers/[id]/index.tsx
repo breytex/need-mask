@@ -14,14 +14,13 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Button,
   Divider,
+  Button,
 } from "@chakra-ui/core/dist";
 
-import { useRouter } from "next/router";
 import Link from "next/link";
-import RequestForm from "../../../components/RequestForm";
-import Input from "@chakra-ui/core/dist/Input";
+
+import { useRouter } from "next/router";
 
 type Props = {
   id: string;
@@ -31,6 +30,8 @@ type Props = {
 const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
   const router = useRouter();
   const { id, supplier } = props;
+
+  console.log(router);
 
   return (
     <>
@@ -133,12 +134,10 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
 
       <Divider my={8} />
 
-      <Heading fontWeight="600" size="lg" mb={12} textAlign="center">
-        Request product information
-      </Heading>
-
-      <Box maxWidth="500px" mx="auto">
-        <RequestForm products={supplier.products} supplerId={id} />
+      <Box maxWidth="500px" mx="auto" textAlign="center">
+        <Button onClick={() => router.push(`${router.asPath}/request`)}>
+          Request product information
+        </Button>
       </Box>
     </>
   );

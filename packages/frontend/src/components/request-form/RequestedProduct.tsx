@@ -21,14 +21,21 @@ type Props = {
 };
 
 const RequestedProduct: React.FC<Props> = ({ index, product }) => {
-  const { capacity, productType, id, title, minOrderAmount } = product;
+  const {
+    capacity,
+    productType,
+    id,
+    title,
+    minOrderAmount,
+    leadTime,
+  } = product;
   const name = `requestedProducts.data[${index}]`;
 
   const [checked, check] = useState(false);
   const { register } = useFormContext();
 
   return (
-    <Box key={id} bg={checked ? "white" : "#ededf0"} p={4} mb={4}>
+    <Box key={id} bg={checked ? "white" : "#ededf0"} p={6} mb={6}>
       <FormLabel>
         <Checkbox isChecked={checked} onChange={() => check((p) => !p)}>
           {title}{" "}
@@ -72,7 +79,8 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
         textTransform="uppercase"
       >
         {capacity} Units &bull;
-        {minOrderAmount === 0 ? " No Min" : " " + minOrderAmount} MOQ
+        {minOrderAmount === 0 ? " No Min" : " " + minOrderAmount} MOQ &bull;{" "}
+        {leadTime} Days
       </Box>
     </Box>
   );

@@ -53,7 +53,7 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} alignItems="start">
         <Box>
           {products.map((product, index) => (
             <RequestedProduct
@@ -63,14 +63,16 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
             />
           ))}
         </Box>
-        <Box bg="white" p={4}>
+
+        <Box bg="white" p={6}>
           <ContactDetails id={supplerId} />
           {withAddress && <ContactAddress />}
+          <Button type="submit" isFullWidth>
+            Submit your request
+          </Button>
         </Box>
       </SimpleGrid>
-      <Button type="submit" isFullWidth>
-        Submit your request
-      </Button>
+      <></>
     </Form>
   );
 };

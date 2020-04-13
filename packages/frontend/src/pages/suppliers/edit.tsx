@@ -9,11 +9,10 @@ import {
 import { urqlConfig } from "../../graphql/urqlConfig";
 
 import { useMutation } from "urql";
-import { ADD_SUPPLIER } from "../../graphql/mutations/addSupplier";
+import { UPDATE_SUPPLIER } from "../../graphql/mutations/addSupplier";
 import { Spinner } from "../../components/chakra/Spinner";
 import { cloneDeepWith } from "lodash";
-import { countries } from "../../types/countries";
-import { stringToInt } from "../../helpers/price";
+import { intToString } from "../../helpers/price";
 
 import SuccessMessage from "../../components/chakra/SuccessMessage";
 import SiteHero from "../../components/SiteHero";
@@ -23,15 +22,52 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../graphql/queries/supplier";
 import { redirect } from "../../helpers/redirect";
 import { Supplier } from "../../types/Supplier";
-
+import { PRODUCT_FORM_FIELD_NAME } from "../../components/supplier-register/ProductConfigurator";
 interface Response extends ProductTypeResponse {
   supplierData: Supplier;
 }
 
 type Props = NextPage<Response>;
 
-const Register: Props = (props) => {
-  const [{ fetching, error, data }, mutateSupplier] = useMutation(ADD_SUPPLIER);
+const filesFields = ["productImage", "packageImage", "certificateFile"];
+
+const transformSupplierDataToFormState = (supplierData) => {
+  const defaultValues = cloneDeepWith(supplierData);
+  console.log({ supplierData });
+
+  defaultValues[PRODUCT_FORM_FIELD_NAME] = supplierData.products
+    .map((product) => product.id)
+    .join(",");
+
+  defaultValues.products = {
+    data: defaultValues.products.map((product) => {
+      // Convert 19.89€ to 1989. We save prices as integers in DB
+      product.minPrice = intToString(product.minPrice);
+      product.maxPrice = intToString(product.maxPrice);
+      // Convert amounts to numbers
+      product.leadTime = "" + product.leadTime;
+      product.capacity = "" + product.capacity;
+      product.minOrderAmount = "" + product.minOrderAmount;
+
+      // Get file names from file object structure
+      filesFields.forEach((filesField) => (product[filesField] = ""));
+      product.files.forEach((element) => {
+        const { fileKind, url } = element.file;
+        product[fileKind] = url;
+      });
+
+      return product;
+    }),
+  };
+
+  console.log({ defaultValues });
+  return defaultValues;
+};
+
+const Edit: Props = (props) => {
+  const [{ fetching, error, data }, mutateSupplier] = useMutation(
+    UPDATE_SUPPLIER
+  );
   const [accessToken, setAccessToken, { isCsr }] = useLocalStorage(
     "accessToken",
     {}
@@ -39,6 +75,12 @@ const Register: Props = (props) => {
   const router = useRouter();
   const { supplierId } = router.query;
   const { productTypes, supplierData } = props;
+
+  const defaultValues = transformSupplierDataToFormState(supplierData);
+
+  const mutateSupplierFn = ({ data }) => {
+    mutateSupplier({ data, id: supplierId });
+  };
 
   // If no jwt is found in local storage, or its expired
   // redirect to login page
@@ -56,39 +98,6 @@ const Register: Props = (props) => {
       // router.push(`/auth/login${queryParam}`);
     }
   }, [isCsr]);
-
-  const onSubmit = (values) => {
-    // Normalize data to match schema
-    const data = cloneDeepWith(values);
-    // console.log({ data });
-
-    // Combine street and number
-    data.street = `${data.street} ${data.number}`;
-    delete data.number;
-
-    // Resolve continent name
-    data.continent = countries.filter(
-      (c) => c.code === data.country
-    )[0].continent;
-
-    // Iterate all product types
-    data.products.data = data.products.data.map((product) => {
-      // Convert 19.89€ to 1989. We save prices as integers in DB
-      product.minPrice = stringToInt(product.minPrice);
-      product.maxPrice = stringToInt(product.maxPrice);
-
-      // Convert amounts to numbers
-      product.leadTime = parseInt(product.leadTime);
-      product.capacity = parseInt(product.capacity);
-      product.minOrderAmount = parseInt(product.minOrderAmount);
-
-      return product;
-    });
-
-    delete data.productTypes;
-    delete data.addressBlocker;
-    mutateSupplier({ data });
-  };
 
   if (fetching) {
     return <Spinner />;
@@ -114,9 +123,9 @@ const Register: Props = (props) => {
       />
       <SupplierForm
         error={error}
-        onSubmit={onSubmit}
+        mutateSupplier={mutateSupplierFn}
         productTypes={productTypes}
-        defaultValues={supplierData}
+        defaultValues={defaultValues}
       />
     </>
   );
@@ -150,6 +159,6 @@ export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
   };
 };
 
-Register.getInitialProps = listingInitialProps;
+Edit.getInitialProps = listingInitialProps;
 
-export default withUrqlClient(urqlConfig)(Register);
+export default withUrqlClient(urqlConfig)(Edit);

@@ -14,6 +14,7 @@ export const GET_SUPPLIER_FN = (id: string) => {
         companyName
         city
         street
+        houseNumber
         updatedAt
         vatNumber
         zip
@@ -36,6 +37,7 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
         companyName
         city
         street
+        houseNumber
         updatedAt
         vatNumber
         zip
@@ -57,6 +59,13 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
             description
             createdAt
             updatedAt
+          }
+          files {
+            file {
+              url
+              fileType
+              fileKind
+            }
           }
         }
       }

@@ -6,6 +6,14 @@ export const ADD_SUPPLIER = `
     }  
 `;
 
+export const UPDATE_SUPPLIER = `
+  mutation UpdateSupplier($data: suppliers_set_input, $id:uuid) {
+    update_suppliers( _set: $data, where: {id:{_eq: $id}}) {
+      affected_rows
+    }
+  }
+`;
+
 /*
 
 Expected format for `$data`:

@@ -32,6 +32,7 @@ export const CompanyAddress = (props: Props) => {
   const [hasSearched, setHasSearched] = useState(skipAlgolia);
 
   useEffect(() => {
+    if (skipAlgolia) return;
     register({ name: ADDRESS_BLOCKER_FIELD_NAME }, { required: true });
   }, []);
 
@@ -85,9 +86,9 @@ export const CompanyAddress = (props: Props) => {
                 ref={register({ required: true, pattern: /.{3}/ })}
               />
             </Field>
-            <Field name="number" label="Number" flexGrow={1}>
+            <Field name="houseNumber" label="Number" flexGrow={1}>
               <Input
-                name="number"
+                name="houseNumber"
                 ref={register({ required: true, pattern: /.{3}/ })}
               />
             </Field>

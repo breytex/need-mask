@@ -10,10 +10,6 @@ import { urqlConfig } from "../../graphql/urqlConfig";
 
 import { useMutation } from "urql";
 import { ADD_SUPPLIER } from "../../graphql/mutations/addSupplier";
-import { Spinner } from "../../components/chakra/Spinner";
-import { cloneDeepWith } from "lodash";
-import { countries } from "../../types/countries";
-import { stringToInt } from "../../helpers/price";
 
 import SuccessMessage from "../../components/chakra/SuccessMessage";
 import SiteHero from "../../components/SiteHero";
@@ -21,70 +17,9 @@ import SupplierForm from "./SupplierForm";
 
 type Props = NextPage<ProductTypeResponse>;
 
-const addImageFile = (product, fieldName, array) => {
-  if (product[fieldName]) {
-    array.push({
-      file: {
-        data: {
-          url: product[fieldName],
-          fileType: product[fieldName].split(".").slice(-1)[0],
-        },
-      },
-    });
-  }
-};
-
-const filesFields = ["productImage", "packageImage", "certificateFile"];
-
 const Register: Props = (props) => {
   const [{ fetching, error, data }, mutateSupplier] = useMutation(ADD_SUPPLIER);
   const { productTypes } = props;
-
-  const onSubmit = (values) => {
-    // Normalize data to match schema
-    const data = cloneDeepWith(values);
-    // console.log({ data });
-
-    // Combine street and number
-    data.street = `${data.street} ${data.number}`;
-    delete data.number;
-
-    // Resolve continent name
-    data.continent = countries.filter(
-      (c) => c.code === data.country
-    )[0].continent;
-
-    // Iterate all product types
-    data.products.data = data.products.data.map((product) => {
-      // Convert 19.89€ to 1989. We save prices as integers in DB
-      product.minPrice = stringToInt(product.minPrice);
-      product.maxPrice = stringToInt(product.maxPrice);
-
-      // Convert amounts to numbers
-      product.leadTime = parseInt(product.leadTime);
-      product.capacity = parseInt(product.capacity);
-      product.minOrderAmount = parseInt(product.minOrderAmount);
-
-      // Adding files with correct data structure
-      if (filesFields.some((filesField) => product[filesField] !== "")) {
-        product.files = {
-          data: [],
-        };
-        filesFields.forEach((fileField) =>
-          addImageFile(product, fileField, product.files.data)
-        );
-      }
-
-      // Remove file fields
-      filesFields.forEach((filesField) => delete product[filesField]);
-
-      return product;
-    });
-
-    delete data.productTypes;
-    delete data.addressBlocker;
-    mutateSupplier({ data });
-  };
 
   if (data) {
     return (
@@ -107,7 +42,7 @@ const Register: Props = (props) => {
       />
       <SupplierForm
         error={error}
-        onSubmit={onSubmit}
+        mutateSupplier={mutateSupplier}
         productTypes={productTypes}
         isLoading={fetching}
       />

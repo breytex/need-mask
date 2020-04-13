@@ -40,9 +40,12 @@ const UploadStyleWrapper = styled(Box)`
 `;
 
 const UploadInput = ({ name, isRequired = false, description }: Props) => {
-  const { onChange, error, isLoading, fileName, reset } = useFileUpload(5);
-  const { register, setValue, unregister } = useFormContext();
-
+  const { register, setValue, unregister, watch } = useFormContext();
+  let defaultValue = watch(name);
+  const { onChange, error, isLoading, fileName, reset } = useFileUpload(
+    5,
+    defaultValue
+  );
   useEffect(() => {
     register(name, { required: isRequired });
     return () => unregister(name);
@@ -68,7 +71,7 @@ const UploadInput = ({ name, isRequired = false, description }: Props) => {
       reset();
     }
   };
-
+  const cleanFileName = fileName.split("/").splice(-1)[0];
   return (
     <React.Fragment>
       {fileName && (
@@ -81,7 +84,9 @@ const UploadInput = ({ name, isRequired = false, description }: Props) => {
           >
             Delete
           </Button>
-          <Text mr="3">{fileName}</Text>
+          <Text ml="2" mt="6px">
+            {cleanFileName}
+          </Text>
         </Flex>
       )}
       {!fileName && (

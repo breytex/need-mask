@@ -6,9 +6,13 @@ import { Section } from "../../components/chakra/form/Section";
 import { ContactDetails } from "../../components/supplier-register/ContactDetails";
 import { CompanyAddress } from "../../components/supplier-register/CompanyAddress";
 import { ProductConfigurator } from "../../components/supplier-register/ProductConfigurator";
+import { Spinner } from "../../components/chakra/Spinner";
+import { cloneDeepWith } from "lodash";
+import { countries } from "../../types/countries";
+import { stringToInt } from "../../helpers/price";
 
 interface Props {
-  onSubmit: (data) => void;
+  mutateSupplier: any;
   productTypes: any;
   error: any;
   defaultValues?: object;
@@ -22,13 +26,77 @@ const errorMapping = {
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop - 300);
 
+export const filesFields = ["productImage", "packageImage", "certificateFile"];
+
+const addImageFile = (product, fieldName, array) => {
+  if (product[fieldName]) {
+    array.push({
+      file: {
+        data: {
+          url: product[fieldName],
+          fileType: product[fieldName].split(".").slice(-1)[0],
+        },
+      },
+    });
+  }
+};
+
+const onSubmit = (mutateSupplier) => (values) => {
+  // Normalize data to match schema
+  const data = cloneDeepWith(values);
+  console.log({ data });
+
+  // Resolve continent name
+  data.continent = countries.filter(
+    (c) => c.code === data.country
+  )[0].continent;
+
+  // Iterate all product types
+  data.products.data = data.products.data.map((product) => {
+    // Convert 19.89€ to 1989. We save prices as integers in DB
+    product.minPrice = stringToInt(product.minPrice);
+    product.maxPrice = stringToInt(product.maxPrice);
+
+    // Convert amounts to numbers
+    product.leadTime = parseInt(product.leadTime);
+    product.capacity = parseInt(product.capacity);
+    product.minOrderAmount = parseInt(product.minOrderAmount);
+
+    // Adding files with correct data structure
+    if (filesFields.some((filesField) => product[filesField] !== "")) {
+      product.files = {
+        data: [],
+      };
+      filesFields.forEach((fileField) =>
+        addImageFile(product, fileField, product.files.data)
+      );
+    }
+
+    // Remove file fields
+    filesFields.forEach((filesField) => delete product[filesField]);
+
+    return product;
+  });
+
+  delete data.productTypes;
+  delete data.addressBlocker;
+  delete data.id;
+  mutateSupplier({ data });
+};
+
 const SupplierForm = (props: Props) => {
-  const { onSubmit, productTypes, error, defaultValues, isLoading } = props;
+  const {
+    productTypes,
+    error,
+    defaultValues,
+    isLoading,
+    mutateSupplier,
+  } = props;
   const errorBoxRef = useRef();
 
   const onSubmitFn = (data) => {
     scrollToRef(errorBoxRef);
-    onSubmit(data);
+    onSubmit(mutateSupplier)(data);
   };
 
   return (

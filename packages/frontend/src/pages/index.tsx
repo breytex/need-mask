@@ -80,7 +80,12 @@ const Home: NextPage<Props> = (props) => {
           flexDirection={{ base: "column", md: "row" }}
         >
           <Box flex={2}>
-            <Image src="/images/social_distancing.svg" height={200} mx="auto" />
+            <Image
+              src="/images/social_distancing.svg"
+              height={200}
+              mx="auto"
+              transform="scale(-1,1)"
+            />
           </Box>
 
           <Box flex={3}>

@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
+import React, { ReactNode } from "react";
 import { FormContext, useForm, Mode, UseFormOptions } from "react-hook-form";
 import { ValidationContext } from "graphql";
 interface Props {
-  children: ReactElement[];
+  children: ReactNode;
   defaultValues?: object;
   onSubmit: (data) => void;
 }

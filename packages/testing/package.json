@@ -1,0 +1,13 @@
+{
+  "name": "testing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "cypress:run": "./node_modules/.bin/cypress run"
+  },
+  "dependencies": {
+    "cypress": "^4.3.0"
+  }
+}

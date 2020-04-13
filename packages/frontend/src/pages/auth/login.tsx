@@ -17,11 +17,12 @@ import Error from "../../components/chakra/form/Error";
 type Props = NextPage;
 
 const Login: Props = (props) => {
-  const [email, setEmail] = useState("");
+  const router = useRouter();
+  const { email: paramEmail } = router.query;
+  const [email, setEmail] = useState(paramEmail);
   const { trigger, isLoading, data, error, setError } = usePost(
     "/api/auth/request"
   );
-  const router = useRouter();
   const { supplierId } = router.query;
 
   const checkResponse = async (data) => {
@@ -55,6 +56,7 @@ const Login: Props = (props) => {
             w="300px"
             onChange={(event) => setEmail(event.target.value)}
             isDisabled={isLoading}
+            value={email}
           />
         </InputGroup>
 

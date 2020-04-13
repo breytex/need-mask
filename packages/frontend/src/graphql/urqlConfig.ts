@@ -1,4 +1,19 @@
+import { checkTokenValid } from "../helpers/jwt";
+
 const fetch = require("isomorphic-unfetch");
+
+let Authorization;
+if (typeof window !== "undefined") {
+  const storedTokenJson = window.localStorage.getItem("accessToken");
+  if (storedTokenJson) {
+    try {
+      const storedToken = JSON.parse(storedTokenJson);
+      if (checkTokenValid(storedToken)) {
+        Authorization = `Bearer ${JSON.stringify(storedToken.jwt)}`;
+      }
+    } catch (e) {}
+  }
+}
 
 export const urqlConfig = {
   url: process.env.HASURA_URL,
@@ -6,6 +21,7 @@ export const urqlConfig = {
   fetchOptions: {
     headers: {
       "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
+      Authorization,
     },
   },
 };

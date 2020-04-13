@@ -8,7 +8,7 @@ import {
 } from "../../graphql/queries/products";
 import { urqlConfig } from "../../graphql/urqlConfig";
 
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 import { UPDATE_SUPPLIER } from "../../graphql/mutations/addSupplier";
 import { Spinner } from "../../components/chakra/Spinner";
 import { cloneDeepWith } from "lodash";
@@ -21,13 +21,11 @@ import { useRouter } from "next/router";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../graphql/queries/supplier";
 import { redirect } from "../../helpers/redirect";
-import { Supplier } from "../../types/Supplier";
 import { PRODUCT_FORM_FIELD_NAME } from "../../components/supplier-register/ProductConfigurator";
-interface Response extends ProductTypeResponse {
-  supplierData: Supplier;
-}
+import queryString from "query-string";
+import { checkTokenValid } from "../../helpers/jwt";
 
-type Props = NextPage<Response>;
+type Props = NextPage<ProductTypeResponse>;
 
 const filesFields = ["productImage", "packageImage", "certificateFile"];
 
@@ -63,16 +61,13 @@ const transformSupplierDataToFormState = (supplierData) => {
   return defaultValues;
 };
 
-const Edit: Props = (props) => {
+const EditFormPage = (props) => {
   const [{ fetching, error, data }, mutateSupplier] = useMutation(
     UPDATE_SUPPLIER
   );
-  const [accessToken, setAccessToken, { isCsr }] = useLocalStorage(
-    "accessToken",
-    {}
-  );
+
   const router = useRouter();
-  const { supplierId } = router.query;
+  const { supplierId, email } = router.query;
   const { productTypes, supplierData } = props;
 
   const defaultValues = transformSupplierDataToFormState(supplierData);
@@ -80,23 +75,6 @@ const Edit: Props = (props) => {
   const mutateSupplierFn = ({ data }) => {
     mutateSupplier({ data: { ...data, id: supplierId }, supplierId });
   };
-
-  // If no jwt is found in local storage, or its expired
-  // redirect to login page
-  useEffect(() => {
-    if (!isCsr) return;
-    const now = new Date().getTime();
-    if (
-      !accessToken ||
-      !accessToken.jwt ||
-      !accessToken.expire ||
-      now > accessToken.expire
-    ) {
-      setAccessToken({});
-      const queryParam = supplierId ? `?supplierId=${supplierId}` : "";
-      // router.push(`/auth/login${queryParam}`);
-    }
-  }, [isCsr]);
 
   if (fetching) {
     return <Spinner />;
@@ -130,6 +108,44 @@ const Edit: Props = (props) => {
   );
 };
 
+const Edit: Props = (props) => {
+  const [accessToken, setAccessToken, { isCsr }] = useLocalStorage(
+    "accessToken",
+    {}
+  );
+
+  const router = useRouter();
+  const { supplierId, email } = router.query;
+  const { productTypes } = props;
+
+  const [{ data, fetching, error }] = useQuery({
+    query: GET_SUPPLIER_FN_WITH_PRODUCTS("" + supplierId),
+  });
+
+  // If no jwt is found in local storage, or request to fetch supplier data fails,
+  // redirect to login page
+  useEffect(() => {
+    if (!isCsr) return;
+    const now = new Date().getTime();
+    if (!checkTokenValid(accessToken) || !!error) {
+      setAccessToken({});
+      const params = queryString.stringify({ supplierId, email });
+      router.push(`/auth/login?${params}`);
+    }
+  }, [isCsr, error]);
+
+  if (fetching) {
+    return <Spinner />;
+  }
+
+  return (
+    <EditFormPage
+      productTypes={productTypes}
+      supplierData={data.suppliers_by_pk}
+    />
+  );
+};
+
 export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
   const { urqlClient, query } = ctx;
   const { supplierId } = query;
@@ -143,18 +159,8 @@ export const listingInitialProps = async function (ctx: NextUrqlPageContext) {
     .query(GET_PRODUCT_TYPES)
     .toPromise();
 
-  const { data: supplierData } = await urqlClient
-    .query(GET_SUPPLIER_FN_WITH_PRODUCTS("" + supplierId))
-    .toPromise();
-
-  if (!supplierData || !supplierData.suppliers_by_pk) {
-    redirect(ctx, "/suppliers");
-    return;
-  }
-
   return {
     productTypes: productTypeData.productTypes,
-    supplierData: supplierData.suppliers_by_pk,
   };
 };
 

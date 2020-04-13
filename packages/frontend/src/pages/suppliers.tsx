@@ -6,7 +6,8 @@ import {
 } from "../graphql/queries/listings";
 import { urqlConfig } from "../graphql/urqlConfig";
 import { GET_PRODUCT_TYPES } from "../graphql/queries/products";
-import { Supplier, ProductType } from "../types/Supplier";
+import { Supplier } from "../types/Supplier";
+import { ProductType } from "../types/Product";
 import { ListingPage } from "../components/Listing/ListingPage";
 
 export interface ListingResponses {

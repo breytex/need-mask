@@ -9,8 +9,8 @@ import {
   Heading,
 } from "@chakra-ui/core";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
-import { CONTINENT } from "../../types/countries";
-import { ProductType } from "../../types/Supplier";
+import { Continent } from "../../types/Geographic";
+import { ProductType } from "../../types/Product";
 import { useRouter } from "next/router";
 import { useCsr } from "../../hooks/useCsr";
 
@@ -55,7 +55,7 @@ export const FilterBox = (props: Props) => {
         maxW="350px"
         size="lg"
       >
-        {Object.entries(CONTINENT).map(([key, value]) => (
+        {Object.entries(Continent).map(([key, value]) => (
           <option value={value} key={key}>
             {value}
           </option>

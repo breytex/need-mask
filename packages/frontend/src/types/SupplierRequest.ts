@@ -1,4 +1,5 @@
-import { Product, Supplier } from "./Supplier";
+import { Supplier } from "./Supplier";
+import { Product } from './Product'
 
 export type RequestProduct = {
   id: string;

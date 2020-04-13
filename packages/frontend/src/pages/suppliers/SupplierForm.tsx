@@ -8,7 +8,7 @@ import { CompanyAddress } from "../../components/supplier-register/CompanyAddres
 import { ProductConfigurator } from "../../components/supplier-register/ProductConfigurator";
 import { Spinner } from "../../components/chakra/Spinner";
 import { cloneDeepWith } from "lodash";
-import { countries } from "../../types/countries";
+import { countries } from "../../types/Geographic";
 import { stringToInt } from "../../helpers/price";
 
 interface Props {

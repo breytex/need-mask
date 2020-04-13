@@ -1,4 +1,4 @@
-import { ProductType } from "../../types/Supplier";
+import { ProductType } from "../../types/Product";
 
 export const GET_PRODUCT_TYPES = /* GraphQL */ `
   query GetProductTypes {

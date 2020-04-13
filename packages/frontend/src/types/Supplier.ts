@@ -1,58 +1,40 @@
-export interface ProductType {
-  id: string;
-  title: string;
-  description?: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
+import { Continent } from './Geographic';
+import { Product } from './Product';
 
-export interface Product {
-  id: string;
-  capacity?: number;
-  description?: string;
-  leadTime?: number;
-  maxPrice?: number;
-  minOrderAmount?: number;
-  minPrice?: number;
-  title?: string;
-  unit?: string;
-  productType: ProductType;
-  createdAt?: number;
-  updatedAt?: number;
-}
-
-enum SupplierStatus {
+export enum SupplierStatus {
   PUBLISHED = "published", // Listing is live
   PENDING = "pending", // Listing was created and has to be moderated
-  SUSPENDED = "suspended", // Listing was suspended by user
+  SUSPENDED = "suspended", // Listing was suspended by admin
   DELETED = "deleted",
-  INACTIVE = "inactive", // Listing was suspended by admin
+  INACTIVE = "inactive", // Listing was suspended by user
   FEEDBACK = "feedback", // Listing was moderated and needs changes
 }
 
-interface LoginCode {
-  id: string;
-  createdAt: string;
-  code: string;
-  supplierId: string;
-  updatedAt: string;
+export interface Supplier {
+  id: string
+  email: string
+  firstName?: string
+  lastName?: string
+  street?: string
+  houseNumber?: string
+  zip?: string
+  city?: string
+  country?: string
+  continent?: Continent
+  companyName: string
+  vatNumber?: string
+  status: SupplierStatus
+  products: Array<Product>
+  loginCodes: Array<LoginCode>
+  updatedAt: string
+  createdAt: string
 }
 
-export interface Supplier {
-  id: string;
-  country: string;
-  companyName: string;
-  zip?: string;
-  products?: Product[];
-  city: string;
-  createdAt?: number;
-  updatedAt?: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  continent: string;
-  street: string;
-  vatNumber: string;
-  status?: SupplierStatus;
-  loginCodes: LoginCode[];
+export interface LoginCode {
+  code: string
+  id: string
+  supplier: Supplier
+  supplierId: string
+  createdAt: string
+  updatedAt: string
 }

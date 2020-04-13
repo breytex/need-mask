@@ -38,7 +38,7 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
   } = product;
   const name = `requestedProducts.data[${index}]`;
 
-  const [checked, check] = useState(false);
+  const [checked, setChecked] = useState(false);
   const { register } = useFormContext();
   console.log({ checked });
   return (
@@ -47,13 +47,9 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
       bg={checked ? "white" : "#ededf0"}
       p={6}
       mb={6}
-      onClick={
-        checked
-          ? undefined
-          : () => {
-              check(true);
-            }
-      }
+      onClick={() => {
+        setChecked(true);
+      }}
       cursor={checked ? "initial" : "pointer"}
     >
       <FormLabel>
@@ -61,15 +57,17 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
           size="lg"
           mb="2"
           isChecked={checked}
-          onChange={(event) => {
-            if (!checked) return;
-            check((p) => !p);
+          onChange={() => {
+            setChecked(!checked);
           }}
+          visibility={{ base: checked ? "visible" : "hidden" }}
         >
-          {title}{" "}
-          <Text display="inline-block" fontSize="sm">
-            ({productType.title})
-          </Text>
+          <div style={{ visibility: "visible" }}>
+            {title}{" "}
+            <Text display="inline-block" fontSize="sm">
+              ({productType.title})
+            </Text>
+          </div>
         </Checkbox>
       </FormLabel>
 

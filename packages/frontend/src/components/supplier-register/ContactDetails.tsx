@@ -13,28 +13,26 @@ export const ContactDetails = (props: Props) => {
   return (
     <React.Fragment>
       <FieldRow mt="6">
-        <Field name="firstName" label="Firstname" flexGrow={1}>
+        <Field name="firstName" label="Firstname" flexGrow={1} isRequired>
           <Input name="firstName" ref={register({ required: true })} />
         </Field>
-        <Field name="lastName" label="Lastname" flexGrow={1}>
+        <Field name="lastName" label="Lastname" flexGrow={1} isRequired>
           <Input name="lastName" ref={register({ required: true })} />
         </Field>
       </FieldRow>
       <FieldRow>
-        <Field name="companyName" label="Company name" flexGrow={1}>
-          <Input
-            name="companyName"
-            ref={register({ required: true, pattern: /.{2}/ })}
-          />
+        <Field name="companyName" label="Company name" flexGrow={1} isRequired>
+          <Input name="companyName" ref={register({ required: true })} />
         </Field>
         <Field name="vatNumber" label="Company VAT number" flexGrow={1}>
-          <Input name="vatNumber" ref={register({ pattern: /.{3}/ })} />
+          <Input name="vatNumber" ref={register()} />
         </Field>
       </FieldRow>
       <Field
         name="email"
         label="E-Mail"
         hint="You will receive a verification link to this address later"
+        isRequired
       >
         <Input
           name="email"

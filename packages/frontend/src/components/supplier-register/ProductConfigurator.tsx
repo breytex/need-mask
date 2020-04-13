@@ -67,16 +67,18 @@ export const ProductConfigurator = (props: Props) => {
         />
       ))}
       {stillAvailableProducts.length > 0 && (
-        <Box mb="12">
+        <Flex mb="12" flexDirection="column" alignItems="center">
           <Flex alignItems="center">
             <Icon name="add" size="20px" />
             <Text ml="4" fontSize="xl">
               Add {addWording} product to your portfolio
             </Text>
           </Flex>
-          <Box maxW="400px">
+          <Box maxW="500px">
             <Select
               mt="3"
+              size="lg"
+              w="300px"
               onChange={onProductSelected}
               value={null}
               placeholder="Choose a product type to add..."
@@ -91,7 +93,7 @@ export const ProductConfigurator = (props: Props) => {
               <Error>Please add at least one product.</Error>
             )}
           </Box>
-        </Box>
+        </Flex>
       )}
     </React.Fragment>
   );

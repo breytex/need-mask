@@ -104,7 +104,7 @@ const SupplierForm = (props: Props) => {
   };
 
   return (
-    <Box maxW="1150px" mx="auto">
+    <Box mx="auto">
       <Box>
         <a ref={errorBoxRef}></a>
         <ErrorMessage show={!!error} title="Oh no!">
@@ -125,14 +125,14 @@ const SupplierForm = (props: Props) => {
             flexDirection={{ base: "column", md: "row" }}
             justify={{ base: "flex-start", md: "space-around" }}
           >
-            <Box w={{ base: "100%", md: "48%" }} bg="white" shadow="md" p="6">
+            <Box w={{ base: "100%", md: "48%" }} p="6">
               <Section title="Product portfolio">
                 <ProductConfigurator productTypes={productTypes} />
               </Section>
             </Box>
 
-            <Box bg="white" shadow="md" p="6" w={{ base: "100%", md: "48%" }}>
-              <Section title="Contact details" mb="6">
+            <Box p="6" w={{ base: "100%", md: "48%" }}>
+              <Section title="Contact details" mb="8">
                 <ContactDetails />
               </Section>
               <Section title="Company address">

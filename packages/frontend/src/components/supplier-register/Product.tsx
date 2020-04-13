@@ -9,6 +9,7 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  Button,
 } from "@chakra-ui/core";
 import { Field } from "../chakra/form/Field";
 import { FieldRow } from "../chakra/form/FieldRow";
@@ -29,9 +30,18 @@ const Product = (props: Props) => {
   return (
     <Box mb="6" p="4" bg="white" shadow="md" mx={{ base: "-15px", md: "0" }}>
       <Box float="right">
-        <Icon name="close" onClick={() => onDelete(id)} mt="-5px" />
+        <Button
+          variant="outline"
+          size="sm"
+          mt="-5px"
+          onClick={() => onDelete(id)}
+        >
+          <Icon name="close" />
+        </Button>
       </Box>
-      <Heading fontSize="lg">{title}</Heading>
+      <Heading fontSize="lg">
+        Product {index + 1}: {title}
+      </Heading>
       <FieldRow mt="3">
         <Field
           label="Min price"
@@ -150,11 +160,16 @@ const Product = (props: Props) => {
           </NumberInput>
         </Field>
       </FieldRow>
-      <Field name={`${name}.description`}>
+      <Field
+        name={`${name}.description`}
+        label="Description"
+        hint="Max 500 characters"
+      >
         <Textarea
           name={`${name}.description`}
-          placeholder="Product description"
-          ref={register()}
+          ref={register({
+            maxLength: 500,
+          })}
         />
       </Field>
       <Field

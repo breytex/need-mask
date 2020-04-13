@@ -85,7 +85,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
               <Flex key={id}>
                 <Box mr={2} width="100px">
                   <img
-                    src={`https://source.unsplash.com/100x100?${productType.title}`}
+                    src={`/images/productTypes/${productType.title}.svg`}
                     alt=""
                     width="100"
                     height="100"

@@ -29,10 +29,7 @@ const SiteHeader: React.FC = () => {
 
         <Flex align="center">
           <Box m={2}>
-            <Button
-              variant="outline"
-              onClick={() => router.push("/suppliers/register")}
-            >
+            <Button variant="outline" onClick={() => router.push("/suppliers")}>
               Need
             </Button>
           </Box>

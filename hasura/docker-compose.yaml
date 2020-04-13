@@ -18,6 +18,7 @@ services:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@postgres:5432/postgres
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set "false" to disable console
       HASURA_GRAPHQL_ADMIN_SECRET: MjWr\PM\~[T9UjZB
+      HASURA_GRAPHQL_JWT_SECRET: "{\"type\":\"HS256\",\"key\":\"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\"claims_format\":\"json\",\"issuer\":\"need-mask.com\"}"
     command:
     - graphql-engine 
     - serve

@@ -45,7 +45,6 @@ export const GET_LISTINGS_FN = (products: String[], continent?: String) => {
                     minOrderAmount
                     minPrice
                     title
-                    unit
                     createdAt
                     updatedAt
                     productType {

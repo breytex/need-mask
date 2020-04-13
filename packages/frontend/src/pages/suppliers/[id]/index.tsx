@@ -80,7 +80,6 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
             minPrice,
             productType: { title: title1 },
             title,
-            unit,
           }) => {
             return (
               <Flex key={id}>
@@ -121,8 +120,6 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
                         {minPrice / 1000} EUR to {maxPrice / 1000} EUR
                       </Box>
                     ))}
-
-                  {unit && <Text>unit: {unit}</Text>}
                 </Box>
               </Flex>
             );

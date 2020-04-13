@@ -8,7 +8,6 @@ export interface Product {
   productType: ProductType
   minPrice?: number
   maxPrice?: number
-  unit?: string
   capacity: number
   minOrderAmount?: number
   leadTime?: number

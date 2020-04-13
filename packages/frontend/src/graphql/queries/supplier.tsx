@@ -50,7 +50,6 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
           minOrderAmount
           minPrice
           title
-          unit
           createdAt
           updatedAt
           typeId

@@ -1,7 +1,11 @@
 export function getProductIconUrl(
-  productTitle: string,
-  productTypeTitle: string
+  productTitle?: string,
+  productTypeTitle?: string
 ) {
+  if (!productTitle && !productTypeTitle) {
+    return "";
+  }
+
   const productType = productTypeTitle.toLowerCase();
   const title = productTitle.toLowerCase();
 

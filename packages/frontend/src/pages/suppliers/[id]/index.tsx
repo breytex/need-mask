@@ -55,8 +55,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
         </Box>
         <Box flex={1} ml={4} width="375px" mx="auto" textAlign="center">
           <Text>
-            {supplier.zip} {supplier.city}, {supplier.country},{" "}
-            {supplier.continent}
+            {supplier.city}, {supplier.country}, {supplier.continent}
           </Text>
           <Heading fontWeight="normal" as="h1" size="lg">
             {supplier.companyName}
@@ -78,14 +77,14 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
             maxPrice,
             minOrderAmount,
             minPrice,
-            productType: { title: title1 },
+            productType,
             title,
           }) => {
             return (
               <Flex key={id}>
                 <Box mr={2} width="100px">
                   <img
-                    src={`https://source.unsplash.com/100x100?${title1}`}
+                    src={`https://source.unsplash.com/100x100?${productType.title}`}
                     alt=""
                     width="100"
                     height="100"
@@ -105,7 +104,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
                       : " " + minOrderAmount}{" "}
                     MOQ
                   </Box>
-                  <Text fontSize="sm">{title1}</Text>
+                  <Text fontSize="sm">{productType.title}</Text>
                   <Heading as="h3" size="sm">
                     {title}
                   </Heading>

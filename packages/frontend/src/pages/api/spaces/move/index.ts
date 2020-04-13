@@ -1,18 +1,18 @@
+import { rootGraphQuery } from './../../utils/rootGraphQuery';
 import { UPDATE_FILE_URL } from "./../../utils/mutations";
 import { GET_FILES_BY_SUPPLIER } from "./../../utils/queries";
 import { Supplier } from "./../../../../types/Supplier";
 import File from "./../../../../types/file";
 import { s3, getEdgeUrl, getPath, bucketName, tempFolder } from "../../utils/s3";
 import { createWebhooookHandler } from "../../utils/createWebhooookHandler";
-import { graphQuery } from "../../utils/graphQuery";
 
 export default createWebhooookHandler<Supplier>(async (req, res) => {
   const { new: insertedSupplier } = req.body.event.data;
   const supplierId = insertedSupplier.id;
-  const { data: { files } } = await graphQuery<{ data: { files: File[] } }>(GET_FILES_BY_SUPPLIER, {
+  const { data: { files } } = await rootGraphQuery<{ data: { files: File[] } }>(GET_FILES_BY_SUPPLIER, {
     supplierId,
   });
-  if (!files.length) {
+  if (!files.length) { 
     return res.send("No files to move found");
   }
 
@@ -49,7 +49,7 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
       });
 
       // After it successfully copied we update our database
-      const { errors } = await graphQuery(UPDATE_FILE_URL, {
+      const { errors } = await rootGraphQuery(UPDATE_FILE_URL, {
         fileId: file.id,
         newURL: getEdgeUrl(newURL),
       });

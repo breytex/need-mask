@@ -1,3 +1,4 @@
+import { rootGraphQuery } from "./../utils/rootGraphQuery";
 import {
   RequestProduct,
   SupplierRequest,
@@ -5,7 +6,6 @@ import {
 import { authWebhook } from "../utils/authWebhook";
 import { sendMail, SendMailParams } from "../utils/sendMail";
 import { createWebhooookHandler } from "../utils/createWebhooookHandler";
-import { graphQuery } from "../utils/graphQuery";
 import { GET_REQUEST_PRODUCTS_BY_REQUEST } from "../../../graphql/queries/requestProducts";
 
 const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
@@ -18,7 +18,7 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   // todo catch error
   const {
     data: { requestProducts },
-  } = await graphQuery<{ data: { requestProducts: RequestProduct[] } }>(
+  } = await rootGraphQuery<{ data: { requestProducts: RequestProduct[] } }>(
     GET_REQUEST_PRODUCTS_BY_REQUEST,
     { requestId: id }
   );

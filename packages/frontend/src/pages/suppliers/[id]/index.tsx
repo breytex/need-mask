@@ -22,6 +22,8 @@ import Link from "next/link";
 
 import { useRouter } from "next/router";
 import { redirect } from "../../../helpers/redirect";
+import SemiBoldTitle from "../../../components/chakra/SemiBoldTitle";
+import { getProductIconUrl } from "../../../helpers/getProductIcon";
 
 type Props = {
   id: string;
@@ -34,8 +36,8 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
 
   return (
     <>
-      <Box mb={16}>
-        <Breadcrumb fontSize="sm">
+      <Box mb={4}>
+        <Breadcrumb fontSize="sm" mb="4">
           <BreadcrumbItem>
             <Link href="/suppliers">
               <BreadcrumbLink>Suppliers</BreadcrumbLink>
@@ -47,26 +49,19 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
           </BreadcrumbItem>
         </Breadcrumb>
 
-        <Box mr={4} mx="auto" mb="2">
-          <Image
-            src="https://source.unsplash.com/100x100?medical"
-            size="100px"
-            mx="auto"
-          />
-        </Box>
-        <Box flex={1} ml={4} width="375px" mx="auto" textAlign="center">
+        <Box width="375px">
           <Text>
             {supplier.city}, {supplier.country}, {supplier.continent}
           </Text>
-          <Heading fontWeight="normal" as="h1" size="lg">
+          <Heading fontWeight="semibold" as="h1" size="lg">
             {supplier.companyName}
           </Heading>
         </Box>
       </Box>
 
-      <Heading fontWeight="600" size="lg" mb={12} textAlign="center">
-        Available Products
-      </Heading>
+      <Divider my={8} />
+
+      <SemiBoldTitle>Available Products</SemiBoldTitle>
 
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4} mb={8}>
         {supplier.products.map(
@@ -85,7 +80,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
               <Flex key={id}>
                 <Box mr={2} width="100px">
                   <img
-                    src={`/images/productTypes/${productType.title.toLowerCase()}.svg`}
+                    src={getProductIconUrl(title, productType.title)}
                     alt=""
                     width="100"
                     height="100"
@@ -100,10 +95,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
                     textTransform="uppercase"
                   >
                     {capacity} Units &bull;
-                    {minOrderAmount === 0
-                      ? " No Min"
-                      : " " + minOrderAmount}{" "}
-                    MOQ
+                    {!minOrderAmount ? " No Min" : " " + minOrderAmount} MOQ
                   </Box>
                   <Text fontSize="sm">{productType.title}</Text>
                   <Heading as="h3" size="sm">
@@ -130,6 +122,10 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
       <Divider my={8} />
 
       <Box maxWidth="500px" mx="auto" textAlign="center">
+        <SemiBoldTitle>
+          Get the products you need and share your company information for a
+          quote
+        </SemiBoldTitle>
         <Button
           onClick={() =>
             router.push(`/suppliers/[id]/request`, `${router.asPath}/request`)

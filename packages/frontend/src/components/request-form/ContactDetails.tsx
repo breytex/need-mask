@@ -8,23 +8,24 @@ type Props = {
   id: string;
 };
 
+const companyNameMapping = {
+  clinic: "Clinic name",
+  doctor: "Doctor's office name",
+  publicService: "Department name",
+  other: "Company name",
+};
+
 const ContactDetails: React.FC<Props> = () => {
   const { register, watch } = useFormContext();
 
   return (
     <Box>
       <Field name="firstName" label="First Name">
-        <Input
-          name="firstName"
-          ref={register({ required: true, pattern: /.{3}/ })}
-        />
+        <Input name="firstName" ref={register({ required: true })} />
       </Field>
 
       <Field name="lastName" label="Last Name">
-        <Input
-          name="lastName"
-          ref={register({ required: true, pattern: /.{3}/ })}
-        />
+        <Input name="lastName" ref={register({ required: true })} />
       </Field>
 
       <Field name="email" label="Email">
@@ -43,7 +44,7 @@ const ContactDetails: React.FC<Props> = () => {
         <Select
           name="companyType"
           ref={register({ required: true })}
-          defaultValue="clinic"
+          placeholder="Please select..."
         >
           <option value="clinic">Clinic</option>
           <option value="doctor">Doctor</option>
@@ -52,7 +53,10 @@ const ContactDetails: React.FC<Props> = () => {
         </Select>
       </Field>
 
-      <Field name="companyName" label={(watch("companyType") || "") + ` Name`}>
+      <Field
+        name="companyName"
+        label={companyNameMapping[watch("companyType")] || "Company name"}
+      >
         <Input name="companyName" ref={register({ required: true })} />
       </Field>
     </Box>

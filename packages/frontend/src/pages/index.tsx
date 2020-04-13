@@ -62,11 +62,13 @@ const Home: NextPage<Props> = (props) => {
               here to list the protective gear that you SUPPLY
             </Paragraph>
 
-            <Button size="lg" variantColor="blue" {...marginButton}>
-              <Link href="/suppliers/register">
-                <a>I supply protective gear and masks</a>
-              </Link>
-            </Button>
+            <Link href="/suppliers/register">
+              <a style={{ display: "inline-block" }}>
+                <Button size="lg" variantColor="blue" {...marginButton}>
+                  I supply protective gear and masks
+                </Button>
+              </a>
+            </Link>
           </Box>
         </Flex>
 
@@ -88,11 +90,13 @@ const Home: NextPage<Props> = (props) => {
               supplier here.
             </Paragraph>
 
-            <Button size="lg" variantColor="blue" {...marginButton}>
-              <Link href="/suppliers">
-                <a>I need masks</a>
-              </Link>
-            </Button>
+            <Link href="/suppliers">
+              <a style={{ display: "inline-block" }}>
+                <Button size="lg" variantColor="blue" {...marginButton}>
+                  I need masks
+                </Button>
+              </a>
+            </Link>
           </Box>
           <Box flex={3}>
             <Image
@@ -131,11 +135,13 @@ const Home: NextPage<Props> = (props) => {
               protective equipment to those in need.
             </Paragraph>
 
-            <Button size="lg" variantColor="blue" {...marginButton}>
-              <Link href="/donation">
-                <a>I'd like to donate</a>
-              </Link>
-            </Button>
+            <Link href="/donation">
+              <a style={{display: 'inline-block'}}>
+                <Button size="lg" variantColor="blue" {...marginButton}>
+                  I'd like to donate
+                </Button>
+              </a>
+            </Link>
           </Box>
         </Flex> */}
       </Box>

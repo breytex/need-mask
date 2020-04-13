@@ -38,6 +38,7 @@ const addImageFile = (product, fieldName, array) => {
           data: {
             url: product[fieldName],
             fileType: product[fieldName].split(".").slice(-1)[0],
+            fileKind: fieldName,
           },
         },
       });

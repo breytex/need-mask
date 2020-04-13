@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
       const storedToken = JSON.parse(storedTokenJson);
       if (checkTokenValid(storedToken)) {
         headers = {
-          Authorization: `Bearer ${JSON.stringify(storedToken.jwt)}`,
+          Authorization: `Bearer ${storedToken.jwt}`,
         };
       }
     } catch (e) {}

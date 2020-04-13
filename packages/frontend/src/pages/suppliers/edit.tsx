@@ -134,7 +134,7 @@ const Edit: Props = (props) => {
     }
   }, [isCsr, error]);
 
-  if (fetching) {
+  if (fetching || !data) {
     return <Spinner />;
   }
 

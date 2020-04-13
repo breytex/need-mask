@@ -3,7 +3,6 @@ import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../../types/Supplier";
 import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
 import {
-  Image,
   SimpleGrid,
   Flex,
   Box,
@@ -74,16 +73,27 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
             minPrice,
             productType,
             title,
+            files,
           }) => {
             return (
               <Flex key={id}>
                 <Box mr={2} width="100px">
-                  <Image
-                    src={getProductIconUrl(title, productType.title)}
-                    alt=""
-                    width="100"
-                    height="100"
-                  />
+                  {files?.length > 0 ? (
+                    files.map((file) => (
+                      <Box key={file.id} mb="2">
+                        <a href={file.file.url} target="_blank">
+                          <img src={file.file.url} alt="" />
+                        </a>
+                      </Box>
+                    ))
+                  ) : (
+                    <img
+                      src={getProductIconUrl(title, productType?.title)}
+                      alt=""
+                      width="100"
+                      height="100"
+                    />
+                  )}
                 </Box>
                 <Box flex="1" px={2}>
                   <Box

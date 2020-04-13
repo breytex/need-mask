@@ -70,7 +70,7 @@ const Home: NextPage<Props> = (props) => {
           </Box>
         </Flex>
 
-        <Flex
+        {/* <Flex
           textAlign="center"
           mb="8rem"
           flexDirection={{ base: "column-reverse", md: "row" }}
@@ -101,7 +101,7 @@ const Home: NextPage<Props> = (props) => {
               mx="auto"
             />
           </Box>
-        </Flex>
+        </Flex> */}
 
         <Flex
           textAlign="center"

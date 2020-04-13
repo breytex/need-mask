@@ -18,7 +18,7 @@ const ProductFields: React.FC<ProductFieldsType> = ({ products }) => {
   return (
     <Box>
       {products.map((product, index) => (
-        <RequestedProduct index={index} product={product} />
+        <RequestedProduct key={product.id} index={index} product={product} />
       ))}
     </Box>
   );

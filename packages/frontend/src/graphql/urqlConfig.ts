@@ -2,14 +2,17 @@ import { checkTokenValid } from "../helpers/jwt";
 
 const fetch = require("isomorphic-unfetch");
 
-let Authorization;
+let headers = {};
 if (typeof window !== "undefined") {
   const storedTokenJson = window.localStorage.getItem("accessToken");
   if (storedTokenJson) {
     try {
       const storedToken = JSON.parse(storedTokenJson);
       if (checkTokenValid(storedToken)) {
-        Authorization = `Bearer ${JSON.stringify(storedToken.jwt)}`;
+        headers = {
+          Authorization: `Bearer ${JSON.stringify(storedToken.jwt)}`,
+          "X-Hasura-Role": "user",
+        };
       }
     } catch (e) {}
   }
@@ -20,7 +23,7 @@ export const urqlConfig = {
   fetch,
   fetchOptions: {
     headers: {
-      Authorization,
+      ...headers,
     },
   },
 };

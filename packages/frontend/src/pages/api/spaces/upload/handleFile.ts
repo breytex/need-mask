@@ -8,15 +8,15 @@ const createUploadError = ERROR_CODES.UPLOAD;
 type SupportedContentTypes = "image/png" | "image/jpeg" | "application/pdf";
 
 type handleFileReturn =
+  | ({
+      data?: undefined;
+      mimeType?: undefined;
+    } & ReturnType<typeof createUploadError>)
   | {
-    data?: undefined;
-    mimeType?: undefined;
-  } & ReturnType<typeof createUploadError>
-  | {
-    data: Buffer;
-    mimeType: SupportedContentTypes;
-    errors?: undefined
-  };
+      data: Buffer;
+      mimeType: SupportedContentTypes;
+      errors?: undefined;
+    };
 
 async function handleFile(file: MultiParty.Part): Promise<handleFileReturn> {
   if (file.byteCount > 1024 * 1024 * 5)

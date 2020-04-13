@@ -30,6 +30,14 @@ enum SupplierStatus {
   FEEDBACK = "feedback", // Listing was moderated and needs changes
 }
 
+interface LoginCode {
+  id: string;
+  createdAt: string;
+  code: string;
+  supplierId: string;
+  updatedAt: string;
+}
+
 export interface Supplier {
   id: string;
   country: string;
@@ -46,4 +54,5 @@ export interface Supplier {
   street: string;
   vatNumber: string;
   status?: SupplierStatus;
+  loginCodes: LoginCode[];
 }

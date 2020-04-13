@@ -85,7 +85,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
               <Flex key={id}>
                 <Box mr={2} width="100px">
                   <img
-                    src={`/images/productTypes/${productType.title}.svg`}
+                    src={`/images/productTypes/${productType.title.toLowerCase()}.svg`}
                     alt=""
                     width="100"
                     height="100"

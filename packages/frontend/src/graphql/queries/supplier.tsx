@@ -42,7 +42,6 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
           productType {
             id
             title
-            description
             createdAt
             updatedAt
           }
@@ -93,7 +92,6 @@ export const GET_FULL_SUPPLIER_WITH_PRODUCTS = (id: string) => {
           productType {
             id
             title
-            description
             createdAt
             updatedAt
           }

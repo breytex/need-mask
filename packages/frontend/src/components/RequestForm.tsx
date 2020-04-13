@@ -9,20 +9,7 @@ import { Spinner } from "./chakra/Spinner";
 import RequestedProduct from "./request-form/RequestedProduct";
 import ContactDetails from "./request-form/ContactDetails";
 import ContactAddress from "./request-form/ContactAddress";
-
-type ProductFieldsType = {
-  products: Product[];
-};
-
-const ProductFields: React.FC<ProductFieldsType> = ({ products }) => {
-  return (
-    <Box>
-      {products.map((product, index) => (
-        <RequestedProduct key={product.id} index={index} product={product} />
-      ))}
-    </Box>
-  );
-};
+import SimpleGrid from "@chakra-ui/core/dist/SimpleGrid";
 
 type Props = {
   supplerId: string;
@@ -66,11 +53,21 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <ContactDetails id={supplerId} />
-      {withAddress && <ContactAddress />}
-
-      <ProductFields products={products} />
-
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+        <Box>
+          {products.map((product, index) => (
+            <RequestedProduct
+              key={product.id}
+              index={index}
+              product={product}
+            />
+          ))}
+        </Box>
+        <Box bg="white" p={4}>
+          <ContactDetails id={supplerId} />
+          {withAddress && <ContactAddress />}
+        </Box>
+      </SimpleGrid>
       <Button type="submit" isFullWidth>
         Submit your request
       </Button>

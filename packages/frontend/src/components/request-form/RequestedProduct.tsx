@@ -1,6 +1,13 @@
 import * as React from "react";
 import { useState } from "react";
-import { Box, Input } from "@chakra-ui/core/dist";
+import {
+  Box,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+} from "@chakra-ui/core/dist";
 import FormLabel from "@chakra-ui/core/dist/FormLabel";
 import Checkbox from "@chakra-ui/core/dist/Checkbox";
 import Text from "@chakra-ui/core/dist/Text";
@@ -14,41 +21,59 @@ type Props = {
 };
 
 const RequestedProduct: React.FC<Props> = ({ index, product }) => {
-  const [checked, check] = useState(false);
-  const { register } = useFormContext();
+  const { capacity, productType, id, title, minOrderAmount } = product;
   const name = `requestedProducts.data[${index}]`;
 
+  const [checked, check] = useState(false);
+  const { register } = useFormContext();
+
   return (
-    <Box key={product.id}>
+    <Box key={id} bg={checked ? "white" : "#ededf0"} p={4} mb={4}>
       <FormLabel>
         <Checkbox isChecked={checked} onChange={() => check((p) => !p)}>
-          {product.title}{" "}
+          {title}{" "}
           <Text display="inline-block" fontSize="sm">
-            ({product.productType.title})
+            ({productType.title})
           </Text>
         </Checkbox>
       </FormLabel>
 
-      {checked && (
-        <>
-          <input
-            type="hidden"
-            name={`${name}.productId`}
-            value={product.id}
+      <input
+        type="hidden"
+        name={`${name}.productId`}
+        value={id}
+        ref={register({ required: true })}
+      />
+      <Field key={id} name={id}>
+        <NumberInput
+          defaultValue={0}
+          precision={0}
+          step={1000}
+          min={minOrderAmount}
+          isDisabled={!checked}
+        >
+          <NumberInputField
+            name={`${name}.amount`}
             ref={register({ required: true })}
           />
-          <Field key={product.id} name={product.id}>
-            <Input
-              type="number"
-              name={`${name}.amount`}
-              ref={register({ required: true })}
-              step={1000}
-              min={product.minOrderAmount}
-              defaultValue={product.minOrderAmount}
-            />
-          </Field>
-        </>
-      )}
+
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+      </Field>
+
+      <Box
+        color="gray.500"
+        fontWeight="semibold"
+        letterSpacing="wide"
+        fontSize="xs"
+        textTransform="uppercase"
+      >
+        {capacity} Units &bull;
+        {minOrderAmount === 0 ? " No Min" : " " + minOrderAmount} MOQ
+      </Box>
     </Box>
   );
 };

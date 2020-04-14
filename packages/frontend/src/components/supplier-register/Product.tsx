@@ -25,12 +25,13 @@ interface Props {
   onDelete: (id) => void;
   index: number;
   subTypes: string;
+  uid: string;
 }
 
 const Product = (props: Props) => {
-  const { title, onDelete, index, id, subTypes } = props;
+  const { title, onDelete, index, id, subTypes, uid } = props;
   const { register, watch, errors } = useFormContext();
-  const name = `products.data[${index}]`;
+  const name = `products.data.${uid}`;
 
   const titleOptions = subTypes.split(",").map((t) => t.trim());
 
@@ -41,7 +42,7 @@ const Product = (props: Props) => {
           variant="outline"
           size="sm"
           mt="-5px"
-          onClick={() => onDelete(id)}
+          onClick={() => onDelete(uid)}
         >
           <Icon name="close" />
         </Button>

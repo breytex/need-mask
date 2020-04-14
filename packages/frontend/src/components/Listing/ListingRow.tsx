@@ -3,9 +3,19 @@ import Link from "next/link";
 import { Box, Flex, Text, Heading, Badge } from "@chakra-ui/core";
 import { Supplier } from "../../types/Supplier";
 import { customTheme } from "../../chakra/theme";
+import { capitalize } from "lodash";
+import { Product } from "../../types/Product";
+import ProductListEntry from "./ProductListEntry";
+
 interface ComponentProps {}
 
 type Props = ComponentProps & Supplier;
+
+interface ProductListType {
+  Mask?: Product[];
+  Clothing?: Product[];
+  Headgear?: Product[];
+}
 
 const timelimitToShowNewBadge = 60 * 60 * 24 * 3; // 3 days
 const isLessOld = (date) => {
@@ -18,7 +28,7 @@ const isLessOld = (date) => {
 export const ListingRow = (props: Props) => {
   const { id, companyName, city, country, updatedAt, products } = props;
 
-  let productTypes = useMemo(() => {
+  const productTypes = useMemo(() => {
     if (!products) return [];
     const result = {};
     products.forEach((product) => {
@@ -30,6 +40,31 @@ export const ListingRow = (props: Props) => {
     return Object.keys(result);
   }, [products]);
 
+  const productsList: ProductListType = useMemo<ProductListType>(() => {
+    if (!products) return {};
+    const result: ProductListType = {};
+    products.forEach((product) => {
+      if (product.productType) {
+        const productTypeTitle = product.productType.title;
+        if (!result[productTypeTitle]) {
+          result[productTypeTitle] = [product];
+          return;
+        }
+        result[productTypeTitle] = [...result[productTypeTitle], product];
+      }
+    });
+
+    Object.entries(result).forEach(([key, value]: [string, Product[]]) => {
+      result[key] = value
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .map((p) => {
+          p.title = capitalize(p.title);
+          return p;
+        });
+    });
+    return result;
+  }, [products]);
+  console.log({ productsList });
   const showNewBadge = useMemo(() => isLessOld(updatedAt), [updatedAt]);
 
   return (
@@ -43,7 +78,7 @@ export const ListingRow = (props: Props) => {
       borderRadius="sm"
     >
       <Flex direction="row" justify="space-between">
-        <Flex direction="column">
+        <Flex direction="column" w="40%">
           <Link href={`/suppliers/[id]`} as={`/suppliers/${id}`}>
             <a>
               <Heading size="md">{companyName}</Heading>
@@ -57,6 +92,16 @@ export const ListingRow = (props: Props) => {
             )}
           </Box>
         </Flex>
+        <Box>
+          {Object.keys(productsList).map((cat) => (
+            <Text>{cat}</Text>
+          ))}
+        </Box>
+        <Box>
+          {productsList.Mask?.map((p) => (
+            <ProductListEntry {...p} />
+          ))}
+        </Box>
         {showNewBadge && (
           <Box>
             <Badge mr="2" variantColor="blue">

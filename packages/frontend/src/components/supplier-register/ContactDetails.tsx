@@ -42,14 +42,9 @@ export const ContactDetails = (props: Props) => {
       <Field
         name="web"
         label="Web address"
-        hint="You can add a link to your companies website or to your linkedin profile"
+        hint="You can add a link to your companies website or to your LinkedIn profile"
       >
-        <Input
-          name="web"
-          ref={register({
-            pattern: WEB_REGEX,
-          })}
-        />
+        <Input name="web" ref={register()} />
       </Field>
     </React.Fragment>
   );

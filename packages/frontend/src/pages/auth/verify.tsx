@@ -14,7 +14,6 @@ import { Spinner } from "../../components/chakra/Spinner";
 import { useRouter } from "next/router";
 import Error from "../../components/chakra/form/Error";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { ACCESS_TOKEN_EXPIRE_MS } from "../../constants/expireTimes";
 import queryString from "query-string";
 
 type Props = NextPage;

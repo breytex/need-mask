@@ -73,6 +73,7 @@ export const ProductConfigurator = (props: Props) => {
             w="300px"
             onChange={onProductSelected}
             value={""}
+            name="productTypeSelect"
             placeholder="Choose a product type to add..."
           >
             {productTypes.map((type) => (

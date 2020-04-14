@@ -31,8 +31,10 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-hook-form": "^5.4.1",
+    "react-input-mask": "^2.0.4",
     "react-is": "^16.13.1",
-    "sharp": "^0.25.2"
+    "sharp": "^0.25.2",
+    "text-mask-addons": "^3.8.0"
   },
   "devDependencies": {
     "@types/multiparty": "^0.0.32",

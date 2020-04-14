@@ -18,6 +18,7 @@ interface Props {
 const errorMessages = {
   pattern: "The input format is not valid.",
   required: "This field is required.",
+  min: "Please enter a value within the range.",
 };
 
 export const Field = memo(
@@ -36,6 +37,7 @@ export const Field = memo(
 
     // useTraceUpdate(props);
     const fieldError = get(errors, name, null);
+
     return (
       <Box flexGrow={flexGrow} mb={mb || "4"} mt={mt}>
         <FormControl>

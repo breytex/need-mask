@@ -128,7 +128,7 @@ const Edit: Props = (props) => {
     if (!isCsr) return;
 
     if (errors.length) {
-      setAccessToken("");
+      // setAccessToken("");
       const params = queryString.stringify({ supplierId, email });
       router.push(`/auth/login?${params}`);
     }

@@ -1,13 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import {
-  Box,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-} from "@chakra-ui/core/dist";
+import { Box } from "@chakra-ui/core/dist";
 import FormLabel from "@chakra-ui/core/dist/FormLabel";
 import Checkbox from "@chakra-ui/core/dist/Checkbox";
 import Text from "@chakra-ui/core/dist/Text";
@@ -43,21 +36,23 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
   const { register } = useFormContext();
   return (
     <>
-      <Checkbox
-        size="lg"
-        mb="2"
-        isChecked={checked}
-        onChange={() => {
-          setChecked(!checked);
-        }}
-      >
-        <div style={{ visibility: "visible" }}>
-          {title}{" "}
-          <Text display="inline-block" fontSize="sm">
-            ({productType.title})
-          </Text>
-        </div>
-      </Checkbox>
+      <FormLabel>
+        <Checkbox
+          size="lg"
+          mb="2"
+          isChecked={checked}
+          onChange={() => {
+            setChecked(!checked);
+          }}
+        >
+          <div style={{ visibility: "visible" }}>
+            {title}{" "}
+            <Text display="inline-block" fontSize="sm">
+              ({productType.title})
+            </Text>
+          </div>
+        </Checkbox>
+      </FormLabel>
       <Box
         key={id}
         bg={checked ? "white" : "#ededf0"}

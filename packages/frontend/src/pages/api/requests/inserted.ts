@@ -23,6 +23,12 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
     { requestId: id }
   );
 
+  const supplierEmail = requestProducts[0]?.supplier.email;
+  if (!supplierEmail) {
+    throw new Error("supplier email not found 😱");
+    return res.end();
+  }
+
   const subject = `${firstName} ${lastName} requested product information 📦`;
 
   const html = /* JSX */ `
@@ -49,7 +55,7 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   `;
 
   const mailParams: SendMailParams = {
-    to: data.new.email,
+    to: supplierEmail,
     subject,
     text,
     html,

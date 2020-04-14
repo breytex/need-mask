@@ -40,78 +40,75 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
 
   const [checked, setChecked] = useState(false);
   const { register } = useFormContext();
-  console.log({ checked });
   return (
-    <Box
-      key={id}
-      bg={checked ? "white" : "#ededf0"}
-      p={6}
-      mb={6}
-      onClick={() => {
-        setChecked(true);
-      }}
-      cursor={checked ? "initial" : "pointer"}
-    >
-      <FormLabel>
-        <Checkbox
-          size="lg"
-          mb="2"
-          isChecked={checked}
-          onChange={() => {
-            setChecked(!checked);
-          }}
-          visibility={{ base: checked ? "visible" : "hidden" }}
-        >
-          <div style={{ visibility: "visible" }}>
-            {title}{" "}
-            <Text display="inline-block" fontSize="sm">
-              ({productType.title})
-            </Text>
-          </div>
-        </Checkbox>
-      </FormLabel>
-
-      <input
-        type="hidden"
-        name={`${name}.productId`}
-        value={id}
-        ref={register({ required: true })}
-      />
-      <Field key={id} name={id}>
-        <InputWrapper>
-          <NumberInput
-            defaultValue={0}
-            precision={0}
-            step={1000}
-            min={minOrderAmount}
-            isDisabled={!checked}
-            cursor={"pointer"}
-          >
-            <NumberInputField
-              name={`${name}.amount`}
-              ref={register({ required: true })}
-            />
-
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-        </InputWrapper>
-      </Field>
-
-      <Box
-        color="gray.500"
-        fontWeight="semibold"
-        letterSpacing="wide"
-        fontSize="xs"
-        textTransform="uppercase"
+    <>
+      <Checkbox
+        size="lg"
+        mb="2"
+        isChecked={checked}
+        onChange={() => {
+          setChecked(!checked);
+        }}
       >
-        {capacity} Units &bull;
-        {minOrderAmount === 0 ? " No Min" : " " + minOrderAmount} MOQ &bull;{" "}
-        {leadTime} Days
+        <div style={{ visibility: "visible" }}>
+          {title}{" "}
+          <Text display="inline-block" fontSize="sm">
+            ({productType.title})
+          </Text>
+        </div>
+      </Checkbox>
+      <Box
+        key={id}
+        bg={checked ? "white" : "#ededf0"}
+        p={6}
+        mb={6}
+        onClick={() => {
+          setChecked(true);
+        }}
+        cursor={checked ? "initial" : "pointer"}
+      >
+        <input
+          type="hidden"
+          name={`${name}.productId`}
+          value={id}
+          ref={register({ required: true })}
+        />
+        <Field key={id} name={id}>
+          <InputWrapper>
+            <NumberInput
+              defaultValue={0}
+              precision={0}
+              step={1000}
+              min={minOrderAmount}
+              isDisabled={!checked}
+              cursor={"pointer"}
+            >
+              <NumberInputField
+                name={`${name}.amount`}
+                ref={register({ required: true })}
+              />
+
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </InputWrapper>
+        </Field>
+
+        <Box
+          color="gray.500"
+          fontWeight="semibold"
+          letterSpacing="wide"
+          fontSize="xs"
+          textTransform="uppercase"
+        >
+          {capacity} Units &bull;
+          {minOrderAmount === 0 ? " No Min" : " " + minOrderAmount} MOQ &bull;{" "}
+          {leadTime} Days
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

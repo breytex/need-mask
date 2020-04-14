@@ -39,7 +39,8 @@ const CurrencyInputRaw: FC<Props> = ({
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>): void => {
       const { key, keyCode } = e;
-      const isDeleteKey = keyCode === DELETE_KEY_CODE || key === "Delete";
+      const isDeleteKey =
+        keyCode === DELETE_KEY_CODE || key === "Delete" || key === "Backspace";
       if (
         (value === 0 && !VALID_FIRST.test(key)) ||
         (value !== 0 && !VALID_NEXT.test(key) && !isDeleteKey)

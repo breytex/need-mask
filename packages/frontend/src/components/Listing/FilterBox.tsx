@@ -45,7 +45,9 @@ export const FilterBox = (props: Props) => {
   const { continent, products } = router.query;
   return (
     <Flex direction="column">
-      <Headline mb="2">What products should the supplier provide?</Headline>
+      <Headline mb="2" size="md">
+        What products should the supplier provide?
+      </Headline>
       {isCsr && (
         <CheckboxGroup
           size="lg"
@@ -67,7 +69,7 @@ export const FilterBox = (props: Props) => {
           ))}
         </CheckboxGroup>
       )}
-      <Headline mt="8" mb="2">
+      <Headline mt="8" mb="2" size="md">
         Where should the supplier be located?
       </Headline>
       <Select

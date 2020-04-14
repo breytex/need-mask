@@ -18,6 +18,7 @@ import { useFormContext } from "react-hook-form";
 import UploadInput from "../chakra/UploadInput";
 import InputMask from "react-input-mask";
 import MyNumberInput from "../chakra/form/NumberInput";
+import { CurrencyInput } from "../chakra/form/CurrencyInput";
 interface Props {
   id: string;
   title: string;
@@ -30,7 +31,7 @@ const Product = (props: Props) => {
   const { title, onDelete, index, id, subTypes } = props;
   const { register, watch, errors } = useFormContext();
   const name = `products.data[${index}]`;
-  console.log({ errors });
+
   const titleOptions = subTypes.split(",").map((t) => t.trim());
 
   return (
@@ -67,50 +68,24 @@ const Product = (props: Props) => {
           name={`${name}.minPrice`}
           flexGrow={1}
           isRequired
+          hint="Minimum €0.10"
         >
-          <NumberInput
-            defaultValue={watch(`${name}.minPrice`) || 0.3}
-            precision={2}
-            step={0.01}
-          >
-            <NumberInputField
-              type="number"
-              name={`${name}.minPrice`}
-              ref={register()}
-            />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+          <CurrencyInput min={10} name={`${name}.minPrice`} />
         </Field>
         <Field
           label="Max price"
           name={`${name}.maxPrice`}
           flexGrow={1}
           isRequired
+          hint="Minimum €0.10"
         >
-          <NumberInput
-            defaultValue={watch(`${name}.maxPrice`) || 0.3}
-            precision={2}
-            step={0.01}
-          >
-            <NumberInputField
-              type="number"
-              name={`${name}.maxPrice`}
-              ref={register()}
-            />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+          <CurrencyInput min={10} name={`${name}.maxPrice`} />
         </Field>
       </FieldRow>
       <FieldRow>
         <Field
           label="Capacity"
-          hint="Amount per week"
+          hint="Per week, minimum 1000"
           name={`${name}.capacity`}
           flexGrow={1}
           isRequired
@@ -138,26 +113,17 @@ const Product = (props: Props) => {
         </Field>
         <Field
           label="Minimum order amount"
-          hint=" "
           name={`${name}.minOrderAmount`}
           flexGrow={1}
+          hint="Minimum 1000"
           isRequired
         >
-          <NumberInput
-            defaultValue={watch(`${name}.minOrderAmount`) || 1000}
+          <MyNumberInput
             min={1000}
+            defaultValue={1000}
             step={1000}
-          >
-            <NumberInputField
-              type="number"
-              name={`${name}.minOrderAmount`}
-              ref={register()}
-            />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+            name={`${name}.minOrderAmount`}
+          ></MyNumberInput>
         </Field>
       </FieldRow>
 

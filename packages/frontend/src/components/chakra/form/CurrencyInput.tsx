@@ -39,22 +39,23 @@ const CurrencyInputRaw: FC<Props> = ({
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>): void => {
       const { key, keyCode } = e;
+      const isDeleteKey = keyCode === DELETE_KEY_CODE || key === "Delete";
       if (
         (value === 0 && !VALID_FIRST.test(key)) ||
-        (value !== 0 && !VALID_NEXT.test(key) && keyCode !== DELETE_KEY_CODE)
+        (value !== 0 && !VALID_NEXT.test(key) && !isDeleteKey)
       ) {
         return;
       }
       const valueString = value.toString();
       let nextValue: number;
-      if (keyCode !== DELETE_KEY_CODE) {
-        const nextValueString: string =
-          value === 0 ? key : `${valueString}${key}`;
-        nextValue = Number.parseInt(nextValueString, 10);
-      } else {
+      if (isDeleteKey) {
         const nextValueString = valueString.slice(0, -1);
         nextValue =
           nextValueString === "" ? 0 : Number.parseInt(nextValueString, 10);
+      } else {
+        const nextValueString: string =
+          value === 0 ? key : `${valueString}${key}`;
+        nextValue = Number.parseInt(nextValueString, 10);
       }
       if (nextValue > max) {
         return;

@@ -14,6 +14,7 @@ interface Props {
   onValueChange: (value: number) => void;
   style?: CSSProperties;
   value: number;
+  onBlur: () => void;
 }
 
 const VALID_FIRST = /^[1-9]{1}$/;
@@ -25,6 +26,7 @@ const CurrencyInputRaw: FC<Props> = ({
   onValueChange,
   style = {},
   value,
+  onBlur,
 }) => {
   const valueAbsTrunc = Math.trunc(Math.abs(value));
   if (
@@ -76,6 +78,7 @@ const CurrencyInputRaw: FC<Props> = ({
       onKeyDown={handleKeyDown}
       style={style}
       value={valueDisplay}
+      onBlur={onBlur}
       size="lg"
     />
   );
@@ -85,12 +88,13 @@ export const CurrencyInput = (props) => {
   const { name, min } = props;
   const { watch, setValue, register, unregister } = useFormContext();
   const value = parseInt(watch(name)) || 0;
+  const [internalValue, setInternalValue] = useState(value);
 
-  const setValueFn = (value) => {
-    if (isNaN(value) || value < 0) {
-      setValue(name, 0);
+  const onBlur = () => {
+    if (isNaN(internalValue) || internalValue < 0) {
+      setValue(name, "0");
     }
-    setValue(name, value);
+    setValue(name, "" + internalValue);
   };
 
   useEffect(() => {
@@ -99,5 +103,11 @@ export const CurrencyInput = (props) => {
     return () => unregister(name);
   }, []);
 
-  return <CurrencyInputRaw value={value} onValueChange={setValueFn} />;
+  return (
+    <CurrencyInputRaw
+      onBlur={onBlur}
+      value={internalValue}
+      onValueChange={setInternalValue}
+    />
+  );
 };

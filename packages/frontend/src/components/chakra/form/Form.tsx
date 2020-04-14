@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { FormContext, useForm, Mode, UseFormOptions } from "react-hook-form";
 import { ValidationContext } from "graphql";
+import { watch } from "fs";
 interface Props {
   children: ReactNode;
   defaultValues?: object;
@@ -15,6 +16,7 @@ const formConfigs: UseFormOptions<object, ValidationContext> = {
 const Form = (props: Props) => {
   const { defaultValues, children, onSubmit } = props;
   const methods = useForm({ ...formConfigs, defaultValues });
+  console.log({ test: methods.watch() });
   return (
     <FormContext {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>

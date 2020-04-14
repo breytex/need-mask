@@ -15,6 +15,7 @@ import { Field } from "../chakra/form/Field";
 import { Product } from "../../types/Product";
 import { useFormContext } from "react-hook-form";
 import styled from "@emotion/styled";
+import MyNumberInput from "../chakra/form/NumberInput";
 
 const InputWrapper = styled.div`
   input:disabled {
@@ -75,24 +76,12 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
         />
         <Field key={id} name={id}>
           <InputWrapper>
-            <NumberInput
-              defaultValue={0}
-              precision={0}
+            <MyNumberInput
+              name={`${name}.amount`}
+              min={1000}
+              defaultValue={1000}
               step={1000}
-              min={minOrderAmount}
-              isDisabled={!checked}
-              cursor={"pointer"}
-            >
-              <NumberInputField
-                name={`${name}.amount`}
-                ref={register({ required: true })}
-              />
-
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
+            />
           </InputWrapper>
         </Field>
 

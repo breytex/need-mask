@@ -30,11 +30,15 @@ export async function graphQuery<T>(
     if (!token) return {};
     const claims = JSON.parse(atob(token.split(".")[1]));
     const { expiresIn, iat: issuedAt } = claims;
-    if (expiresIn + issuedAt < Date.now()) {
+    const unixtime = Math.round(new Date().getTime() / 1000);
+
+    if (expiresIn + issuedAt < unixtime) {
       localStorage.removeItem("accessToken");
       return {};
     }
-    return { Authorization: `Bearer ${token}` };
+    const parsedToken = JSON.parse(token);
+
+    return { Authorization: `Bearer ${parsedToken}` };
   };
 
   try {

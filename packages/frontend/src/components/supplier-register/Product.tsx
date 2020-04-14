@@ -16,7 +16,8 @@ import { Field } from "../chakra/form/Field";
 import { FieldRow } from "../chakra/form/FieldRow";
 import { useFormContext } from "react-hook-form";
 import UploadInput from "../chakra/UploadInput";
-
+import InputMask from "react-input-mask";
+import MyNumberInput from "../chakra/form/NumberInput";
 interface Props {
   id: string;
   title: string;
@@ -27,9 +28,9 @@ interface Props {
 
 const Product = (props: Props) => {
   const { title, onDelete, index, id, subTypes } = props;
-  const { register, watch } = useFormContext();
+  const { register, watch, errors } = useFormContext();
   const name = `products.data[${index}]`;
-
+  console.log({ errors });
   const titleOptions = subTypes.split(",").map((t) => t.trim());
 
   return (
@@ -49,7 +50,7 @@ const Product = (props: Props) => {
       </Heading>
       <Field name={`${name}.title`} label="Product type" mt="4" isRequired>
         <Select
-          placeholder="Select an option..."
+          placeholder="Select an option"
           name={`${name}.title`}
           ref={register({ required: true })}
         >
@@ -70,7 +71,7 @@ const Product = (props: Props) => {
           <NumberInput
             defaultValue={watch(`${name}.minPrice`) || 0.3}
             precision={2}
-            step={0.1}
+            step={0.01}
           >
             <NumberInputField
               type="number"
@@ -92,7 +93,7 @@ const Product = (props: Props) => {
           <NumberInput
             defaultValue={watch(`${name}.maxPrice`) || 0.3}
             precision={2}
-            step={0.1}
+            step={0.01}
           >
             <NumberInputField
               type="number"
@@ -114,21 +115,12 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput
-            defaultValue={watch(`${name}.capacity`) || 1000}
+          <MyNumberInput
             min={1000}
+            defaultValue={1000}
             step={1000}
-          >
-            <NumberInputField
-              type="number"
-              name={`${name}.capacity`}
-              ref={register()}
-            />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+            name={`${name}.capacity`}
+          ></MyNumberInput>
         </Field>
         <Field
           label="Lead time"
@@ -137,22 +129,12 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput
-            defaultValue={watch(`${name}.leadTime`) || 14}
+          <MyNumberInput
             min={1}
-            max={28}
             step={1}
-          >
-            <NumberInputField
-              type="number"
-              name={`${name}.leadTime`}
-              ref={register()}
-            />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+            defaultValue={14}
+            name={`${name}.leadTime`}
+          ></MyNumberInput>
         </Field>
         <Field
           label="Minimum order amount"
@@ -198,7 +180,7 @@ const Product = (props: Props) => {
         isRequired
       >
         <UploadInput
-          description="Upload a photo of the product..."
+          description="Upload a photo of the product"
           name={`${name}.productImage`}
           isRequired
         />
@@ -209,7 +191,7 @@ const Product = (props: Props) => {
         hint="Max 5 MB"
       >
         <UploadInput
-          description="Upload a photo of the packaging..."
+          description="Upload a photo of the packaging"
           name={`${name}.packageImage`}
         />
       </Field>
@@ -219,7 +201,7 @@ const Product = (props: Props) => {
         hint="Provide a photo or PDF file, max 5 MB"
       >
         <UploadInput
-          description="Upload a PDF certificate..."
+          description="Upload a PDF certificate"
           name={`${name}.certificateFile`}
         />
       </Field>

@@ -1,5 +1,5 @@
 import { Supplier } from "./Supplier";
-import { Product } from './Product'
+import { Product } from "./Product";
 
 export type RequestProduct = {
   id: string;
@@ -9,7 +9,7 @@ export type RequestProduct = {
   productId: string;
   amount: number;
   request?: SupplierRequest;
-  supplier: Supplier;
+  supplier?: Supplier;
   product: Product;
 };
 

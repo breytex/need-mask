@@ -67,6 +67,7 @@ const MyNumberInput = (props: Props) => {
       value={value}
       size="lg"
       onBlur={updateState}
+      focusInputOnChange={false}
     >
       <NumberInputField />
       <NumberInputStepper>

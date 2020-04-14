@@ -23,7 +23,7 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
     { requestId: id }
   );
 
-  const subject = `${firstName} ${lastName} requested product information`;
+  const subject = `${firstName} ${lastName} requested product information 📦`;
 
   const html = /* JSX */ `
     <strong>Contact Information</strong> <br>

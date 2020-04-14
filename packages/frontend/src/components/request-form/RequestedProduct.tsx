@@ -14,13 +14,6 @@ import Text from "@chakra-ui/core/dist/Text";
 import { Field } from "../chakra/form/Field";
 import { Product } from "../../types/Product";
 import { useFormContext } from "react-hook-form";
-import styled from "@emotion/styled";
-
-const InputWrapper = styled.div`
-  input:disabled {
-    cursor: pointer !important;
-  }
-`;
 
 type Props = {
   index: number;
@@ -40,32 +33,11 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
 
   const [checked, check] = useState(false);
   const { register } = useFormContext();
-  console.log({ checked });
+
   return (
-    <Box
-      key={id}
-      bg={checked ? "white" : "#ededf0"}
-      p={6}
-      mb={6}
-      onClick={
-        checked
-          ? undefined
-          : () => {
-              check(true);
-            }
-      }
-      cursor={checked ? "initial" : "pointer"}
-    >
+    <Box key={id} bg={checked ? "white" : "#ededf0"} p={6} mb={6}>
       <FormLabel>
-        <Checkbox
-          size="lg"
-          mb="2"
-          isChecked={checked}
-          onChange={(event) => {
-            if (!checked) return;
-            check((p) => !p);
-          }}
-        >
+        <Checkbox isChecked={checked} onChange={() => check((p) => !p)}>
           {title}{" "}
           <Text display="inline-block" fontSize="sm">
             ({productType.title})
@@ -80,26 +52,23 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
         ref={register({ required: true })}
       />
       <Field key={id} name={id}>
-        <InputWrapper>
-          <NumberInput
-            defaultValue={0}
-            precision={0}
-            step={1000}
-            min={minOrderAmount}
-            isDisabled={!checked}
-            cursor={"pointer"}
-          >
-            <NumberInputField
-              name={`${name}.amount`}
-              ref={register({ required: true })}
-            />
+        <NumberInput
+          defaultValue={0}
+          precision={0}
+          step={1000}
+          min={minOrderAmount}
+          isDisabled={!checked}
+        >
+          <NumberInputField
+            name={`${name}.amount`}
+            ref={register({ required: true })}
+          />
 
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-        </InputWrapper>
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
       </Field>
 
       <Box

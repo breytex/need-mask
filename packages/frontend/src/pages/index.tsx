@@ -158,7 +158,7 @@ const Home: NextPage<Props> = (props) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const response = await graphQuery<CapacityResponse>(GET_CAPACITY_PER_PRODUCT);
   const {
     data: {

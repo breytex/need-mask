@@ -28,9 +28,9 @@ interface Props {
 
 const Product = (props: Props) => {
   const { title, onDelete, index, id, subTypes } = props;
-  const { register, watch } = useFormContext();
+  const { register, watch, errors } = useFormContext();
   const name = `products.data[${index}]`;
-
+  console.log({ errors });
   const titleOptions = subTypes.split(",").map((t) => t.trim());
 
   return (
@@ -68,11 +68,21 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <MyNumberInput
-            percision={2}
+          <NumberInput
+            defaultValue={watch(`${name}.minPrice`) || 0.3}
+            precision={2}
             step={0.01}
-            name={`${name}.minPrice`}
-          ></MyNumberInput>
+          >
+            <NumberInputField
+              type="number"
+              name={`${name}.minPrice`}
+              ref={register()}
+            />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
         </Field>
         <Field
           label="Max price"
@@ -105,21 +115,12 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput
-            defaultValue={watch(`${name}.capacity`) || 1000}
+          <MyNumberInput
             min={1000}
+            defaultValue={1000}
             step={1000}
-          >
-            <NumberInputField
-              type="number"
-              name={`${name}.capacity`}
-              ref={register()}
-            />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+            name={`${name}.capacity`}
+          ></MyNumberInput>
         </Field>
         <Field
           label="Lead time"
@@ -128,22 +129,12 @@ const Product = (props: Props) => {
           flexGrow={1}
           isRequired
         >
-          <NumberInput
-            defaultValue={watch(`${name}.leadTime`) || 14}
+          <MyNumberInput
             min={1}
-            max={28}
             step={1}
-          >
-            <NumberInputField
-              type="number"
-              name={`${name}.leadTime`}
-              ref={register()}
-            />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+            defaultValue={14}
+            name={`${name}.leadTime`}
+          ></MyNumberInput>
         </Field>
         <Field
           label="Minimum order amount"

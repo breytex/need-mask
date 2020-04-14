@@ -12,31 +12,54 @@ interface Props {
   name: string;
   isRequired?: boolean;
   defaultValue?: number;
-  percision: number;
   step: number;
+  min: number;
 }
 
 const MyNumberInput = (props: Props) => {
-  const { name, isRequired, defaultValue, percision, step } = props;
-  const { register, watch, unregister } = useFormContext();
+  const { name, min, step, defaultValue } = props;
+  const {
+    register,
+    watch,
+    unregister,
+    setValue,
+    triggerValidation,
+  } = useFormContext();
   const defVal = watch(name) || defaultValue;
-  const [value, setValue] = useState(defVal);
+  const [value, setInternalValue] = useState(defVal);
 
   useEffect(() => {
-    register(name, { required: isRequired });
+    register(name, { min });
     return () => {
       unregister(name);
     };
   }, []);
 
+  const setCombinedValue = (value) => {
+    setValue(name, value);
+    setInternalValue(value);
+    triggerValidation(name);
+  };
+
+  const setInternalValueFn = (value) => {
+    if (isNaN(value) || value < 0) {
+      setCombinedValue(0);
+      return;
+    }
+    setCombinedValue(value);
+  };
+
   return (
     <NumberInput
-      precision={percision}
+      min={min}
+      defaultValue={defaultValue}
       step={step}
-      onChange={setValue}
+      onChange={setInternalValueFn}
+      keepWithinRange={true}
       value={value}
+      size="lg"
     >
-      <NumberInputField type="number" />
+      <NumberInputField />
       <NumberInputStepper>
         <NumberIncrementStepper />
         <NumberDecrementStepper />

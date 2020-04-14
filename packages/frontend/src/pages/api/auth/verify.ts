@@ -2,7 +2,7 @@ import { rootGraphQuery } from "./../utils/rootGraphQuery";
 import { GET_SUPPLIER_WITH_CODE } from "./../utils/queries";
 import { NextApiResponse, NextApiRequest } from "next";
 import { sign } from "jsonwebtoken";
-import { ACCESS_TOKEN_EXPIRE_MS } from "../../../constants/expireTimes";
+import { ACCESS_TOKEN_EXPIRE_SECONDS } from "../../../constants/expireTimes";
 import { Supplier } from "../../../types/Supplier";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -45,7 +45,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         "X-Hasura-User-Id": supplier.id,
         "X-Hasura-Jwt-Version": "1",
       },
-      expiresIn: ACCESS_TOKEN_EXPIRE_MS * 10,
+      expiresIn: ACCESS_TOKEN_EXPIRE_SECONDS,
       iss: "need-mask.com",
     },
     process.env.ACCESS_TOKEN_SECRET

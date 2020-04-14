@@ -6,11 +6,12 @@ describe("Request Form Interactions", function () {
   });
 
   it("it enters form values", () => {
-    cy.get("input[name=firstName]").type("Robin");
-    cy.get("input[name=lastName]").type("Fey");
-    cy.get("input[name=email]").type("tester@example.com");
-    cy.get("input[name=phoneNumber]").type("+491751109743");
-    cy.get("input[name=companyName]").type("The Not Lead Company");
+    cy.get("input[name=firstName]").type("Doctor");
+    cy.get("input[name=lastName]").type("Strange");
+    cy.get("input[name=email]").type("i-strongly-need-masks@need-mask.com");
+    cy.get("input[name=phoneNumber]").type("+49123456789");
+    cy.get("select[name=companyType]").select("clinic");
+    cy.get("input[name=companyName]").type("Johns Hopkins");
     cy.get('[type="checkbox"]').last().parent("label").click();
     cy.get('input[name="requestedProducts.data[1].amount"]').type("5000");
     cy.get('button[type="submit"]').click();

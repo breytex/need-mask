@@ -8,6 +8,6 @@
     "cypress:run": "./node_modules/.bin/cypress run"
   },
   "dependencies": {
-    "cypress": "^4.3.0"
+    "cypress": "^4.4.0"
   }
 }

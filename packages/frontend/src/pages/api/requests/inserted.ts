@@ -15,13 +15,23 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
     new: { id, email, phoneNumber, firstName, lastName },
   } = data;
 
-  // todo catch error
   const {
     data: { requestProducts },
-  } = await rootGraphQuery<{ data: { requestProducts: RequestProduct[] } }>(
-    GET_REQUEST_PRODUCTS_BY_REQUEST,
-    { requestId: id }
-  );
+    errors,
+  } = await rootGraphQuery<{
+    data: { requestProducts: RequestProduct[] };
+    errors: any[];
+  }>(GET_REQUEST_PRODUCTS_BY_REQUEST, { requestId: id });
+
+  if (errors.length) return res.send(errors);
+  if (!requestProducts || requestProducts.length)
+    return res.send("No request with that id found");
+
+  const supplierEmail = requestProducts[0]?.supplier.email;
+  if (!supplierEmail) {
+    throw new Error("supplier email not found 😱");
+    return res.end();
+  }
 
   const supplierEmail = requestProducts[0]?.supplier.email;
   if (!supplierEmail) {

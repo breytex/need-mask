@@ -2,14 +2,21 @@ import React, { memo } from "react";
 import { Heading } from "@chakra-ui/core";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
 
+const sizeValueMapping = {
+  sm: ["sm", "md"],
+  md: ["md", "lg"],
+  lg: ["lg", "xl"],
+  xl: ["xl", "2xl"],
+};
 interface Props {
   children: string;
   mt?: string;
   mb?: string;
+  size?: "sm" | "md" | "lg" | "xl";
 }
 
-const Headline = ({ children, mt, mb }: Props) => {
-  const fontSize = useMediaQuery(["lg", "xl"]);
+const Headline = ({ children, mt, mb, size = "lg" }: Props) => {
+  const fontSize = useMediaQuery(sizeValueMapping[size]);
   return (
     <Heading
       color="blue.600"

@@ -10,9 +10,12 @@ import { Pagination } from "../chakra/Pagination";
 import { NoResults } from "./NoResults";
 import { LISTINGS_PER_PAGE } from "../../graphql/queries/listings";
 import Headline from "../chakra/Headline";
+import { useMediaQuery } from "../../chakra/useMediaQuery";
 
 export const ListingPage: NextPage<ListingResponses> = (props) => {
   const router = useRouter();
+  const filterBgColor = useMediaQuery(["white", undefined]);
+  const filterShadow = useMediaQuery(["md", undefined]);
   const { supplierData, productTypeData } = props;
   const maxPages = Math.ceil(
     supplierData.suppliers_aggregate.aggregate.count / LISTINGS_PER_PAGE
@@ -36,8 +39,15 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
 
   return (
     <React.Fragment>
+      <Headline size="xl">Discover new suppliers for protective gear</Headline>
+
       <Flex flexDirection={{ base: "column", md: "row" }}>
-        <Box width={{ base: "100%", md: "25%" }}>
+        <Box
+          width={{ base: "100%", md: "25%" }}
+          bg={filterBgColor}
+          shadow={filterShadow}
+          p={{ base: "4", md: "0" }}
+        >
           <FilterBox
             onFilterChanged={navigateTo}
             productTypes={productTypeData.productTypes}
@@ -46,9 +56,8 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
         <Box
           width={{ base: "100%", md: "75%" }}
           pl={{ base: "0", md: "8", lg: "12" }}
-          mt={{ base: "10", md: "0" }}
+          mt={{ base: "10", md: "3px" }}
         >
-          <Headline>Discover new suppliers</Headline>
           {hasResults &&
             supplierData.suppliers.map((supplier) => (
               <ListingRow key={supplier.id} {...supplier} />

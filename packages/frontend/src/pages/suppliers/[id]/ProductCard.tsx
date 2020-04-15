@@ -84,14 +84,18 @@ const ProductCard = (props: Product) => {
         available={Boolean(minOrderAmount)}
       />
 
-      <Text mt="6" color="gray.700">
-        Product images
-      </Text>
-      <Flex mt="2">
-        {fileTypes.images.map((f) => (
-          <ProductImage {...f} />
-        ))}
-      </Flex>
+      {fileTypes.images.length > 0 && (
+        <>
+          <Text mt="6" color="gray.700">
+            Product images
+          </Text>
+          <Flex mt="2">
+            {fileTypes.images.map((f) => (
+              <ProductImage {...f} />
+            ))}
+          </Flex>
+        </>
+      )}
 
       {fileTypes.other.length > 0 && (
         <>

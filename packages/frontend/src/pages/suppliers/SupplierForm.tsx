@@ -11,13 +11,14 @@ import { cloneDeepWith } from "lodash";
 import { countries } from "../../types/Geographic";
 import { stringToInt } from "../../helpers/price";
 import { Product } from "../../types/Product";
-
+import Card from "../../components/chakra/Card";
 interface Props {
   mutateSupplier: any;
   productTypes: any;
   errors: Array<Error>;
   defaultValues?: object;
   isLoading?: boolean;
+  isEdit?: boolean;
 }
 
 const errorMapping = {
@@ -91,6 +92,7 @@ const SupplierForm = (props: Props) => {
     defaultValues,
     isLoading,
     mutateSupplier,
+    isEdit,
   } = props;
   const errorBoxRef = useRef();
 
@@ -134,19 +136,24 @@ const SupplierForm = (props: Props) => {
               <Section title="Company address">
                 <CompanyAddress skipAlgolia={!!defaultValues} />
               </Section>
+              <Button
+                mx="auto"
+                type="submit"
+                variantColor="blue"
+                mt={{ base: "5", md: "10" }}
+                isLoading={isLoading}
+                size="lg"
+                isFullWidth
+              >
+                {isEdit ? "Submit edited listing" : "Send application"}
+              </Button>
+              {isEdit && (
+                <Text color="gray.600" mt="2">
+                  When you submit, your listing will be unlisted until its
+                  approval (6-48h)
+                </Text>
+              )}
             </Box>
-          </Flex>
-          <Flex justify="center">
-            <Button
-              mx="auto"
-              type="submit"
-              variantColor="blue"
-              mt={{ base: "5", md: "10" }}
-              isLoading={isLoading}
-              size="lg"
-            >
-              Send application
-            </Button>
           </Flex>
         </Form>
       </Box>

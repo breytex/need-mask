@@ -102,15 +102,15 @@ const UploadInput = ({ name, isRequired = false, description }: Props) => {
         </Flex>
       )}
       {!fileName && (
-        <Flex>
+        <div>
           <UploadStyleWrapper>
             <input type="file" id={`file-${name}`} onChange={onChange} />
             <label htmlFor={`file-${name}`}>Choose a file</label>
           </UploadStyleWrapper>
-          <Text fontSize="lg" ml="3" mt="5px">
+          <Text fontSize="lg" my="5px" w="100%">
             {description}
           </Text>
-        </Flex>
+        </div>
       )}
       {error && <Error>{error}</Error>}
     </React.Fragment>

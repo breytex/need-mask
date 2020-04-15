@@ -19,6 +19,7 @@ import UploadInput from "../chakra/UploadInput";
 import InputMask from "react-input-mask";
 import MyNumberInput from "../chakra/form/NumberInput";
 import { CurrencyInput } from "../chakra/form/CurrencyInput";
+import Card from "../chakra/Card";
 interface Props {
   id: string;
   title: string;
@@ -36,7 +37,7 @@ const Product = (props: Props) => {
   const titleOptions = subTypes.split(",").map((t) => t.trim());
 
   return (
-    <Box mb="6" p="4" bg="white" shadow="md" mx={{ base: "-15px", md: "0" }}>
+    <Card mb="6" p="4" mx={{ base: "-15px", md: "0" }}>
       <Box float="right">
         <Button
           variant="outline"
@@ -178,7 +179,7 @@ const Product = (props: Props) => {
         value={id}
         ref={register()}
       />
-    </Box>
+    </Card>
   );
 };
 

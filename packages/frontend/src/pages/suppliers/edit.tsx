@@ -99,6 +99,7 @@ const EditFormPage = (props) => {
         mutateSupplier={mutateSupplierFn}
         productTypes={productTypes}
         defaultValues={defaultValues}
+        isEdit={true}
       />
     </>
   );

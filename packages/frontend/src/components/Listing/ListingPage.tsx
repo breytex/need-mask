@@ -11,6 +11,7 @@ import { NoResults } from "./NoResults";
 import { LISTINGS_PER_PAGE } from "../../graphql/queries/listings";
 import Headline from "../chakra/Headline";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
+import Card from "../chakra/Card";
 
 export const ListingPage: NextPage<ListingResponses> = (props) => {
   const router = useRouter();
@@ -39,14 +40,17 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
 
   return (
     <React.Fragment>
-      <Headline size="xl">Discover new suppliers for protective gear</Headline>
+      <Text fontSize="36px" mb="8">
+        Discover new suppliers for protective gear
+      </Text>
 
       <Flex flexDirection={{ base: "column", md: "row" }}>
         <Box
-          width={{ base: "100%", md: "25%" }}
-          bg={filterBgColor}
-          shadow={filterShadow}
-          p={{ base: "4", md: "0" }}
+          width={{ base: "100%", md: "20%" }}
+          p={{ base: "6", md: "0" }}
+          border={{ base: "1px solid", md: "initial" }}
+          borderColor={{ base: "gray.200", md: "initial" }}
+          borderRadius={{ base: "5px", md: "initial" }}
         >
           <FilterBox
             onFilterChanged={navigateTo}
@@ -54,7 +58,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
           />
         </Box>
         <Box
-          width={{ base: "100%", md: "75%" }}
+          width={{ base: "100%", md: "80%" }}
           pl={{ base: "0", md: "8", lg: "12" }}
           mt={{ base: "10", md: "3px" }}
         >

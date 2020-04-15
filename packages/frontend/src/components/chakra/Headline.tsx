@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Heading } from "@chakra-ui/core";
+import { Heading, HeadingProps } from "@chakra-ui/core";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
 
 const sizeValueMapping = {
@@ -8,18 +8,12 @@ const sizeValueMapping = {
   lg: ["lg", "xl"],
   xl: ["xl", "2xl"],
 };
-interface Props {
-  children: string;
-  mt?: string;
-  mb?: string;
-  size?: "sm" | "md" | "lg" | "xl";
-}
 
-const Headline = ({ children, mt, mb, size = "lg" }: Props) => {
+const Headline = ({ children, mt, mb, size = "lg", color }: HeadingProps) => {
   const fontSize = useMediaQuery(sizeValueMapping[size]);
   return (
     <Heading
-      color="blue.600"
+      color={color || "blue.600"}
       fontSize={fontSize}
       mb={mb || { base: "4", md: "6" }}
       mt={mt}

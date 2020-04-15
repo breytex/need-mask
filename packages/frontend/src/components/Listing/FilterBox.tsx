@@ -11,11 +11,12 @@ interface Props {
   onFilterChanged: (params) => void;
   productTypes: ProductType[];
 }
-const Title = ({ children, ...rest }) => (
-  <Text fontSize="lg" {...rest}>
+const FilterTitle = ({ children, ...rest }) => (
+  <Text fontSize="md" fontWeight="600" {...rest}>
     {children}
   </Text>
 );
+
 export const FilterBox = (props: Props) => {
   const router = useRouter();
   const isCheckboxInline = useMediaQuery([true, false]);
@@ -45,9 +46,7 @@ export const FilterBox = (props: Props) => {
   const { continent, products } = router.query;
   return (
     <Flex direction="column">
-      <Headline mb="2" size="md">
-        What products should the supplier provide?
-      </Headline>
+      <FilterTitle>Filter by products</FilterTitle>
       {isCsr && (
         <CheckboxGroup
           size="lg"
@@ -69,14 +68,14 @@ export const FilterBox = (props: Props) => {
           ))}
         </CheckboxGroup>
       )}
-      <Headline mt="8" mb="2" size="md">
-        Where should the supplier be located?
-      </Headline>
+      <FilterTitle mt="8" mb="4">
+        Filter by location
+      </FilterTitle>
       <Select
         placeholder="All continents"
         defaultValue={continent || ""}
         onChange={onContinentChanged}
-        maxW="350px"
+        maxW="250px"
         size="lg"
       >
         {Object.entries(Continent).map(([key, value]) => (

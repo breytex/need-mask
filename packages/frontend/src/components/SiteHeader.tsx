@@ -21,7 +21,13 @@ const SiteHeader: React.FC = () => {
           <a>
             <Flex align="center">
               <Image src="/images/logo.png" alt="need-mask.com" size="50px" />
-              <Heading color="gray.700" ml="4" size="lg" letterSpacing="-.1rem">
+              <Heading
+                color="gray.700"
+                ml="4"
+                size="lg"
+                letterSpacing="-.1rem"
+                d={{ base: "none", md: "block" }}
+              >
                 need-mask.com
               </Heading>
             </Flex>
@@ -31,7 +37,7 @@ const SiteHeader: React.FC = () => {
         <Flex align="center">
           <Box ml={2}>
             <LinkButton variant="outline" href="/suppliers/register">
-              Supply
+              I am a supplier
             </LinkButton>
           </Box>
           <Box m={2}>

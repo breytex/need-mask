@@ -22,6 +22,11 @@ body,
 }
 
 body {
-  background-color: #f9f9fb;
   overflow-y: scroll;
+}
+
+@media (max-width: 500px) {
+  .hideWhenTooSmall {
+    display: none;
+  }
 }

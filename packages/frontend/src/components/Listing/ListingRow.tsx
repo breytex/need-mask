@@ -1,12 +1,24 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
-import { Box, Flex, Text, Heading, Badge, Icon } from "@chakra-ui/core";
+import {
+  Box,
+  BoxProps,
+  Flex,
+  Text,
+  Heading,
+  Badge,
+  Icon,
+  Button,
+} from "@chakra-ui/core";
 import { Supplier } from "../../types/Supplier";
 import { customTheme } from "../../chakra/theme";
 import { capitalize } from "lodash";
 import { Product } from "../../types/Product";
 import ProductListEntry from "./ProductTypeEntry";
 import ProductTypeEntry from "./ProductTypeEntry";
+import Card from "../chakra/Card";
+import { countries } from "../../types/Geographic";
+import LinkButton from "../chakra/LinkButton";
 
 interface ComponentProps {}
 
@@ -26,20 +38,18 @@ const isLessOld = (date) => {
   return now - timelimitToShowNewBadge > dateInSec;
 };
 
+const TableHeading = (props: BoxProps) => (
+  <Text
+    fontSize="13px"
+    fontWeight="500"
+    w="120px"
+    color="gray.600"
+    {...props}
+  />
+);
+
 export const ListingRow = (props: Props) => {
   const { id, companyName, city, country, updatedAt, products } = props;
-
-  const productTypes = useMemo(() => {
-    if (!products) return [];
-    const result = {};
-    products.forEach((product) => {
-      if (product.productType) {
-        result[product.productType.title] = true;
-      }
-    });
-
-    return Object.keys(result);
-  }, [products]);
 
   const productsList: ProductListType = useMemo<ProductListType>(() => {
     if (!products) return {};
@@ -65,76 +75,108 @@ export const ListingRow = (props: Props) => {
     });
     return result;
   }, [products]);
-  console.log({ productsList });
+
   const showNewBadge = useMemo(() => isLessOld(updatedAt), [updatedAt]);
 
+  const countryString =
+    countries.find((c) => c.code === country)?.name || country;
+
   return (
-    <Flex
-      className="ListingRow"
-      direction="column"
-      p="4"
-      pb="6"
-      bg="white"
-      borderBottom="1px solid #E0E0E0"
-      borderLeft={`5px solid ${customTheme.colors.blue["500"]}`}
-      shadow="sm"
-      borderRadius="sm"
-    >
-      <Flex direction={{ base: "column", md: "row" }} justify="space-between">
-        <Flex className="ListingRow__Info" direction="column" w="40%">
-          <Link href={`/suppliers/[id]`} as={`/suppliers/${id}`}>
-            <a>
-              <Heading size="md">{companyName}</Heading>
-            </a>
-          </Link>
-          <Box color="gray.500">
-            {city && country && (
-              <span>
-                ({city}, {country})
-              </span>
+    <Card>
+      <Flex className="ListingRow" direction="column" p="4" pb="6">
+        <Flex direction={{ base: "column", lg: "row" }} justify="space-between">
+          <Flex
+            className="ListingRow__Info"
+            direction="column"
+            w={{ base: "100%", md: "40%" }}
+          >
+            <Link href={`/suppliers/[id]`} as={`/suppliers/${id}`}>
+              <a>
+                <Heading size="md">{companyName}</Heading>
+              </a>
+            </Link>
+            <Box color="gray.700">
+              {city && country && (
+                <span>
+                  ({city}, {countryString})
+                </span>
+              )}
+            </Box>
+          </Flex>
+          <Box
+            className="ListingRow__Details"
+            flexGrow={2}
+            flexBasis={{ base: "100%", md: "70%" }}
+          >
+            <Flex
+              justify={{ base: "flex-start", md: "flex-end" }}
+              className="ProductTypeEntry"
+              mt={{ base: "3", lg: "0" }}
+            >
+              <TableHeading>Products</TableHeading>
+              <TableHeading ml="4">
+                {/* <Icon name="euro" size="15px" color="gray.700" /> */}
+                Price range
+              </TableHeading>
+              <TableHeading ml="4" className="hideWhenTooSmall">
+                Delivery time
+              </TableHeading>
+              <TableHeading ml="4">Weekly capacity</TableHeading>
+            </Flex>
+            {productsList.Mask && (
+              <ProductTypeEntry category="Masks" products={productsList.Mask} />
+            )}
+            {productsList.Headgear && (
+              <ProductTypeEntry
+                category="Headgear"
+                products={productsList.Headgear}
+              />
+            )}
+            {productsList.Clothing && (
+              <ProductTypeEntry
+                category="Clothing"
+                products={productsList.Clothing}
+              />
             )}
           </Box>
         </Flex>
-        <Box className="ListingRow__Details" flexGrow={2} flexBasis="70%">
-          <Flex justify="flex-end" className="ProductTypeEntry">
-            <Text fontSize="sm" fontWeight="500" w="8em">
-              Products:
-            </Text>
-            <Text ml="4" fontSize="sm" w="8em">
-              {/* <Icon name="euro" size="15px" color="gray.700" /> */}
-              Price:
-            </Text>
-            <Text ml="3" fontSize="sm" w="8em">
-              Delivery time:
-            </Text>
-            <Text ml="3" fontSize="sm" w="8em">
-              Total capacity:
-            </Text>
-          </Flex>
-          {productsList.Mask && (
-            <ProductTypeEntry category="Masks" products={productsList.Mask} />
-          )}
-          {productsList.Headgear && (
-            <ProductTypeEntry
-              category="Headgear"
-              products={productsList.Headgear}
-            />
-          )}
-          {productsList.Clothing && (
-            <ProductTypeEntry
-              category="Clothing"
-              products={productsList.Clothing}
-            />
+      </Flex>
+      <Flex
+        justify="space-between"
+        bg="#fafafa"
+        borderTop="1px solid"
+        borderTopColor="gray.200"
+        p="2"
+      >
+        <Box>
+          {showNewBadge && (
+            <Box justifySelf="flex-start">
+              <Badge fontSize="0.8em" ml="2" mt="1">
+                New
+              </Badge>
+            </Box>
           )}
         </Box>
-        {/* {showNewBadge && (
-          <Box>
-            <Badge mr="2" variantColor="blue">
-              New
-            </Badge>
-          </Box>
-        )} */}
+
+        <Box>
+          <LinkButton
+            href={"/suppliers/[id]/request"}
+            params={{ id }}
+            size="sm"
+            mr="3"
+          >
+            Contact supplier
+          </LinkButton>
+          <LinkButton
+            href={"/suppliers/[id]"}
+            params={{ id }}
+            size="sm"
+            variantColor="blue"
+          >
+            More details
+          </LinkButton>
+        </Box>
       </Flex>
-    </Flex>
+    </Card>
   );
 };

@@ -2,7 +2,7 @@ import React, { ReactElement, useMemo } from "react";
 import { Product } from "../../types/Product";
 import { Flex, Text, Icon } from "@chakra-ui/core";
 import { propertyReducer, toPrice } from "../../helpers/functions";
-
+import { currencyFormatDE } from "../../helpers/currencyFormat";
 export default function ProductTypeEntry(props: {
   products: Product[];
   category: string;
@@ -27,7 +27,7 @@ export default function ProductTypeEntry(props: {
         ? `${toPrice(minPrice)}`
         : `${toPrice(minPrice)} - ${toPrice(maxPrice)}`;
     const deliveryTimeRange =
-      minLeadTime === maxLeadTime
+      minLeadTime !== maxLeadTime
         ? `${minLeadTime} days`
         : `${minLeadTime} - ${maxLeadTime} days`;
     return {
@@ -38,19 +38,22 @@ export default function ProductTypeEntry(props: {
   }, [products]);
 
   return (
-    <Flex justify="flex-end" className="ProductTypeEntry">
-      <Text fontSize="sm" fontWeight="500" w="8em">
+    <Flex
+      justify={{ base: "flex-start", md: "flex-end" }}
+      className="ProductTypeEntry"
+    >
+      <Text fontSize="sm" fontWeight="600" w="120px">
         {category} ({products.length})
       </Text>
-      <Text ml="4" fontSize="sm" w="8em">
+      <Text ml="4" fontSize="sm" w="120px">
         {/* <Icon name="euro" size="15px" color="gray.700" /> */}
         {details.priceRange}
       </Text>
-      <Text ml="3" fontSize="sm" w="8em">
+      <Text className="hideWhenTooSmall" ml="4" fontSize="sm" w="120px">
         {details.deliveryTimeRange}
       </Text>
-      <Text ml="3" fontSize="sm" w="8em">
-        {details.totalCapacity}
+      <Text ml="4" fontSize="sm" w="120px">
+        {new Intl.NumberFormat("de-DE").format(details.totalCapacity)}
       </Text>
     </Flex>
   );

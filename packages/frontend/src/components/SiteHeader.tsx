@@ -2,6 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { Box, Flex, Heading, Image, Button } from "@chakra-ui/core";
 import { useRouter } from "next/router";
+import LinkButton from "./chakra/LinkButton";
 
 const SiteHeader: React.FC = () => {
   const router = useRouter();
@@ -28,19 +29,15 @@ const SiteHeader: React.FC = () => {
         </Link>
 
         <Flex align="center">
-          <Box m={2}>
-            <Link href="/suppliers">
-              <a style={{ display: "inline-block" }}>
-                <Button variant="outline">Need</Button>
-              </a>
-            </Link>
-          </Box>
           <Box ml={2}>
-            <Link href="/suppliers/register">
-              <a style={{ display: "inline-block" }}>
-                <Button variantColor="blue">Supply</Button>
-              </a>
-            </Link>
+            <LinkButton variant="outline" href="/suppliers/register">
+              Supply
+            </LinkButton>
+          </Box>
+          <Box m={2}>
+            <LinkButton variantColor="blue" href="/suppliers">
+              Need
+            </LinkButton>
           </Box>
         </Flex>
       </Flex>

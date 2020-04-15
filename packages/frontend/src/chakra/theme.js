@@ -13,7 +13,8 @@ export const customTheme = {
   ...theme,
   breakpoints,
   fonts: {
-    heading: '"Avenir Next", sans-serif',
+    heading:
+      '-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif',
     body: "system-ui, sans-serif",
     mono: "Menlo, monospace",
   },
@@ -55,6 +56,10 @@ export const customTheme = {
       800: "#00554B",
       900: "#003128",
     },
+  },
+  shadows: {
+    ...theme.shadows,
+    cardHover: "0 0 12px -4px #6892d5;",
   },
   icons: {
     ...theme.icons,

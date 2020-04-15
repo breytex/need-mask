@@ -7,6 +7,7 @@ import ProductCapacityStats from "../components/ProductCapacityStats";
 import { GET_CAPACITY_PER_PRODUCT } from "../graphql/queries/capacity";
 import { Capacity, CapacityResponse } from "../types/Capacity";
 import { graphQuery } from "../graphql/graphQuery";
+import LinkButton from "../components/chakra/LinkButton";
 
 type Props = {
   capacities: Capacity[];
@@ -62,13 +63,14 @@ const Home: NextPage<Props> = (props) => {
               here to list the protective gear that you SUPPLY
             </Paragraph>
 
-            <Link href="/suppliers/register">
-              <a style={{ display: "inline-block" }}>
-                <Button size="lg" variantColor="blue" {...marginButton}>
-                  I supply protective gear and masks
-                </Button>
-              </a>
-            </Link>
+            <LinkButton
+              href="/suppliers/register"
+              size="lg"
+              variantColor="blue"
+              {...marginButton}
+            >
+              I supply protective gear and masks
+            </LinkButton>
           </Box>
         </Flex>
 
@@ -90,13 +92,14 @@ const Home: NextPage<Props> = (props) => {
               supplier here.
             </Paragraph>
 
-            <Link href="/suppliers">
-              <a style={{ display: "inline-block" }}>
-                <Button size="lg" variantColor="blue" {...marginButton}>
-                  I need masks
-                </Button>
-              </a>
-            </Link>
+            <LinkButton
+              size="lg"
+              variantColor="blue"
+              href="/suppliers"
+              {...marginButton}
+            >
+              I need masks
+            </LinkButton>
           </Box>
           <Box flex={3}>
             <Image
@@ -135,13 +138,14 @@ const Home: NextPage<Props> = (props) => {
               protective equipment to those in need.
             </Paragraph>
 
-            <Link href="/donation">
-              <a style={{display: 'inline-block'}}>
-                <Button size="lg" variantColor="blue" {...marginButton}>
-                  I'd like to donate
-                </Button>
-              </a>
-            </Link>
+            <LinkButton
+              size="lg"
+              variantColor="blue"
+              href="/donation"
+              {...marginButton}
+            >
+              I'd like to donate
+            </LinkButton>
           </Box>
         </Flex> */}
       </Box>

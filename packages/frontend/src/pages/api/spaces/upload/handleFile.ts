@@ -46,7 +46,9 @@ async function handleFile(file: MultiParty.Part): Promise<handleFileReturn> {
     return { data: buffer, mimeType };
 
   return {
-    data: await Sharp(buffer).resize(900, 900, { fit: "inside" }).toBuffer(),
+    data: await Sharp(buffer)
+      .resize(900, 900, { fit: "inside", withoutEnlargement: true })
+      .toBuffer(),
     mimeType,
   };
 }

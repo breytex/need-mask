@@ -35,8 +35,8 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
   const [checked, setChecked] = useState(false);
   const { register } = useFormContext();
   return (
-    <>
-      <FormLabel>
+    <Box bg={checked ? "white" : "#ededf0"} p={4} mb={6}>
+      <FormLabel display="block">
         <Checkbox
           size="lg"
           mb="2"
@@ -55,9 +55,7 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
       </FormLabel>
       <Box
         key={id}
-        bg={checked ? "white" : "#ededf0"}
-        p={6}
-        mb={6}
+        p={4}
         onClick={() => {
           setChecked(true);
         }}
@@ -92,7 +90,7 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
           {leadTime} Days
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

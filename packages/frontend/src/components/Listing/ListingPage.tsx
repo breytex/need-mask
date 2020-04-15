@@ -12,6 +12,7 @@ import { LISTINGS_PER_PAGE } from "../../graphql/queries/listings";
 import Headline from "../chakra/Headline";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
 import Card from "../chakra/Card";
+import PageTitle from "../chakra/PageTitle";
 
 export const ListingPage: NextPage<ListingResponses> = (props) => {
   const router = useRouter();
@@ -40,9 +41,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
 
   return (
     <React.Fragment>
-      <Text fontSize="36px" mb="8">
-        Discover new suppliers for protective gear
-      </Text>
+      <PageTitle>Discover new suppliers for protective gear</PageTitle>
 
       <Flex flexDirection={{ base: "column", md: "row" }}>
         <Box

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useMemo } from "react";
 import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../../types/Supplier";
 import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
@@ -13,6 +13,7 @@ import {
   BreadcrumbLink,
   Divider,
   Button,
+  Icon,
 } from "@chakra-ui/core/dist";
 
 import Link from "next/link";
@@ -20,66 +21,123 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { redirect } from "../../../helpers/redirect";
 import { graphQuery } from "../../../graphql/graphQuery";
-import SemiBoldTitle from "../../../components/chakra/SemiBoldTitle";
-import SupplierProduct from "../../../components/SupplierProduct";
 
+import Card from "../../../components/chakra/Card";
+import PageTitle from "../../../components/chakra/PageTitle";
+import LinkButton from "../../../components/chakra/LinkButton";
+import { Product } from "../../../types/Product";
+import { capitalize } from "lodash";
+import ProductCard from "./ProductCard";
 type Props = {
   id: string;
   supplier: Supplier;
 };
 
+interface ProductListType {
+  Mask?: Product[];
+  Clothing?: Product[];
+  Headgear?: Product[];
+}
+
 const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
   const router = useRouter();
   const { supplier } = props;
+  const {
+    id,
+    companyName,
+    city,
+    country,
+    continent,
+    web,
+    products,
+  } = props.supplier;
+
+  const productsList: ProductListType = useMemo<ProductListType>(() => {
+    if (!products) return {};
+    const result: ProductListType = {};
+    products.forEach((product) => {
+      if (product.productType) {
+        const productTypeTitle = product.productType.title;
+        if (!result[productTypeTitle]) {
+          result[productTypeTitle] = [product];
+          return;
+        }
+        result[productTypeTitle] = [...result[productTypeTitle], product];
+      }
+    });
+
+    Object.entries(result).forEach(([key, value]: [string, Product[]]) => {
+      result[key] = value
+        .sort((a, b) => a.title.localeCompare(b.title))
+        .map((p) => {
+          p.title = capitalize(p.title);
+          return p;
+        });
+    });
+    return result;
+  }, [products]);
+
+  const realWebAddress = web?.includes("http") ? web : `https://${web}`;
 
   return (
     <>
-      <Box mb={4}>
-        <Breadcrumb fontSize="sm" mb="4">
-          <BreadcrumbItem>
-            <Link href="/suppliers">
-              <BreadcrumbLink>Suppliers</BreadcrumbLink>
-            </Link>
-          </BreadcrumbItem>
+      <Breadcrumb fontSize="sm" mb="4">
+        <BreadcrumbItem>
+          <Link href="/suppliers">
+            <BreadcrumbLink>Suppliers</BreadcrumbLink>
+          </Link>
+        </BreadcrumbItem>
 
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">{supplier.companyName}</BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
-
-        <Box width="375px">
-          <Text>
-            {supplier.city}, {supplier.country}, {supplier.continent}
+        <BreadcrumbItem isCurrentPage>
+          <BreadcrumbLink href="#">{companyName}</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+      <Flex
+        justify="space-between"
+        flexDirection={{ base: "column", md: "row" }}
+      >
+        <Box>
+          <PageTitle mb="0">{companyName}</PageTitle>
+          <Text fontSize="25px" mt="-8px" color="gray.700">
+            {city}, {country}
           </Text>
-          <Heading fontWeight="semibold" as="h1" size="lg">
-            {supplier.companyName}
-          </Heading>
+          {web && (
+            <a href={realWebAddress} target="_blank">
+              <Icon name="external-link" mb="3px" /> Company website
+            </a>
+          )}
         </Box>
-      </Box>
+        <Box>
+          <LinkButton
+            href="/suppliers/[id]/request"
+            params={{ id }}
+            size="lg"
+            variantColor="blue"
+            mt={{ base: "4", md: "0" }}
+          >
+            Request a quote from supplier
+          </LinkButton>
+        </Box>
+      </Flex>
 
-      <Divider my={8} />
+      <Text fontSize="30px" mt={{ base: "6", md: "12" }}>
+        Products
+      </Text>
 
-      <SemiBoldTitle>Available Products</SemiBoldTitle>
-
-      {supplier.products.map((product) => (
-        <SupplierProduct key={product.id} product={product} />
-      ))}
-
-      <Divider my={8} />
-
-      <Box maxWidth="500px" mx="auto" textAlign="center">
-        <SemiBoldTitle>
-          Get the products you need and share your company information for a
-          quote
-        </SemiBoldTitle>
-        <Button
-          onClick={() =>
-            router.push(`/suppliers/[id]/request`, `${router.asPath}/request`)
-          }
-        >
-          Request product information
-        </Button>
-      </Box>
+      {Object.entries(productsList).map(
+        ([category, products]: [string, Product[]]) => (
+          <Box ml="6" mt={{ base: "2", md: "4" }}>
+            <Text fontSize="25px" color="gray.700" mb="2">
+              {category}
+            </Text>
+            <Flex wrap="wrap">
+              {products.map((p) => (
+                <ProductCard {...p} />
+              ))}
+            </Flex>
+          </Box>
+        )
+      )}
     </>
   );
 };

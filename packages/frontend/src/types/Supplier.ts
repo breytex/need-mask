@@ -26,6 +26,7 @@ export interface Supplier {
   status: SupplierStatus;
   products: Array<Product>;
   loginCodes: Array<LoginCode>;
+  web?: string;
   updatedAt: string;
   createdAt: string;
 }

@@ -33,6 +33,7 @@
     "react-hook-form": "^5.4.2",
     "react-input-mask": "^2.0.4",
     "react-is": "^16.13.1",
+    "react-medium-image-zoom": "^4.3.0",
     "sharp": "^0.25.2",
     "text-mask-addons": "^3.8.0"
   },

@@ -19,6 +19,7 @@ import ProductTypeEntry from "./ProductTypeEntry";
 import Card from "../chakra/Card";
 import { countries } from "../../types/Geographic";
 import LinkButton from "../chakra/LinkButton";
+import ActionBar from "../chakra/ActionBar";
 
 interface ComponentProps {}
 
@@ -141,42 +142,34 @@ export const ListingRow = (props: Props) => {
           </Box>
         </Flex>
       </Flex>
-      <Flex
-        justify="space-between"
-        bg="#fafafa"
-        borderTop="1px solid"
-        borderTopColor="gray.200"
-        p="2"
-      >
-        <Box>
-          {showNewBadge && (
+      <ActionBar
+        leftComponent={
+          showNewBadge && (
             <Box justifySelf="flex-start">
               <Badge fontSize="0.8em" ml="2" mt="1">
                 New
               </Badge>
             </Box>
-          )}
-        </Box>
-
-        <Box>
-          <LinkButton
-            href={"/suppliers/[id]/request"}
-            params={{ id }}
-            size="sm"
-            mr="3"
-          >
-            Contact supplier
-          </LinkButton>
-          <LinkButton
-            href={"/suppliers/[id]"}
-            params={{ id }}
-            size="sm"
-            variantColor="blue"
-          >
-            More details
-          </LinkButton>
-        </Box>
-      </Flex>
+          )
+        }
+      >
+        <LinkButton
+          href={"/suppliers/[id]/request"}
+          params={{ id }}
+          size="sm"
+          mr="3"
+        >
+          Contact supplier
+        </LinkButton>
+        <LinkButton
+          href={"/suppliers/[id]"}
+          params={{ id }}
+          size="sm"
+          variantColor="blue"
+        >
+          More details
+        </LinkButton>
+      </ActionBar>
     </Card>
   );
 };

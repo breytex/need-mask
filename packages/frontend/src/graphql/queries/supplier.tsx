@@ -5,11 +5,12 @@ export const GET_SUPPLIER_FN = (id: string) => {
     query GetSupplier {
       suppliers_by_pk(id: "${id}") {
         id
-        createdAt
         country
         continent
         companyName
         city
+        web
+        createdAt
         updatedAt
       }
     }
@@ -21,11 +22,12 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
     query GetSupplier {
       suppliers_by_pk(id: "${id}") {
         id
-        createdAt
         country
         continent
         companyName
         city
+        web
+        createdAt
         updatedAt
         products {
           id

@@ -104,7 +104,7 @@ const SupplierForm = (props: Props) => {
     scrollToRef(errorBoxRef);
     onSubmit(mutateSupplier)(data);
   };
-
+  console.log({ errors });
   return (
     <StickyContainer>
       <Box mx="auto">
@@ -114,13 +114,14 @@ const SupplierForm = (props: Props) => {
             <React.Fragment>
               An error happened
               <br />
-              {/* {Object.entries(errorMapping).map(([key, value]) => {
-              if (!error || !error.message) return null;
-              if (error.message.includes(key)) {
-                return <Text>{value}</Text>;
-              }
-              return null;
-            })} */}
+              {Object.entries(errorMapping).map(([key, value]) => {
+                // Sieht turboscheiße aus aber ist mir egal so oft kommt der Error nicht vor
+                if (!Array.isArray(errors) || errors.length === 0) return null;
+                if (errors.some((e) => e.message.includes(key))) {
+                  return <Text>{value}</Text>;
+                }
+                return null;
+              })}
             </React.Fragment>
           </ErrorMessage>
           <Form onSubmit={onSubmitFn} defaultValues={defaultValues}>

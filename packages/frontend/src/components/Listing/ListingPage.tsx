@@ -1,23 +1,22 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import queryString from "query-string";
-import { Flex, Box, Heading, Text } from "@chakra-ui/core";
+import { Flex, Box } from "@chakra-ui/core";
 import { ListingRow } from "../../components/Listing/ListingRow";
 import { FilterBox } from "../../components/Listing/FilterBox";
 import { ListingResponses } from "../../pages/suppliers";
 import { Pagination } from "../chakra/Pagination";
 import { NoResults } from "./NoResults";
 import { LISTINGS_PER_PAGE } from "../../graphql/queries/listings";
-import Headline from "../chakra/Headline";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
-import Card from "../chakra/Card";
 import PageTitle from "../chakra/PageTitle";
+import { StickyContainer, Sticky } from "react-sticky";
 
 export const ListingPage: NextPage<ListingResponses> = (props) => {
   const router = useRouter();
-  const filterBgColor = useMediaQuery(["white", undefined]);
-  const filterShadow = useMediaQuery(["md", undefined]);
+  const shouldStick = useMediaQuery([false, true]);
+
   const { supplierData, productTypeData } = props;
   const maxPages = Math.ceil(
     supplierData.suppliers_aggregate.aggregate.count / LISTINGS_PER_PAGE
@@ -42,38 +41,47 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
   return (
     <React.Fragment>
       <PageTitle>Discover new suppliers for protective gear</PageTitle>
-
-      <Flex flexDirection={{ base: "column", md: "row" }}>
-        <Box
-          width={{ base: "100%", md: "20%" }}
-          p={{ base: "6", md: "0" }}
-          border={{ base: "1px solid", md: "initial" }}
-          borderColor={{ base: "gray.200", md: "initial" }}
-          borderRadius={{ base: "5px", md: "initial" }}
-        >
-          <FilterBox
-            onFilterChanged={navigateTo}
-            productTypes={productTypeData.productTypes}
-          />
-        </Box>
-        <Box
-          width={{ base: "100%", md: "80%" }}
-          pl={{ base: "0", md: "8", lg: "12" }}
-          mt={{ base: "10", md: "3px" }}
-        >
-          {hasResults &&
-            supplierData.suppliers.map((supplier) => (
-              <ListingRow key={supplier.id} {...supplier} />
-            ))}
-          {!hasResults && <NoResults />}
-          <Pagination
-            maxPages={maxPages}
-            currentPage={currentPage}
-            onPageChange={navigateTo}
-            mt="4"
-          />
-        </Box>
-      </Flex>
+      <StickyContainer>
+        <Flex flexDirection={{ base: "column", md: "row" }}>
+          <Box width={{ base: "100%", md: "20%" }}>
+            <Sticky className="Sticky" disableCompensation={!shouldStick}>
+              {({ style, isSticky }) => (
+                <div style={shouldStick ? style : {}}>
+                  <Box
+                    p={{ base: "6", md: "0" }}
+                    mt={isSticky ? "4" : "0"}
+                    border={{ base: "1px solid", md: "initial" }}
+                    borderColor={{ base: "gray.200", md: "initial" }}
+                    borderRadius={{ base: "5px", md: "initial" }}
+                  >
+                    <FilterBox
+                      onFilterChanged={navigateTo}
+                      productTypes={productTypeData.productTypes}
+                    />
+                  </Box>
+                </div>
+              )}
+            </Sticky>
+          </Box>
+          <Box
+            width={{ base: "100%", md: "80%" }}
+            pl={{ base: "0", md: "8", lg: "12" }}
+            mt={{ base: "10", md: "3px" }}
+          >
+            {hasResults &&
+              supplierData.suppliers.map((supplier) => (
+                <ListingRow key={supplier.id} {...supplier} />
+              ))}
+            {!hasResults && <NoResults />}
+            <Pagination
+              maxPages={maxPages}
+              currentPage={currentPage}
+              onPageChange={navigateTo}
+              mt="4"
+            />
+          </Box>
+        </Flex>
+      </StickyContainer>
     </React.Fragment>
   );
 };

@@ -9,7 +9,8 @@ import RequestedProduct from "./request-form/RequestedProduct";
 import ContactDetails from "./request-form/ContactDetails";
 import ContactAddress from "./request-form/ContactAddress";
 import { useMutation } from "../hooks/useMutation";
-
+import { StickyContainer, Sticky } from "react-sticky";
+import { useMediaQuery } from "../chakra/useMediaQuery";
 type Props = {
   supplerId: string;
   withAddress?: boolean;
@@ -34,6 +35,7 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
   const { trigger: mutateRequest, data, isLoading } = useMutation<any>(
     ADD_REQUEST
   );
+  const shouldStick = useMediaQuery([false, true]);
 
   function onSubmit(d) {
     const { requestedProducts, ...fields } = d;
@@ -64,37 +66,65 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <Flex flexDirection={{ base: "column-reverse", md: "row" }}>
-        <Box flexGrow={1}>
-          <Text fontSize="25px" fontWeight="400" mb={{ base: "4", md: "6" }}>
-            Select the products you need
-          </Text>
-          {products.map((product, index) => (
-            <RequestedProduct
-              key={product.id}
-              index={index}
-              product={product}
-            />
-          ))}
-          <SubmitButton isLoading={isLoading} d={{ base: "block", md: "none" }}>
-            Submit your request
-          </SubmitButton>
-        </Box>
+      <StickyContainer>
+        <Flex flexDirection={{ base: "column-reverse", md: "row" }}>
+          <Box flexGrow={1}>
+            <Text
+              fontSize="25px"
+              fontWeight="400"
+              mb={{ base: "4", md: "6" }}
+              mt="4"
+            >
+              Select the products you need
+            </Text>
+            {products.map((product, index) => (
+              <RequestedProduct
+                key={product.id}
+                index={index}
+                product={product}
+              />
+            ))}
+            <SubmitButton
+              isLoading={isLoading}
+              d={{ base: "block", md: "none" }}
+            >
+              Submit your request
+            </SubmitButton>
+          </Box>
 
-        <Box
-          ml={{ base: "0", md: "12" }}
-          flexGrow={2}
-          p={{ base: "3", md: "0" }}
-        >
-          <Text fontSize="25px" fontWeight="400" mb={{ base: "4", md: "6" }}>
-            How can the supplier reach you?
-          </Text>
-          <ContactDetails id={supplerId} />
-          <SubmitButton isLoading={isLoading} d={{ base: "none", md: "block" }}>
-            Submit your request
-          </SubmitButton>
-        </Box>
-      </Flex>
+          <Box
+            ml={{ base: "0", md: "12" }}
+            p={{ base: "3", md: "0" }}
+            minWidth="50%"
+          >
+            <Sticky disableCompensation={!shouldStick}>
+              {({ style }) => (
+                <div
+                  className="StickyContactDetails"
+                  style={shouldStick ? style : {}}
+                >
+                  <Text
+                    fontSize="25px"
+                    fontWeight="400"
+                    mb={{ base: "4", md: "6" }}
+                    mt="4"
+                  >
+                    How can the supplier reach you?
+                  </Text>
+
+                  <ContactDetails id={supplerId} />
+                  <SubmitButton
+                    isLoading={isLoading}
+                    d={{ base: "none", md: "block" }}
+                  >
+                    Submit your request
+                  </SubmitButton>
+                </div>
+              )}
+            </Sticky>
+          </Box>
+        </Flex>
+      </StickyContainer>
     </Form>
   );
 };

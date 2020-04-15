@@ -1,5 +1,5 @@
 import * as React from "react";
-import Box from "@chakra-ui/core/dist/Box";
+import { Box, BoxProps } from "@chakra-ui/core";
 import Heading from "@chakra-ui/core/dist/Heading";
 
 type Props = {
@@ -11,7 +11,7 @@ const SiteHero: React.FC<Props> = (props) => {
   const { title, description, ...rest } = props;
   return (
     <Box
-      mb={{ base: 4, md: 12, lg: 24 }}
+      mb={{ base: 4, md: 10, lg: 12 }}
       mx="auto"
       textAlign="center"
       maxWidth="720px"

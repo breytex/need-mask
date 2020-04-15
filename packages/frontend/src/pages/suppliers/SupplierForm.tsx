@@ -12,6 +12,9 @@ import { countries } from "../../types/Geographic";
 import { stringToInt } from "../../helpers/price";
 import { Product } from "../../types/Product";
 import Card from "../../components/chakra/Card";
+import { StickyContainer, Sticky } from "react-sticky";
+import { useMediaQuery } from "../../chakra/useMediaQuery";
+
 interface Props {
   mutateSupplier: any;
   productTypes: any;
@@ -95,6 +98,7 @@ const SupplierForm = (props: Props) => {
     isEdit,
   } = props;
   const errorBoxRef = useRef();
+  const shouldStick = useMediaQuery([false, true]);
 
   const onSubmitFn = (data) => {
     scrollToRef(errorBoxRef);
@@ -102,62 +106,73 @@ const SupplierForm = (props: Props) => {
   };
 
   return (
-    <Box mx="auto">
-      <Box>
-        <a ref={errorBoxRef}></a>
-        <ErrorMessage show={errors?.length > 0} title="Oh no!">
-          <React.Fragment>
-            An error happened
-            <br />
-            {/* {Object.entries(errorMapping).map(([key, value]) => {
+    <StickyContainer>
+      <Box mx="auto">
+        <Box>
+          <a ref={errorBoxRef}></a>
+          <ErrorMessage show={errors?.length > 0} title="Oh no!">
+            <React.Fragment>
+              An error happened
+              <br />
+              {/* {Object.entries(errorMapping).map(([key, value]) => {
               if (!error || !error.message) return null;
               if (error.message.includes(key)) {
                 return <Text>{value}</Text>;
               }
               return null;
             })} */}
-          </React.Fragment>
-        </ErrorMessage>
-        <Form onSubmit={onSubmitFn} defaultValues={defaultValues}>
-          <Flex
-            flexDirection={{ base: "column", md: "row" }}
-            justify={{ base: "flex-start", md: "space-around" }}
-          >
-            <Box w={{ base: "100%", md: "48%" }} p="6">
-              <Section title="Product portfolio">
-                <ProductConfigurator productTypes={productTypes} />
-              </Section>
-            </Box>
-
-            <Box p="6" w={{ base: "100%", md: "48%" }}>
-              <Section title="Contact details" mb="8">
-                <ContactDetails />
-              </Section>
-              <Section title="Company address">
-                <CompanyAddress skipAlgolia={!!defaultValues} />
-              </Section>
-              <Button
-                mx="auto"
-                type="submit"
-                variantColor="blue"
-                mt={{ base: "5", md: "10" }}
-                isLoading={isLoading}
-                size="lg"
-                isFullWidth
-              >
-                {isEdit ? "Submit edited listing" : "Send application"}
-              </Button>
-              {isEdit && (
-                <Text color="gray.600" mt="2">
-                  When you submit, your listing will be unlisted until its
-                  approval (6-48h)
-                </Text>
-              )}
-            </Box>
-          </Flex>
-        </Form>
+            </React.Fragment>
+          </ErrorMessage>
+          <Form onSubmit={onSubmitFn} defaultValues={defaultValues}>
+            <Flex
+              flexDirection={{ base: "column", md: "row" }}
+              justify={{ base: "flex-start", md: "space-around" }}
+            >
+              <Box w={{ base: "100%", md: "48%" }} p="6">
+                <Section title="Product portfolio">
+                  <ProductConfigurator productTypes={productTypes} />
+                </Section>
+              </Box>
+              <Box p="6" w={{ base: "100%", md: "48%" }}>
+                <Sticky className="Sticky" disableCompensation={!shouldStick}>
+                  {({ style }) => (
+                    <div style={shouldStick ? style : {}}>
+                      <Box>
+                        <Section title="Contact details" mb="8">
+                          <ContactDetails />
+                        </Section>
+                        <Section title="Company address">
+                          <CompanyAddress skipAlgolia={!!defaultValues} />
+                        </Section>
+                        <Button
+                          mx="auto"
+                          type="submit"
+                          variantColor="blue"
+                          mt={{ base: "5", md: "10" }}
+                          isLoading={isLoading}
+                          size="lg"
+                          isFullWidth
+                        >
+                          {isEdit
+                            ? "Submit edited listing"
+                            : "Send application"}
+                        </Button>
+                        {isEdit && (
+                          <Text color="gray.600" mt="2">
+                            When you submit, your listing will be unlisted until
+                            its approval (6-48h)
+                          </Text>
+                        )}
+                      </Box>
+                    </div>
+                  )}
+                </Sticky>
+              </Box>
+            </Flex>
+          </Form>
+        </Box>
       </Box>
-    </Box>
+    </StickyContainer>
   );
 };
 

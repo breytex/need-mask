@@ -5,15 +5,17 @@ import Heading from "@chakra-ui/core/dist/Heading";
 type Props = {
   title: string;
   description?: string;
-};
+} & BoxProps;
 
-const SiteHero: React.FC<Props> = ({ title, description }) => {
+const SiteHero: React.FC<Props> = (props) => {
+  const { title, description, ...rest } = props;
   return (
     <Box
       mb={{ base: 4, md: 12, lg: 24 }}
       mx="auto"
       textAlign="center"
       maxWidth="720px"
+      {...rest}
     >
       <Heading as="h1" mb={description ? 4 : 0} fontWeight="500">
         {title}

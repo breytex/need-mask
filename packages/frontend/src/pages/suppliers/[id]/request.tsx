@@ -40,7 +40,11 @@ export const Request: NextPage<Props> = ({ props: { id, supplier } }) => {
         </BreadcrumbItem>
       </Breadcrumb>
 
-      <SiteHero title="Request product information" />
+      <SiteHero
+        mt="6"
+        textAlign={{ base: "left", md: "center" }}
+        title="Request product information"
+      />
       <RequestForm products={supplier.products} supplerId={id} />
     </>
   );

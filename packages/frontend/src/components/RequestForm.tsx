@@ -1,6 +1,6 @@
 import * as React from "react";
 import Form from "./chakra/form/Form";
-import { Box, Button, Flex } from "@chakra-ui/core/dist";
+import { Box, Button, Flex, Text } from "@chakra-ui/core/dist";
 import { Product } from "../types/Product";
 import { ADD_REQUEST } from "../graphql/mutations/addRequest";
 import SuccessMessage from "./chakra/SuccessMessage";
@@ -15,6 +15,20 @@ type Props = {
   withAddress?: boolean;
   products: Product[];
 };
+
+const SubmitButton = ({ isLoading, children, d }) => (
+  <Button
+    type="submit"
+    isFullWidth
+    variantColor="blue"
+    size="lg"
+    mt="4"
+    isLoading={isLoading}
+    d={d}
+  >
+    {children}
+  </Button>
+);
 
 const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
   const { trigger: mutateRequest, data, isLoading } = useMutation<any>(
@@ -50,8 +64,11 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <Flex>
+      <Flex flexDirection={{ base: "column-reverse", md: "row" }}>
         <Box flexGrow={1}>
+          <Text fontSize="25px" fontWeight="400" mb={{ base: "4", md: "6" }}>
+            Select the products you need
+          </Text>
           {products.map((product, index) => (
             <RequestedProduct
               key={product.id}
@@ -59,21 +76,23 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
               product={product}
             />
           ))}
+          <SubmitButton isLoading={isLoading} d={{ base: "block", md: "none" }}>
+            Submit your request
+          </SubmitButton>
         </Box>
 
-        <Box ml={{ base: "0", md: "6" }} bg="white" p={6} flexGrow={2}>
+        <Box
+          ml={{ base: "0", md: "12" }}
+          flexGrow={2}
+          p={{ base: "3", md: "0" }}
+        >
+          <Text fontSize="25px" fontWeight="400" mb={{ base: "4", md: "6" }}>
+            How can the supplier reach you?
+          </Text>
           <ContactDetails id={supplerId} />
-          {withAddress && <ContactAddress />}
-          <Button
-            type="submit"
-            isFullWidth
-            variantColor="blue"
-            size="lg"
-            mt="4"
-            isLoading={isLoading}
-          >
+          <SubmitButton isLoading={isLoading} d={{ base: "none", md: "block" }}>
             Submit your request
-          </Button>
+          </SubmitButton>
         </Box>
       </Flex>
     </Form>

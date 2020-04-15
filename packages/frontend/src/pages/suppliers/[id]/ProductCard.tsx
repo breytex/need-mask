@@ -8,7 +8,12 @@ import { toPrice } from "../../../helpers/functions";
 const KeyValue = (props) => {
   const { label, value, available } = props;
   return (
-    <Flex>
+    <Flex
+      fontWeight="semibold"
+      letterSpacing="wide"
+      fontSize="14px"
+      textTransform="uppercase"
+    >
       <Text color="gray.700" w="140px">
         {label}:
       </Text>
@@ -79,14 +84,21 @@ const ProductCard = (props: Product) => {
         available={Boolean(capacity)}
       />
       <KeyValue
-        label="Min order amount"
+        label="Min amount"
         value={`${minOrderAmount} units`}
         available={Boolean(minOrderAmount)}
       />
 
       {fileTypes.images.length > 0 && (
         <>
-          <Text mt="6" color="gray.700">
+          <Text
+            mt="6"
+            color="gray.700"
+            fontWeight="semibold"
+            letterSpacing="wide"
+            fontSize="14px"
+            textTransform="uppercase"
+          >
             Product images
           </Text>
           <Flex mt="2">
@@ -99,7 +111,14 @@ const ProductCard = (props: Product) => {
 
       {fileTypes.other.length > 0 && (
         <>
-          <Text mt="4" color="gray.700">
+          <Text
+            mt="4"
+            color="gray.700"
+            fontWeight="semibold"
+            letterSpacing="wide"
+            fontSize="14px"
+            textTransform="uppercase"
+          >
             Product specifications
           </Text>
           {fileTypes.other.map((f) => (

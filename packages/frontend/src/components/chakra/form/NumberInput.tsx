@@ -14,10 +14,11 @@ interface Props {
   defaultValue?: number;
   step: number;
   min: number;
+  isDisabled?: boolean;
 }
 
 const MyNumberInput = (props: Props) => {
-  const { name, min, step, defaultValue } = props;
+  const { name, min, step, defaultValue, isDisabled } = props;
   const {
     register,
     watch,
@@ -70,7 +71,7 @@ const MyNumberInput = (props: Props) => {
       onBlur={updateState}
       focusInputOnChange={false}
     >
-      <NumberInputField autoComplete="off" />
+      <NumberInputField autoComplete="off" isDisabled={isDisabled} />
       <NumberInputStepper>
         <NumberIncrementStepper />
         <NumberDecrementStepper />

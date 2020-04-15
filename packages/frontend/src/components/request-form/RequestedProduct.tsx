@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { Box } from "@chakra-ui/core/dist";
+import { Box, Flex } from "@chakra-ui/core/dist";
 import FormLabel from "@chakra-ui/core/dist/FormLabel";
 import Checkbox from "@chakra-ui/core/dist/Checkbox";
 import Text from "@chakra-ui/core/dist/Text";
@@ -9,6 +9,8 @@ import { Product } from "../../types/Product";
 import { useFormContext } from "react-hook-form";
 import styled from "@emotion/styled";
 import MyNumberInput from "../chakra/form/NumberInput";
+import { toPrice } from "../../helpers/functions";
+import Card from "../../components/chakra/Card";
 
 const InputWrapper = styled.div`
   input:disabled {
@@ -20,6 +22,22 @@ type Props = {
   index: number;
   product: Product;
 };
+const KeyValue = (props) => {
+  const { label, value, available } = props;
+  return (
+    <Flex
+      fontWeight="semibold"
+      letterSpacing="wide"
+      fontSize="xs"
+      textTransform="uppercase"
+    >
+      <Text color="gray.700" w="140px">
+        {label}:
+      </Text>
+      <Text color="gray.800">{available ? value : "N/A"}</Text>
+    </Flex>
+  );
+};
 
 const RequestedProduct: React.FC<Props> = ({ index, product }) => {
   const {
@@ -29,13 +47,20 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
     title,
     minOrderAmount,
     leadTime,
+    minPrice,
+    maxPrice,
   } = product;
   const name = `requestedProducts.data[${index}]`;
 
   const [checked, setChecked] = useState(false);
   const { register } = useFormContext();
+  const priceRange =
+    minPrice === maxPrice
+      ? `${toPrice(minPrice)}`
+      : `${toPrice(minPrice)} - ${toPrice(maxPrice)}`;
+
   return (
-    <Box bg={checked ? "white" : "#ededf0"} p={4} mb={6}>
+    <Card bg={checked ? "white" : "gray.50"} p={4} mb={6}>
       <FormLabel display="block">
         <Checkbox
           size="lg"
@@ -47,7 +72,7 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
         >
           <div style={{ visibility: "visible" }}>
             {title}{" "}
-            <Text display="inline-block" fontSize="sm">
+            <Text display="inline-block" color="gray.700" fontSize="sm" ml="2">
               ({productType.title})
             </Text>
           </div>
@@ -55,7 +80,8 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
       </FormLabel>
       <Box
         key={id}
-        p={4}
+        px={{ base: 2, md: 6 }}
+        pb={4}
         onClick={() => {
           setChecked(true);
         }}
@@ -71,9 +97,10 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
           <InputWrapper>
             <MyNumberInput
               name={`${name}.amount`}
-              min={1000}
-              defaultValue={1000}
+              min={minOrderAmount || 1000}
+              defaultValue={minOrderAmount || 1000}
               step={1000}
+              isDisabled={!checked}
             />
           </InputWrapper>
         </Field>
@@ -85,12 +112,32 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
           fontSize="xs"
           textTransform="uppercase"
         >
-          {capacity} Units &bull;
+          <KeyValue
+            label="Price range"
+            value={priceRange}
+            available={priceRange !== toPrice(0)}
+          />
+          <KeyValue
+            label="Delivery time"
+            value={`${leadTime} days`}
+            available={Boolean(leadTime)}
+          />
+          <KeyValue
+            label="Capacity"
+            value={`${capacity} units/week`}
+            available={Boolean(capacity)}
+          />
+          <KeyValue
+            label="Min amount"
+            value={`${minOrderAmount} units`}
+            available={Boolean(minOrderAmount)}
+          />
+          {/* {capacity} Units available &bull;
           {minOrderAmount === 0 ? " No Min" : " " + minOrderAmount} MOQ &bull;{" "}
-          {leadTime} Days
+          {leadTime} Days */}
         </Box>
       </Box>
-    </Box>
+    </Card>
   );
 };
 

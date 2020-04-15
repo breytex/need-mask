@@ -27,9 +27,9 @@ export const ProductConfigurator = (props: Props) => {
 
   const onProductSelected = (event) => {
     const id = event.target.value;
-
     if (!productTypes.some((productType) => productType.id === id)) return;
-    const newValue = [...selectedProducts, id].join(",");
+    const uid = id + "--" + Date.now();
+    const newValue = [...selectedProducts, uid].join(",");
     setValue(PRODUCT_FORM_FIELD_NAME, newValue);
   };
 
@@ -55,7 +55,10 @@ export const ProductConfigurator = (props: Props) => {
           onDelete={onDelete}
           key={`product-${productId}-${index}`}
           index={index}
-          {...productTypes.find((product) => product.id === productId)}
+          uid={productId}
+          {...productTypes.find(
+            (product) => product.id === productId.split("--")[0]
+          )}
         />
       ))}
 

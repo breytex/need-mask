@@ -33,12 +33,6 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
     return res.end();
   }
 
-  const supplierEmail = requestProducts[0]?.supplier.email;
-  if (!supplierEmail) {
-    throw new Error("supplier email not found 😱");
-    return res.end();
-  }
-
   const subject = `${firstName} ${lastName} requested product information 📦`;
 
   const html = /* JSX */ `

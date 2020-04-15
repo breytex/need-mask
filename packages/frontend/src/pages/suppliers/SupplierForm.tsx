@@ -10,6 +10,7 @@ import { Spinner } from "../../components/chakra/Spinner";
 import { cloneDeepWith } from "lodash";
 import { countries } from "../../types/Geographic";
 import { stringToInt } from "../../helpers/price";
+import { Product } from "../../types/Product";
 
 interface Props {
   mutateSupplier: any;
@@ -56,36 +57,30 @@ const onSubmit = (mutateSupplier) => (values) => {
   )[0].continent;
 
   // Iterate all product types
-  data.products.data = data.products.data.map((product) => {
-    // Convert 19.89€ to 1989. We save prices as integers in DB
-    product.minPrice = stringToInt(product.minPrice);
-    product.maxPrice = stringToInt(product.maxPrice);
+  data.products.data = Object.entries(data.products.data).map(
+    ([_, product]: [string, any]) => {
+      // Adding files with correct data structure
+      if (filesFields.some((filesField) => product[filesField] !== "")) {
+        product.files = {
+          data: [],
+        };
+        filesFields.forEach((fileField) =>
+          addImageFile(product, fileField, product.files.data)
+        );
+      }
 
-    // Convert amounts to numbers
-    product.leadTime = parseInt(product.leadTime);
-    product.capacity = parseInt(product.capacity);
-    product.minOrderAmount = parseInt(product.minOrderAmount);
+      // Remove file fields
+      filesFields.forEach((filesField) => delete product[filesField]);
+      filesFields.forEach((filesField) => delete product[`${filesField}-id`]);
 
-    // Adding files with correct data structure
-    if (filesFields.some((filesField) => product[filesField] !== "")) {
-      product.files = {
-        data: [],
-      };
-      filesFields.forEach((fileField) =>
-        addImageFile(product, fileField, product.files.data)
-      );
+      return product;
     }
-
-    // Remove file fields
-    filesFields.forEach((filesField) => delete product[filesField]);
-    filesFields.forEach((filesField) => delete product[`${filesField}-id`]);
-
-    return product;
-  });
+  );
 
   delete data.productTypes;
   delete data.addressBlocker;
   delete data.id;
+
   mutateSupplier({ data });
 };
 

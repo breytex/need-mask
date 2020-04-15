@@ -58,6 +58,7 @@ const ProductCard = (props: Product) => {
     });
     return result;
   }, []);
+
   return (
     <Card
       p={{ base: "4", md: "6" }}
@@ -121,11 +122,19 @@ const ProductCard = (props: Product) => {
           >
             Product specifications
           </Text>
-          {fileTypes.other.map((f) => (
-            <a href={f.url} style={{ textDecoration: "underline" }}>
-              Download "{f.url.split("/").slice(-1)[0].split("--")[1]}"
-            </a>
-          ))}
+          {fileTypes.other.map((f) => {
+            const fileName = f.url.split("/").slice(-1)[0].split("--")[1];
+            return (
+              <a
+                href={f.url}
+                style={{ textDecoration: "underline" }}
+                download={fileName}
+                target="_blank"
+              >
+                Download "{fileName}"
+              </a>
+            );
+          })}
         </>
       )}
     </Card>

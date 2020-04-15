@@ -30,33 +30,27 @@ const filesFields = ["productImage", "packageImage", "certificateFile"];
 
 const transformSupplierDataToFormState = (supplierData) => {
   const defaultValues = cloneDeepWith(supplierData);
-
+  let productCount = 0;
   defaultValues[PRODUCT_FORM_FIELD_NAME] = supplierData.products
-    .map((product) => product.typeId)
+    .map((product) => product.typeId + "--" + productCount++)
     .join(",");
 
-  defaultValues.products = {
-    data: defaultValues.products.map((product) => {
-      // Convert 19.89€ to 1989. We save prices as integers in DB
-      product.minPrice = intToString(product.minPrice);
-      product.maxPrice = intToString(product.maxPrice);
-      // Convert amounts to numbers
-      product.leadTime = "" + product.leadTime;
-      product.capacity = "" + product.capacity;
-      product.minOrderAmount = "" + product.minOrderAmount;
+  defaultValues.products = { data: {} };
 
-      // Get file names from file object structure
-      filesFields.forEach((filesField) => (product[filesField] = ""));
-      product.files.forEach((element) => {
-        const { fileKind, url, id } = element.file;
-        product[fileKind] = url;
-        product[`${fileKind}-id`] = id;
-      });
-
-      return product;
-    }),
-  };
-
+  productCount = 0;
+  supplierData.products.forEach((product) => {
+    // Get file names from file object structure
+    filesFields.forEach((filesField) => (product[filesField] = ""));
+    product.files.forEach((element) => {
+      const { fileKind, url, id } = element.file;
+      product[fileKind] = url;
+      product[`${fileKind}-id`] = id;
+    });
+    defaultValues.products.data[
+      product.typeId + "--" + productCount++
+    ] = product;
+  }),
+    console.log({ defaultValues });
   return defaultValues;
 };
 

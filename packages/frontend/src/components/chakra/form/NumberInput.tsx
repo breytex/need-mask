@@ -25,12 +25,13 @@ const MyNumberInput = (props: Props) => {
     setValue,
     triggerValidation,
   } = useFormContext();
-  const defVal = watch(name) || defaultValue;
+  const defVal = watch(name) || defaultValue || min;
   const [value, setInternalValue] = useState(defVal);
   const currentValue = useRef();
 
   useEffect(() => {
     register(name, { min });
+    setValue(name, defVal);
     return () => {
       unregister(name);
     };
@@ -51,7 +52,7 @@ const MyNumberInput = (props: Props) => {
 
   const setInternalValueFn = (value) => {
     if (isNaN(value) || value < 0) {
-      setCombinedValue(0);
+      setCombinedValue(defaultValue || min);
       return;
     }
     setCombinedValue(value);
@@ -69,7 +70,7 @@ const MyNumberInput = (props: Props) => {
       onBlur={updateState}
       focusInputOnChange={false}
     >
-      <NumberInputField />
+      <NumberInputField autoComplete="off" />
       <NumberInputStepper>
         <NumberIncrementStepper />
         <NumberDecrementStepper />

@@ -1,11 +1,12 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
-import { Box, Flex, Text, Heading, Badge } from "@chakra-ui/core";
+import { Box, Flex, Text, Heading, Badge, Icon } from "@chakra-ui/core";
 import { Supplier } from "../../types/Supplier";
 import { customTheme } from "../../chakra/theme";
 import { capitalize } from "lodash";
 import { Product } from "../../types/Product";
-import ProductListEntry from "./ProductListEntry";
+import ProductListEntry from "./ProductTypeEntry";
+import ProductTypeEntry from "./ProductTypeEntry";
 
 interface ComponentProps {}
 
@@ -77,7 +78,7 @@ export const ListingRow = (props: Props) => {
       shadow="sm"
       borderRadius="sm"
     >
-      <Flex direction="row" justify="space-between">
+      <Flex direction={{ base: "column", md: "row" }} justify="space-between">
         <Flex direction="column" w="40%">
           <Link href={`/suppliers/[id]`} as={`/suppliers/${id}`}>
             <a>
@@ -92,23 +93,30 @@ export const ListingRow = (props: Props) => {
             )}
           </Box>
         </Flex>
-        <Box>
-          {Object.keys(productsList).map((cat) => (
-            <Text>{cat}</Text>
-          ))}
+        <Box flexGrow={2} flexBasis="70%">
+          {productsList.Mask && (
+            <ProductTypeEntry catname="Masks" products={productsList.Mask} />
+          )}
+          {productsList.Headgear && (
+            <ProductTypeEntry
+              catname="Headgear"
+              products={productsList.Headgear}
+            />
+          )}
+          {productsList.Clothing && (
+            <ProductTypeEntry
+              catname="Clothing"
+              products={productsList.Clothing}
+            />
+          )}
         </Box>
-        <Box>
-          {productsList.Mask?.map((p) => (
-            <ProductListEntry {...p} />
-          ))}
-        </Box>
-        {showNewBadge && (
+        {/* {showNewBadge && (
           <Box>
             <Badge mr="2" variantColor="blue">
               New
             </Badge>
           </Box>
-        )}
+        )} */}
       </Flex>
       <Flex direction="row" mt="2">
         <Text color="gray.800">Products:</Text>{" "}

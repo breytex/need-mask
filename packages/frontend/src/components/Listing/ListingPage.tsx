@@ -58,22 +58,6 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
           pl={{ base: "0", md: "8", lg: "12" }}
           mt={{ base: "10", md: "3px" }}
         >
-          {hasResults && (
-            <Flex justify="flex-end" mb="2">
-              <Text ml="4" fontSize="sm" w="90px">
-                Products
-              </Text>
-              <Text ml="4" fontSize="sm" w="100px">
-                Price range
-              </Text>
-              <Text ml="3" fontSize="sm" w="80px">
-                Lead time
-              </Text>
-              <Text ml="3" fontSize="sm" w="100px" mr="4">
-                units per week
-              </Text>
-            </Flex>
-          )}
           {hasResults &&
             supplierData.suppliers.map((supplier) => (
               <ListingRow key={supplier.id} {...supplier} />

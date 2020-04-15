@@ -70,8 +70,10 @@ export const ListingRow = (props: Props) => {
 
   return (
     <Flex
+      className="ListingRow"
       direction="column"
       p="4"
+      pb="6"
       bg="white"
       borderBottom="1px solid #E0E0E0"
       borderLeft={`5px solid ${customTheme.colors.blue["500"]}`}
@@ -79,7 +81,7 @@ export const ListingRow = (props: Props) => {
       borderRadius="sm"
     >
       <Flex direction={{ base: "column", md: "row" }} justify="space-between">
-        <Flex direction="column" w="40%">
+        <Flex className="ListingRow__Info" direction="column" w="40%">
           <Link href={`/suppliers/[id]`} as={`/suppliers/${id}`}>
             <a>
               <Heading size="md">{companyName}</Heading>
@@ -93,19 +95,34 @@ export const ListingRow = (props: Props) => {
             )}
           </Box>
         </Flex>
-        <Box flexGrow={2} flexBasis="70%">
+        <Box className="ListingRow__Details" flexGrow={2} flexBasis="70%">
+          <Flex justify="flex-end" className="ProductTypeEntry">
+            <Text fontSize="sm" fontWeight="500" w="8em">
+              Products:
+            </Text>
+            <Text ml="4" fontSize="sm" w="8em">
+              {/* <Icon name="euro" size="15px" color="gray.700" /> */}
+              Price:
+            </Text>
+            <Text ml="3" fontSize="sm" w="8em">
+              Delivery time:
+            </Text>
+            <Text ml="3" fontSize="sm" w="8em">
+              Total capacity:
+            </Text>
+          </Flex>
           {productsList.Mask && (
-            <ProductTypeEntry catname="Masks" products={productsList.Mask} />
+            <ProductTypeEntry category="Masks" products={productsList.Mask} />
           )}
           {productsList.Headgear && (
             <ProductTypeEntry
-              catname="Headgear"
+              category="Headgear"
               products={productsList.Headgear}
             />
           )}
           {productsList.Clothing && (
             <ProductTypeEntry
-              catname="Clothing"
+              category="Clothing"
               products={productsList.Clothing}
             />
           )}
@@ -117,12 +134,6 @@ export const ListingRow = (props: Props) => {
             </Badge>
           </Box>
         )} */}
-      </Flex>
-      <Flex direction="row" mt="2">
-        <Text color="gray.800">Products:</Text>{" "}
-        <Text color="gray.800" fontWeight="semibold" ml="2">
-          {productTypes.join(", ")}
-        </Text>
       </Flex>
     </Flex>
   );

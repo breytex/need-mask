@@ -1,12 +1,13 @@
 import React, { ReactElement, useMemo } from "react";
 import { Product } from "../../types/Product";
 import { Flex, Text, Icon } from "@chakra-ui/core";
+import { propertyReducer, toPrice } from "../../helpers/functions";
 
 export default function ProductTypeEntry(props: {
   products: Product[];
-  catname: string;
+  category: string;
 }): ReactElement {
-  const { products, catname } = props;
+  const { products, category } = props;
 
   const reduceMin = (prevValue, currentValue) =>
     Math.min(prevValue, currentValue);
@@ -15,39 +16,41 @@ export default function ProductTypeEntry(props: {
   const reduceAdd = (prevValue, currentValue) => prevValue + currentValue;
 
   const details = useMemo(() => {
-    const result = {
-      minPrice: 0,
-      maxPrice: 0,
-      minLeadTime: 0,
-      maxLeadTime: 0,
-      capacity: 0,
+    const productReducer = propertyReducer(products);
+    const minPrice = productReducer("minPrice", reduceMin);
+    const maxPrice = productReducer("maxPrice", reduceMax);
+    const minLeadTime = productReducer("leadTime", reduceMin);
+    const maxLeadTime = productReducer("leadTime", reduceMax);
+    const totalCapacity = productReducer("capacity", reduceAdd);
+    const priceRange =
+      minPrice === maxPrice
+        ? `${toPrice(minPrice)}`
+        : `${toPrice(minPrice)} - ${toPrice(maxPrice)}`;
+    const deliveryTimeRange =
+      minLeadTime === maxLeadTime
+        ? `${minLeadTime} days`
+        : `${minLeadTime} - ${maxLeadTime} days`;
+    return {
+      priceRange,
+      deliveryTimeRange,
+      totalCapacity,
     };
-
-    result.minPrice =
-      products.map((p) => p.minPrice).reduce(reduceMin, 999) / 100;
-    result.maxPrice =
-      products.map((p) => p.maxPrice).reduce(reduceMax, 0) / 100;
-    result.minLeadTime = products.map((p) => p.leadTime).reduce(reduceMin, 999);
-    result.maxLeadTime = products.map((p) => p.leadTime).reduce(reduceMax, 0);
-    result.capacity = products.map((p) => p.capacity).reduce(reduceAdd, 0);
-
-    return result;
   }, [products]);
 
   return (
-    <Flex justify="flex-end">
-      <Text fontSize="sm" fontWeight="500" w="90px">
-        {catname} ({products.length})
+    <Flex justify="flex-end" className="ProductTypeEntry">
+      <Text fontSize="sm" fontWeight="500" w="8em">
+        {category} ({products.length})
       </Text>
-      <Text ml="4" fontSize="sm" w="100px">
+      <Text ml="4" fontSize="sm" w="8em">
         {/* <Icon name="euro" size="15px" color="gray.700" /> */}
-        {details.minPrice.toFixed(2)}€ - {details.maxPrice.toFixed(2)}€
+        {details.priceRange}
       </Text>
-      <Text ml="3" fontSize="sm" w="80px">
-        {details.minLeadTime} - {details.maxLeadTime} days
+      <Text ml="3" fontSize="sm" w="8em">
+        {details.deliveryTimeRange}
       </Text>
-      <Text ml="3" fontSize="sm" w="100px">
-        {details.capacity}
+      <Text ml="3" fontSize="sm" w="8em">
+        {details.totalCapacity}
       </Text>
     </Flex>
   );

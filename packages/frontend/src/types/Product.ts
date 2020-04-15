@@ -13,7 +13,7 @@ export interface Product {
   leadTime?: number;
   supplierId?: string;
   supplier?: Supplier;
-  files: Array<ProductFile>;
+  files?: Array<ProductFile>;
   createdAt: string;
   updatedAt: string;
 }

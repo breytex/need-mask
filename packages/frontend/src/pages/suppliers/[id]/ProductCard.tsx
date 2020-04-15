@@ -33,14 +33,14 @@ const ProductCard = (props: Product) => {
     maxPrice,
     minOrderAmount,
     capacity,
-    files,
+    files = [],
   } = props;
 
   const priceRange =
     minPrice === maxPrice
       ? `${toPrice(minPrice)}`
       : `${toPrice(minPrice)} - ${toPrice(maxPrice)}`;
-  0;
+
   const fileTypes = useMemo(() => {
     let result = { images: [] as Array<File>, other: [] as Array<File> };
 

@@ -9,14 +9,12 @@ import { createWebhooookHandler } from "../utils/createWebhooookHandler";
 import { GET_REQUEST_PRODUCTS_BY_REQUEST } from "../../../graphql/queries/requestProducts";
 
 const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
-  const { data } = req.body.event;
-
   const {
     new: { id, email, phoneNumber, firstName, lastName },
-  } = data;
+  } = req.body.event.data;
 
   const {
-    data: { requestProducts },
+    data,
     errors,
   } = await rootGraphQuery<{
     data: { requestProducts: RequestProduct[] };
@@ -24,19 +22,13 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   }>(GET_REQUEST_PRODUCTS_BY_REQUEST, { requestId: id });
 
   if (errors.length) return res.send(errors);
-  if (!requestProducts || requestProducts.length)
+  const { requestProducts } = data
+  if (requestProducts.length)
     return res.send("No request with that id found");
 
-  const supplierEmail = requestProducts[0]?.supplier.email;
-  if (!supplierEmail) {
-    throw new Error("supplier email not found 😱");
-    return res.end();
-  }
-
-  const supplierEmail = requestProducts[0]?.supplier.email;
-  if (!supplierEmail) {
-    throw new Error("supplier email not found 😱");
-    return res.end();
+  const {supplier} = requestProducts[0];
+  if (!supplier) {
+    return res.send("Supplier not found 😱");
   }
 
   const subject = `${firstName} ${lastName} requested product information 📦`;
@@ -65,7 +57,7 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   `;
 
   const mailParams: SendMailParams = {
-    to: supplierEmail,
+    to: supplier.email,
     subject,
     text,
     html,

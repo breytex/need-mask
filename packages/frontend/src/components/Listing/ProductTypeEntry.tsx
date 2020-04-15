@@ -1,8 +1,7 @@
 import React, { ReactElement, useMemo } from "react";
 import { Product } from "../../types/Product";
-import { Flex, Text, Icon } from "@chakra-ui/core";
+import { Flex, Text } from "@chakra-ui/core";
 import { propertyReducer, toPrice } from "../../helpers/functions";
-import { currencyFormatDE } from "../../helpers/currencyFormat";
 export default function ProductTypeEntry(props: {
   products: Product[];
   category: string;

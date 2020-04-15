@@ -82,5 +82,3 @@ export const customTheme = {
     },
   },
 };
-
-console.log({ theme });

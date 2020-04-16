@@ -26,7 +26,7 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   if (!requestProducts.length)
     return res.send("No request with that id found");
 
-  const { supplier } = requestProducts[0];
+  const { supplier } = requestProducts[0].product;
   if (!supplier) {
     return res.send("Supplier not found 😱");
   }

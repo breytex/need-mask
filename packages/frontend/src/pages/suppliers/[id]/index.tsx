@@ -80,7 +80,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
             {city}, {country}
           </Text>
           {web && (
-            <a href={realWebAddress} target="_blank">
+            <a href={realWebAddress} target="_blank" rel="noopener">
               <Icon name="external-link" mb="3px" /> Company website
             </a>
           )}

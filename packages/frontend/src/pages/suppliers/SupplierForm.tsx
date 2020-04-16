@@ -100,7 +100,6 @@ const SupplierForm = (props: Props) => {
     scrollToRef(errorBoxRef);
     onSubmit(mutateSupplier)(data);
   };
-  console.log({ errors });
   return (
     <StickyContainer>
       <Box mx="auto">

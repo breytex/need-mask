@@ -1,5 +1,10 @@
-import { useState, useEffect } from "react";
-import { useCsr } from "./useCsr";
+import {
+  useState,
+  useEffect
+} from "react";
+import {
+  useCsr
+} from "./useCsr";
 
 // https://usehooks.com/useLocalStorage/
 export function useLocalStorage(key, initialValue) {
@@ -16,7 +21,6 @@ export function useLocalStorage(key, initialValue) {
       setStoredValue(item ? JSON.parse(item) : initialValue);
     } catch (error) {
       // If error also return initialValue
-      console.log(error);
       setStoredValue(initialValue);
     }
   }, []);
@@ -46,7 +50,11 @@ export function useLocalStorage(key, initialValue) {
 
   const isDirty = initialValue !== storedValue;
 
-  return [storedValue, setValue, { isDirty, reset, isCsr }];
+  return [storedValue, setValue, {
+    isDirty,
+    reset,
+    isCsr
+  }];
 }
 
 export const useDebouncedLocaleStorage = (key, initialValue, delay = 100) => {

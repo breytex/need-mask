@@ -49,7 +49,6 @@ export const FilterBox = (props: Props) => {
       <FilterTitle>Filter by products</FilterTitle>
       {isCsr && (
         <CheckboxGroup
-          size="lg"
           variantColor="blue"
           defaultValue={products ? ("" + products).split(",") : []}
           onChange={onProductChanged}
@@ -76,7 +75,6 @@ export const FilterBox = (props: Props) => {
         defaultValue={continent || ""}
         onChange={onContinentChanged}
         maxW="250px"
-        size="lg"
       >
         {Object.entries(Continent).map(([key, value]) => (
           <option value={value} key={key}>

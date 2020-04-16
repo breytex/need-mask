@@ -52,12 +52,9 @@ body {
 }
 
 @media all and (-ms-high-contrast:none) {
-  .NotSupportedBrowser {
-    display: flex !important;
-  }
 
   *::-ms-backdrop,
   .NotSupportedBrowser {
-    display: block !important;
+    display: flex !important;
   }
 }

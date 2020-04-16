@@ -80,7 +80,13 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
             {city}, {country}
           </Text>
           {web && (
-            <a href={realWebAddress} target="_blank">
+            <a
+              href={
+                realWebAddress +
+                "?utm_source=need-mask&utm_medium=link&utm_campaign=referring"
+              }
+              target="_blank"
+            >
               <Icon name="external-link" mb="3px" /> Company website
             </a>
           )}

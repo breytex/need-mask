@@ -74,8 +74,8 @@ const MyNumberInput = (props: Props) => {
     >
       <NumberInputField autoComplete="off" isDisabled={isDisabled} />
       <NumberInputStepper>
-        <NumberIncrementStepper />
-        <NumberDecrementStepper />
+        <NumberIncrementStepper onClick={updateState} />
+        <NumberDecrementStepper onClick={updateState} />
       </NumberInputStepper>
     </NumberInput>
   );

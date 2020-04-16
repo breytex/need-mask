@@ -21,12 +21,12 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
     errors: any[];
   }>(GET_REQUEST_PRODUCTS_BY_REQUEST, { requestId: id });
 
-  if (errors.length) return res.send(errors);
+  if (errors) return res.send(errors);
   const { requestProducts } = data
   if (requestProducts.length)
     return res.send("No request with that id found");
 
-  const {supplier} = requestProducts[0];
+  const { supplier } = requestProducts[0];
   if (!supplier) {
     return res.send("Supplier not found 😱");
   }
@@ -40,9 +40,9 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
     <strong>Requested products:</strong>
     <ul>
       ${requestProducts.map(
-        (requestedProduct) =>
-          `<li>${requestedProduct.product.title}, ${requestedProduct.amount}</li>`
-      )}
+    (requestedProduct) =>
+      `<li>${requestedProduct.product.title}, ${requestedProduct.amount}</li>`
+  )}
     </ul>
   `;
 
@@ -51,9 +51,9 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
    ${firstName} ${lastName}, ${email}, ${phoneNumber} \n\n
    Requested products:\n
    ${requestProducts.map(
-     (requestedProduct) =>
-       `${requestedProduct.product.title}, ${requestedProduct.amount}\n`
-   )}
+    (requestedProduct) =>
+      `${requestedProduct.product.title}, ${requestedProduct.amount}\n`
+  )}
   `;
 
   const mailParams: SendMailParams = {

@@ -6,7 +6,7 @@ import SiteHero from "../components/SiteHero";
 import ProductCapacityStats from "../components/ProductCapacityStats";
 import { GET_CAPACITY_PER_PRODUCT } from "../graphql/queries/capacity";
 import { Capacity, CapacityResponse } from "../types/Capacity";
-import { graphQuery } from "../graphql/graphQuery";
+import { graphQuery, HasuraResponse } from "../graphql/graphQuery";
 import LinkButton from "../components/chakra/LinkButton";
 
 type Props = {
@@ -163,13 +163,14 @@ const Home: NextPage<Props> = (props) => {
 };
 
 export async function getStaticProps() {
-  const response = await graphQuery<CapacityResponse>(GET_CAPACITY_PER_PRODUCT);
-  const {
-    data: {
-      productTypes_aggregate: { nodes },
-    },
-  } = response;
+  const { data, errors } = await graphQuery<HasuraResponse<CapacityResponse>>(
+    GET_CAPACITY_PER_PRODUCT
+  );
+  if (errors) {
+    throw errors;
+  }
 
+  const { nodes } = data.productTypes_aggregate;
   const capacities = nodes.map((node) => ({
     title: node.title,
     capacity: node.products_aggregate.aggregate.sum.capacity,

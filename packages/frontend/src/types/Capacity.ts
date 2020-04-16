@@ -15,7 +15,5 @@ export interface CapacityResponseNode {
 }
 
 export interface CapacityResponse {
-  data: {
-    productTypes_aggregate: { nodes: CapacityResponseNode[] };
-  };
+  productTypes_aggregate: { nodes: Array<CapacityResponseNode> };
 }

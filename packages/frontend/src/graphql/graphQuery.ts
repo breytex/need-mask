@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+import fetch from "isomorphic-unfetch";
 
 export interface GraphQueryProps {
   headers?: object;
@@ -55,7 +55,7 @@ export async function graphQuery<T>(
       },
     });
     if (!res.ok) {
-      const text = res.text();
+      const text = await res.text();
       throw new Error(text);
     }
     return await res.json();

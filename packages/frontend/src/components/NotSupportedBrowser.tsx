@@ -19,9 +19,6 @@ export default function NotSupportedBrowser(): ReactElement {
           <a target="_blank" href="https://www.mozilla.org/">
             <img src="/images/browsers/firefox.svg" />
           </a>
-          <a target="_blank" href="https://support.apple.com/downloads/safari">
-            <img src="/images/browsers/safari.svg" />
-          </a>
           <a target="_blank" href="https://brave.com/">
             <img src="/images/browsers/brave.svg" />
           </a>

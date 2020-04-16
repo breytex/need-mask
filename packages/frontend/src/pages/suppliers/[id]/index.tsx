@@ -20,7 +20,6 @@ import { graphQuery } from "../../../graphql/graphQuery";
 import PageTitle from "../../../components/chakra/PageTitle";
 import LinkButton from "../../../components/chakra/LinkButton";
 import { Product } from "../../../types/Product";
-import { capitalize } from "lodash";
 import ProductCard from "./ProductCard";
 type Props = {
   id: string;
@@ -51,12 +50,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
     });
 
     Object.entries(result).forEach(([key, value]: [string, Product[]]) => {
-      result[key] = value
-        .sort((a, b) => a.title.localeCompare(b.title))
-        .map((p) => {
-          p.title = capitalize(p.title);
-          return p;
-        });
+      result[key] = value.sort((a, b) => a.title.localeCompare(b.title));
     });
     return result;
   }, [products]);

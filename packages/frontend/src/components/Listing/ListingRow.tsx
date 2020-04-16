@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/core";
 import { Supplier } from "../../types/Supplier";
 import { customTheme } from "../../chakra/theme";
-import { capitalize } from "lodash";
 import { Product } from "../../types/Product";
 import ProductListEntry from "./ProductTypeEntry";
 import ProductTypeEntry from "./ProductTypeEntry";
@@ -67,12 +66,7 @@ export const ListingRow = (props: Props) => {
     });
 
     Object.entries(result).forEach(([key, value]: [string, Product[]]) => {
-      result[key] = value
-        .sort((a, b) => a.title.localeCompare(b.title))
-        .map((p) => {
-          p.title = capitalize(p.title);
-          return p;
-        });
+      result[key] = value.sort((a, b) => a.title.localeCompare(b.title));
     });
     return result;
   }, [products]);

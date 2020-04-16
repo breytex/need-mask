@@ -13,6 +13,9 @@ export const GET_REQUEST_PRODUCTS_BY_REQUEST = /* GraphQL */ `
         supplier {
           email
         }
+        productType {
+          title
+        }
       }
     }
   }

@@ -7,7 +7,7 @@ import { authWebhook } from "../utils/authWebhook";
 import { sendMail, SendMailParams } from "../utils/sendMail";
 import { createWebhooookHandler } from "../utils/createWebhooookHandler";
 import { GET_REQUEST_PRODUCTS_BY_REQUEST } from "../../../graphql/queries/requestProducts";
-import request from "../auth/request";
+import htmlToText from 'html-to-text';
 
 // Todo: Make a style function a la `style(padding(5), marginLeft(-3)) that creates an inline style for that
 const withPadding = amount => `style="padding: ${amount}px"`
@@ -67,15 +67,19 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
 
   const subject = `${firstName} ${lastName} requested product information 📦`;
 
-  const withNiceNames = requestProducts.map(requestProduct => {
+  const withNiceNames = requestProducts.reduce((acc, cur) => {
     return {
-      "Amount": requestProduct.amount,
-      "Product name": requestProduct.product.title,
-      "Product type": requestProduct.product.productType.title,
+      ...acc,
+      [cur.product.productType.title + "s"]:
+      {
+        ...acc[cur.product.productType.title + "s"],
+        [cur.product.title]: `Amount: ${cur.amount}`
+      }
     }
-  })
+  }, {})
 
   const requestedProductsTable = styledTable(Object.entries(withNiceNames).map(styledProperty).join(''))
+
   const html = /* JSX */ `Dear supplier,<br />you got a new request from need-mask.com. Please contact the below mentioned contact person, who asked for an offer. We are not liable for any transaction.<br />Thank you for listing your offering on https://need-mask.com<br /> <br />
     <strong>Contact Information</strong> <br />
     ${firstName} ${lastName}, ${email}, ${phoneNumber} <br /> <br />
@@ -84,20 +88,12 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
     ${requestedProductsTable}
 `;
 
-  const text = `
-   Contact Information \n
-   ${firstName} ${lastName}, ${email}, ${phoneNumber} \n\n
-   Requested products:\n
-   ${requestProducts.map(
-    (requestedProduct) =>
-      `${requestedProduct.product.title}, ${requestedProduct.amount}\n`
-  )}
-  `;
-
   const mailParams: SendMailParams = {
-    to: supplier.email,
+    to: "firat.oezcan@gmail.com",
     subject,
-    text,
+    text: htmlToText.fromString(html, {
+      wordWrap: 130
+    }),
     html,
   };
 

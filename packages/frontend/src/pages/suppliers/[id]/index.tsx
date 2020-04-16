@@ -83,7 +83,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
             <a
               href={
                 realWebAddress +
-                "?utm_source=need-mask&utm_medium=link&utm_campaign=referring"
+                "/?utm_source=need-mask&utm_medium=link&utm_campaign=referring"
               }
               target="_blank"
             >

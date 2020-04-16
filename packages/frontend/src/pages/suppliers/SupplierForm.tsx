@@ -138,7 +138,7 @@ const SupplierForm = (props: Props) => {
                 <Sticky className="Sticky" disableCompensation={!shouldStick}>
                   {({ style }) => (
                     <div style={shouldStick ? style : {}}>
-                      <Box>
+                      <Box minH={{ md: "930px" }}>
                         <Section title="Contact details" mb="8">
                           <ContactDetails />
                         </Section>

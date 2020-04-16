@@ -4,6 +4,13 @@ import Card from "../../../components/chakra/Card";
 import { Heading, Box, Text, Flex } from "@chakra-ui/core";
 import Zoom from "react-medium-image-zoom";
 import { toPrice } from "../../../helpers/functions";
+import styled from "@emotion/styled";
+
+const FixMarginBottom = styled(Box)`
+  & > div {
+    display: block;
+  }
+`;
 
 const KeyValue = (props) => {
   const { label, value, available } = props;
@@ -23,11 +30,22 @@ const KeyValue = (props) => {
 };
 
 const ProductImage = ({ url }: File) => (
-  <Box border="1px solid" borderColor="gray.200" shadow="sm" mr="3">
+  <FixMarginBottom
+    border="1px solid"
+    borderColor="gray.200"
+    shadow="sm"
+    mr="3"
+    d="block"
+  >
     <Zoom zoomMargin={100}>
-      <img alt="" src={url} width="100" style={{ display: "block" }} />
+      <img
+        alt=""
+        src={url}
+        width="100"
+        style={{ display: "block", verticalAlign: "middle" }}
+      />
     </Zoom>
-  </Box>
+  </FixMarginBottom>
 );
 
 const ProductCard = (props: Product) => {
@@ -102,7 +120,7 @@ const ProductCard = (props: Product) => {
           >
             Product images
           </Text>
-          <Flex mt="2">
+          <Flex mt="2" alignItems="flex-start">
             {fileTypes.images.map((f) => (
               <ProductImage {...f} />
             ))}

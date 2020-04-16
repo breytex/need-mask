@@ -9,8 +9,6 @@ import { createWebhooookHandler } from "../utils/createWebhooookHandler";
 import { GET_REQUEST_PRODUCTS_BY_REQUEST } from "../../../graphql/queries/requestProducts";
 import request from "../auth/request";
 
-
-
 // Todo: Make a style function a la `style(padding(5), marginLeft(-3)) that creates an inline style for that
 const withPadding = amount => `style="padding: ${amount}px"`
 
@@ -43,7 +41,6 @@ const styledProperty = ([key, value]) => `
   ${renderValue(value)}
 </tr>`
 
-const htmlTable = styledTable(Object.entries(params.payload).map(styledProperty).join(''))
 
 const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   const {

@@ -9,7 +9,6 @@ import {
 import { UPDATE_SUPPLIER } from "../../graphql/mutations/addSupplier";
 import { Spinner } from "../../components/chakra/Spinner";
 import { cloneDeepWith } from "lodash";
-import { intToString } from "../../helpers/price";
 
 import SuccessMessage from "../../components/chakra/SuccessMessage";
 import SiteHero from "../../components/SiteHero";
@@ -63,7 +62,7 @@ const EditFormPage = (props) => {
   } = useMutation(UPDATE_SUPPLIER, { auth: true });
 
   const router = useRouter();
-  const { supplierId, email } = router.query;
+  const { supplierId } = router.query;
   const { productTypes, supplierData } = props;
 
   const defaultValues = transformSupplierDataToFormState(supplierData);

@@ -6,12 +6,8 @@ import { Section } from "../../components/chakra/form/Section";
 import { ContactDetails } from "../../components/supplier-register/ContactDetails";
 import { CompanyAddress } from "../../components/supplier-register/CompanyAddress";
 import { ProductConfigurator } from "../../components/supplier-register/ProductConfigurator";
-import { Spinner } from "../../components/chakra/Spinner";
 import { cloneDeepWith } from "lodash";
 import { countries } from "../../types/Geographic";
-import { stringToInt } from "../../helpers/price";
-import { Product } from "../../types/Product";
-import Card from "../../components/chakra/Card";
 import { StickyContainer, Sticky } from "react-sticky";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
 
@@ -109,7 +105,7 @@ const SupplierForm = (props: Props) => {
     <StickyContainer>
       <Box mx="auto">
         <Box>
-          <a ref={errorBoxRef}></a>
+          <a ref={errorBoxRef} />
           <ErrorMessage show={errors?.length > 0} title="Oh no!">
             <React.Fragment>
               An error happened

@@ -3,26 +3,20 @@ import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../../types/Supplier";
 import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
 import {
-  SimpleGrid,
   Flex,
   Box,
-  Heading,
   Text,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Divider,
-  Button,
   Icon,
 } from "@chakra-ui/core/dist";
 
 import Link from "next/link";
 
-import { useRouter } from "next/router";
 import { redirect } from "../../../helpers/redirect";
 import { graphQuery } from "../../../graphql/graphQuery";
 
-import Card from "../../../components/chakra/Card";
 import PageTitle from "../../../components/chakra/PageTitle";
 import LinkButton from "../../../components/chakra/LinkButton";
 import { Product } from "../../../types/Product";
@@ -40,17 +34,7 @@ interface ProductListType {
 }
 
 const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
-  const router = useRouter();
-  const { supplier } = props;
-  const {
-    id,
-    companyName,
-    city,
-    country,
-    continent,
-    web,
-    products,
-  } = props.supplier;
+  const { id, companyName, city, country, web, products } = props.supplier;
 
   const productsList: ProductListType = useMemo<ProductListType>(() => {
     if (!products) return {};

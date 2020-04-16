@@ -9,7 +9,7 @@ export const getPublishedMail = (supplierId: string, email: string) => {
     You can access it here: https://app.need-mask.com/suppliers/${supplierId}<br/>
     If you want to update or review the listing, you can do that here: https://app.need-mask.com/suppliers/edit?supplierId=${supplierId}&email=${email}<br/>
     `;
-  const subject = "Your request has been approved! 🎉";
+  const subject = "Your listing application has been approved! 🎉";
 
   return { text, html, subject };
 };

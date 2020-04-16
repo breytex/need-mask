@@ -1,17 +1,17 @@
-import { getPublishedMail } from "../../../mails/published";
+import { getFeedbackMail } from "./../../../mails/feedback";
 import { Supplier } from "../../../types/Supplier";
 import { createWebhooookHandler } from "../utils/createWebhooookHandler";
 import { sendMail, SendMailParams } from "../utils/sendMail";
 
 export default createWebhooookHandler<Supplier>(async (req, res) => {
   const { data } = req.body.event;
-  if (data.old.status !== "pending" || data.new.status !== "published") {
+  if (data.old.status !== "pending" || data.new.status !== "feedback") {
     return res.end(
-      "Row's published was not switched from pending to published; this is a no-op."
+      "Row's status was not switched from pending to feedback; this is a no-op."
     );
   }
 
-  const mailTextParams = getPublishedMail(data.new.id, data.new.email);
+  const mailTextParams = getFeedbackMail(data.new.id, data.new.email);
   const mailParams: SendMailParams = {
     // to: data.new.email,
     to: "breytex+needmask@gmail.com",

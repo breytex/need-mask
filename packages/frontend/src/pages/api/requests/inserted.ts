@@ -23,7 +23,7 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
 
   if (errors) return res.send(errors);
   const { requestProducts } = data
-  if (requestProducts.length)
+  if (!requestProducts.length)
     return res.send("No request with that id found");
 
   const { supplier } = requestProducts[0];

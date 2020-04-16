@@ -48,7 +48,8 @@ const transformSupplierDataToFormState = (supplierData) => {
     defaultValues.products.data[
       product.typeId + "--" + productCount++
     ] = product;
-  }),
+  });
+
   return defaultValues;
 };
 

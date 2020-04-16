@@ -86,6 +86,7 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
                 "/?utm_source=need-mask&utm_medium=link&utm_campaign=referring"
               }
               target="_blank"
+              rel="noopener"
             >
               <Icon name="external-link" mb="3px" /> Company website
             </a>

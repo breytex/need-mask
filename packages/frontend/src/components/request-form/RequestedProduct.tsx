@@ -93,7 +93,11 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
           value={id}
           ref={register({ required: true })}
         />
-        <Field key={id} name={id}>
+        <Field
+          key={id}
+          name={`${name}.amount`}
+          hint={`Minimum request amount: ${minOrderAmount || 1000}`}
+        >
           <InputWrapper>
             <MyNumberInput
               name={`${name}.amount`}

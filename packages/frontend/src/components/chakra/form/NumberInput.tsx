@@ -66,6 +66,7 @@ const MyNumberInput = (props: Props) => {
       step={step}
       onChange={setInternalValueFn}
       keepWithinRange={true}
+      clampValueOnBlur={false}
       value={value}
       size="lg"
       onBlur={updateState}

@@ -23,7 +23,7 @@ const SubmitButton = ({ isLoading, children, d }) => (
     isFullWidth
     variantColor="blue"
     size="lg"
-    mt="4"
+    mt="6"
     isLoading={isLoading}
     d={d}
   >

@@ -108,20 +108,18 @@ const SupplierDetailPage: NextPage<{ props: Props }> = ({ props }) => {
         Products
       </Text>
 
-      {Object.entries(productsList).map(
-        ([category, products]: [string, Product[]]) => (
-          <Box ml="6" mt={{ base: "2", md: "4" }}>
-            <Text fontSize="25px" color="gray.700" mb="2">
-              {category}
-            </Text>
-            <Flex wrap="wrap">
-              {products.map((p) => (
-                <ProductCard {...p} />
-              ))}
-            </Flex>
-          </Box>
-        )
-      )}
+      {Object.entries(productsList).map(([category, products]) => (
+        <Box key={category} ml="6" mt={{ base: "2", md: "4" }}>
+          <Text fontSize="25px" color="gray.700" mb="2">
+            {category}
+          </Text>
+          <Flex wrap="wrap">
+            {products.map((p) => (
+              <ProductCard {...p} />
+            ))}
+          </Flex>
+        </Box>
+      ))}
     </>
   );
 };

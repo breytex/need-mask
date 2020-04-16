@@ -25,7 +25,7 @@ const KeyValue = (props) => {
 const ProductImage = ({ url }: File) => (
   <Box border="1px solid" borderColor="gray.200" shadow="sm" mr="3">
     <Zoom zoomMargin={100}>
-      <img alt="that wanaka tree" src={url} width="100" />
+      <img alt="" src={url} width="100" style={{ display: "block" }} />
     </Zoom>
   </Box>
 );

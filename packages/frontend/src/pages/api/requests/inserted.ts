@@ -7,6 +7,43 @@ import { authWebhook } from "../utils/authWebhook";
 import { sendMail, SendMailParams } from "../utils/sendMail";
 import { createWebhooookHandler } from "../utils/createWebhooookHandler";
 import { GET_REQUEST_PRODUCTS_BY_REQUEST } from "../../../graphql/queries/requestProducts";
+import request from "../auth/request";
+
+
+
+// Todo: Make a style function a la `style(padding(5), marginLeft(-3)) that creates an inline style for that
+const withPadding = amount => `style="padding: ${amount}px"`
+
+const withFont = child => `
+<font style="font-family:sans-serif;font-size:12px">
+  ${child}
+</font>`
+
+const styledTable = children => `
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FEFEFE">
+  ${children}
+</table>
+`
+
+const renderValue = (value) => {
+  if (typeof value === "object" && value !== null) {
+    return styledTable(Object.entries(value).map(styledProperty).join(''))
+  }
+  return `<td>${withFont(value)}</td>`
+}
+
+const styledProperty = ([key, value]) => `
+<tr bgcolor="#EAF2FA">
+  <td colspan="2" ${withPadding(5)}>
+    ${withFont(`<strong>${key}</strong>`)}
+  </td>
+</tr>
+<tr>
+  <td width="20" ${withPadding(5)}>&nbsp;</td>
+  ${renderValue(value)}
+</tr>`
+
+const htmlTable = styledTable(Object.entries(params.payload).map(styledProperty).join(''))
 
 const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   const {
@@ -33,17 +70,21 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
 
   const subject = `${firstName} ${lastName} requested product information 📦`;
 
+  const withNiceNames = requestProducts.map(requestProduct => {
+    return {
+      "Amount": requestProduct.amount,
+      "Product name": requestProduct.product.title,
+      "Product type": requestProduct.product.productType.title,
+    }
+  })
+
+  const requestedProductsTable = styledTable(Object.entries(withNiceNames).map(styledProperty).join(''))
   const html = /* JSX */ `
     <strong>Contact Information</strong> <br>
     ${firstName} ${lastName}, ${email}, ${phoneNumber} <br /> <br />
 
     <strong>Requested products:</strong>
-    <ul>
-      ${requestProducts.map(
-    (requestedProduct) =>
-      `<li>${requestedProduct.product.title}, ${requestedProduct.amount}</li>`
-  )}
-    </ul>
+    ${requestedProductsTable}
   `;
 
   const text = `

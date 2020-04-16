@@ -53,9 +53,15 @@ export const CompanyAddress = (props: Props) => {
     <React.Fragment>
       {!hasSearched && (
         <React.Fragment>
+          <input
+            style={{ display: "none" }}
+            type="text"
+            name="address"
+            autoComplete="street-address"
+          />
           <AlgoliaFix>
             <AlgoliaPlaces
-              placeholder="Write an address here"
+              placeholder="Write your company address here..."
               options={{
                 appId: process.env.ALGOLIA_PLACES_APPID,
                 apiKey: process.env.ALGOLIA_PLACES_KEY,

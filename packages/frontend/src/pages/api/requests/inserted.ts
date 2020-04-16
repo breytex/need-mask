@@ -79,13 +79,13 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   })
 
   const requestedProductsTable = styledTable(Object.entries(withNiceNames).map(styledProperty).join(''))
-  const html = /* JSX */ `
-    <strong>Contact Information</strong> <br>
+  const html = /* JSX */ `Dear supplier,<br />you got a new request from need-mask.com. Please contact the below mentioned contact person, who asked for an offer. We are not liable for any transaction.<br />Thank you for listing your offering on https://need-mask.com<br /> <br />
+    <strong>Contact Information</strong> <br />
     ${firstName} ${lastName}, ${email}, ${phoneNumber} <br /> <br />
 
     <strong>Requested products:</strong>
     ${requestedProductsTable}
-  `;
+`;
 
   const text = `
    Contact Information \n

@@ -89,6 +89,13 @@ export const GET_SUPPLIER_WITH_PRODUCTS = /* GraphQL */ `
           createdAt
           updatedAt
         }
+        files {
+          file {
+            url
+            fileType
+            fileKind
+          }
+        }
       }
     }
   }

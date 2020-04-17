@@ -1,7 +1,10 @@
 import React, { useMemo } from "react";
 import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../../types/Supplier";
-import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
+import {
+  GET_SUPPLIER_FN_WITH_PRODUCTS,
+  GET_SUPPLIER_WITH_PRODUCTS,
+} from "../../../graphql/queries/supplier";
 import {
   Flex,
   Box,
@@ -129,7 +132,9 @@ SupplierDetailPage.getInitialProps = async (context: NextPageContext) => {
   const { query } = context;
   const id = query.id as string;
 
-  const { data } = await graphQuery(GET_SUPPLIER_FN_WITH_PRODUCTS(id));
+  const { data } = await graphQuery(GET_SUPPLIER_WITH_PRODUCTS, {
+    supplierId: id,
+  });
 
   if (!data || !data.suppliers_by_pk) {
     redirect(context, "/suppliers");

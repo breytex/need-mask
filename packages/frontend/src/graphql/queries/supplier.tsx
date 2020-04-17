@@ -60,6 +60,40 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
   `;
 };
 
+export const GET_SUPPLIER_WITH_PRODUCTS = /* GraphQL */ `
+  query GetSupplierWithProducts($supplierId: uuid!) {
+    suppliers_by_pk(id: $supplierId) {
+      id
+      country
+      continent
+      companyName
+      city
+      web
+      createdAt
+      updatedAt
+      products(order_by: { productType: { title: desc } }) {
+        id
+        capacity
+        description
+        leadTime
+        maxPrice
+        minOrderAmount
+        minPrice
+        title
+        createdAt
+        updatedAt
+        typeId
+        productType {
+          id
+          title
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+
 export const GET_FULL_SUPPLIER_WITH_PRODUCTS = (id: string) => {
   return /* GraphQL */ `
     query GetSupplierFull {

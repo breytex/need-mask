@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
-import { Product, File } from "../../../types/Product";
-import Card from "../../../components/chakra/Card";
+import { Product, File } from "../../types/Product";
+import Card from "../chakra/Card";
 import { Heading, Box, Text, Flex } from "@chakra-ui/core";
 import Zoom from "react-medium-image-zoom";
-import { toPrice } from "../../../helpers/functions";
+import { toPrice } from "../../helpers/functions";
 import styled from "@emotion/styled";
 
 const FixMarginBottom = styled(Box)`

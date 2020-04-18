@@ -3,8 +3,8 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { Flex, Box } from "@chakra-ui/core";
-import { ListingRow } from "../../components/Listing/ListingRow";
-import { FilterBox } from "../../components/Listing/FilterBox";
+import { ListingRow } from "./ListingRow";
+import { FilterBox } from "./FilterBox";
 import { ListingResponses } from "../../pages/suppliers";
 import { Pagination } from "../chakra/Pagination";
 import { NoResults } from "./NoResults";
@@ -17,7 +17,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
   const router = useRouter();
   const shouldStick = useMediaQuery([false, true]);
 
-  const { supplierData, productTypeData } = props;
+  const { supplierData } = props;
   const maxPages = Math.ceil(
     supplierData.suppliers_aggregate.aggregate.count / LISTINGS_PER_PAGE
   );
@@ -54,10 +54,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
                     borderColor={{ base: "gray.200", md: "initial" }}
                     borderRadius={{ base: "5px", md: "initial" }}
                   >
-                    <FilterBox
-                      onFilterChanged={navigateTo}
-                      productTypes={productTypeData.productTypes}
-                    />
+                    <FilterBox onFilterChanged={navigateTo} />
                   </Box>
                 </div>
               )}

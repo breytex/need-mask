@@ -1,26 +1,16 @@
 import React from "react";
-import { NextPage, NextPageContext } from "next";
-
-import {
-  GET_PRODUCT_TYPES,
-  ProductTypeResponse,
-} from "../../graphql/queries/products";
-
+import { NextPage } from "next";
+import { productTypes } from "../../graphql/queries/products";
 import { ADD_SUPPLIER } from "../../graphql/mutations/addSupplier";
-
 import SuccessMessage from "../../components/chakra/SuccessMessage";
 import SiteHero from "../../components/SiteHero";
-import SupplierForm from "./SupplierForm";
-import { graphQuery } from "../../graphql/graphQuery";
+import { SupplierForm } from "../../components/supplier-register/SupplierForm";
 import { useMutation } from "../../hooks/useMutation";
 
-type Props = NextPage<ProductTypeResponse>;
-
-const Register: Props = (props) => {
+const Register: NextPage = () => {
   const { trigger: mutateSupplier, data, isLoading, errors } = useMutation(
     ADD_SUPPLIER
   );
-  const { productTypes } = props;
 
   if (data) {
     return (
@@ -50,15 +40,5 @@ const Register: Props = (props) => {
     </>
   );
 };
-
-export const listingInitialProps = async function (ctx: NextPageContext) {
-  const { data: productTypeData } = await graphQuery(GET_PRODUCT_TYPES);
-
-  return {
-    productTypes: productTypeData.productTypes,
-  };
-};
-
-Register.getInitialProps = listingInitialProps;
 
 export default Register;

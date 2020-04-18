@@ -23,7 +23,7 @@ import { graphQuery } from "../../../graphql/graphQuery";
 import PageTitle from "../../../components/chakra/PageTitle";
 import LinkButton from "../../../components/chakra/LinkButton";
 import { Product } from "../../../types/Product";
-import ProductCard from "./ProductCard";
+import ProductCard from "../../../components/supplier-detail-page/ProductCard";
 type Props = {
   id: string;
   supplier: Supplier;

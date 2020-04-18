@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 import { Button, Box, Text, Flex } from "@chakra-ui/core";
-import { ErrorMessage } from "../../components/chakra/ErrorMessage";
-import Form from "../../components/chakra/form/Form";
-import { Section } from "../../components/chakra/form/Section";
-import { ContactDetails } from "../../components/supplier-register/ContactDetails";
-import { CompanyAddress } from "../../components/supplier-register/CompanyAddress";
-import { ProductConfigurator } from "../../components/supplier-register/ProductConfigurator";
+import { ErrorMessage } from "../chakra/ErrorMessage";
+import Form from "../chakra/form/Form";
+import { Section } from "../chakra/form/Section";
+import { ContactDetails } from "./ContactDetails";
+import { CompanyAddress } from "./CompanyAddress";
+import { ProductConfigurator } from "./ProductConfigurator";
 import { cloneDeepWith } from "lodash";
 import { countries } from "../../types/Geographic";
 import { StickyContainer, Sticky } from "react-sticky";
@@ -84,7 +84,7 @@ const onSubmit = (mutateSupplier) => (values) => {
   mutateSupplier({ data });
 };
 
-const SupplierForm = (props: Props) => {
+export const SupplierForm = (props: Props) => {
   const {
     productTypes,
     errors,
@@ -171,5 +171,3 @@ const SupplierForm = (props: Props) => {
     </StickyContainer>
   );
 };
-
-export default SupplierForm;

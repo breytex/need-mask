@@ -3,10 +3,8 @@ import {
   GET_LISTINGS_FN,
   LISTINGS_PER_PAGE,
 } from "../graphql/queries/listings";
-import { GET_PRODUCT_TYPES } from "../graphql/queries/products";
 import { Supplier } from "../types/Supplier";
-import { ProductType } from "../types/Product";
-import { ListingPage } from "../components/Listing/ListingPage";
+import { ListingPage } from "../components/supplier-overview/ListingPage";
 import { graphQuery } from "../graphql/graphQuery";
 
 export interface ListingResponses {
@@ -17,9 +15,6 @@ export interface ListingResponses {
         count: number;
       };
     };
-  };
-  productTypeData: {
-    productTypes: ProductType[];
   };
 }
 
@@ -39,11 +34,9 @@ export const listingInitialProps = async function (ctx: NextPageContext) {
     GET_LISTINGS_FN(productFilter, continentFilter),
     listingValues
   );
-  const { data: productTypeData } = await graphQuery(GET_PRODUCT_TYPES);
 
   return {
     supplierData,
-    productTypeData,
   };
 };
 

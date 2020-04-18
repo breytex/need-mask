@@ -22,9 +22,9 @@ export interface ProductType {
   id: string;
   title: string;
   subTypes: string;
-  products: Array<Product>;
-  createdAt: string;
-  updatedAt: string;
+  products?: Array<Product>;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ProductFile {

@@ -8,6 +8,7 @@ import { Supplier } from "../types/Supplier";
 import { ProductType } from "../types/Product";
 import { ListingPage } from "../components/Listing/ListingPage";
 import { graphQuery } from "../graphql/graphQuery";
+import { NextPagesExtended } from "./_app";
 
 export interface ListingResponses {
   supplierData: {
@@ -17,9 +18,6 @@ export interface ListingResponses {
         count: number;
       };
     };
-  };
-  productTypeData: {
-    productTypes: ProductType[];
   };
 }
 
@@ -39,11 +37,9 @@ export const listingInitialProps = async function (ctx: NextPageContext) {
     GET_LISTINGS_FN(productFilter, continentFilter),
     listingValues
   );
-  const { data: productTypeData } = await graphQuery(GET_PRODUCT_TYPES);
 
   return {
     supplierData,
-    productTypeData,
   };
 };
 

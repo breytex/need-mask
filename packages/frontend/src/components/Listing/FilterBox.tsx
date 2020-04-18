@@ -1,15 +1,13 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { Flex, Text, Select, Checkbox, CheckboxGroup } from "@chakra-ui/core";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
 import { Continent } from "../../types/Geographic";
-import { ProductType } from "../../types/Product";
 import { useRouter } from "next/router";
 import { useCsr } from "../../hooks/useCsr";
-import Headline from "../chakra/Headline";
+import { useProductTypes } from "../../context/ProductTypeContext";
 
 interface Props {
   onFilterChanged: (params) => void;
-  productTypes: ProductType[];
 }
 const FilterTitle = ({ children, ...rest }) => (
   <Text fontSize="md" fontWeight="600" {...rest}>
@@ -18,13 +16,14 @@ const FilterTitle = ({ children, ...rest }) => (
 );
 
 export const FilterBox = (props: Props) => {
+  const productTypes = useProductTypes();
   const router = useRouter();
   const isCheckboxInline = useMediaQuery([true, false]);
 
   // defer rendering of checkboxes to CSR, because of SSR glitches with `isInline`
   const isCsr = useCsr();
 
-  const { productTypes, onFilterChanged } = props;
+  const { onFilterChanged } = props;
 
   const onContinentChanged = useCallback(
     (event) => {

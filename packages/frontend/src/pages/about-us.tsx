@@ -36,11 +36,11 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
         <Box textAlign="left">
           <Heading mt="4">Our story</Heading>
           <Text mt="2">
-            David founded need-mask.com in late March 2020. At first, David
-            matched suppliers and buyers by hand via email. The number of
-            requests quickly grew to a point where it was not possible anymore
-            for David to handle everything on his own. Hanna and Kira joined the
-            team to support him.
+            David founded need-mask.com late March 2020 in Aachen, Germany. At
+            first, David matched suppliers and buyers by hand via email. The
+            number of requests quickly grew to a point where it was not possible
+            anymore for David to handle everything on his own. Hanna and Kira
+            joined the team to support him.
           </Text>
           <Text mt="2">
             Shortly after, David had the idea to build a fully-fledged listing

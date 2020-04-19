@@ -152,6 +152,43 @@ const Home: NextPage<Props> = (props) => {
             </LinkButton>
           </Box>
         </Flex> */}
+
+        <Flex
+          textAlign="center"
+          mb="8rem"
+          flexDirection={{ base: "column", md: "row" }}
+        >
+          <Box flex={3}>
+            <img
+              style={{ margin: "0 auto", transform: "scale(-1,1)" }}
+              src="/images/team.svg"
+              height={svgHeight}
+            />
+          </Box>
+
+          <Box
+            flex={3}
+            textAlign={{ base: "center", md: "left" }}
+            pt="4"
+            maxW="600px"
+            mx="auto"
+          >
+            <Headline>Want to help us?</Headline>
+            <Paragraph>
+              Need-mask is operated by a small team from Germany. Get to know us
+              or learn how you can help.
+            </Paragraph>
+
+            <LinkButton
+              size="lg"
+              variantColor="blue"
+              href="/about-us"
+              {...marginButton}
+            >
+              About us
+            </LinkButton>
+          </Box>
+        </Flex>
       </Box>
 
       <Box maxWidth="720px" mx="auto" textAlign="center">

@@ -12,7 +12,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(403).send("Email missing in request");
   }
   const code = Math.max(1e5, Math.floor(Math.random() * 1e6)).toString();
-  const codeString = "123456";
+  // const codeString = "123456";
+  const codeString = "" + code;
 
   const suppliersResponse = await rootGraphQuery<{
     data: { suppliers: Supplier[] };

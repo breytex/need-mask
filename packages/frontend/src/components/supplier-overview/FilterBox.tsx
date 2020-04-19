@@ -65,7 +65,7 @@ export const FilterBox = (props: Props) => {
           ))}
         </CheckboxGroup>
       )}
-      <FilterTitle mt="8" mb="4">
+      {/* <FilterTitle mt="8" mb="4">
         Filter by location
       </FilterTitle>
       <Select
@@ -79,7 +79,7 @@ export const FilterBox = (props: Props) => {
             {value}
           </option>
         ))}
-      </Select>
+      </Select> */}
     </Flex>
   );
 };

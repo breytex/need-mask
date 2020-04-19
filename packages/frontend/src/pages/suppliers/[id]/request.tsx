@@ -8,6 +8,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/core";
 import Link from "next/link";
 import { graphQuery } from "../../../graphql/graphQuery";
 import PageHead from "../../../components/PageHead";
+import NotSupportedBrowser from "../../../components/NotSupportedBrowser";
 
 type Props = {
   props: {
@@ -19,6 +20,7 @@ type Props = {
 export const Request: NextPage<Props> = ({ props: { id, supplier } }) => {
   return (
     <>
+      <NotSupportedBrowser />
       <PageHead title="Supplier: Request a quote" />
       <Breadcrumb fontSize="sm">
         <BreadcrumbItem>
@@ -42,6 +44,7 @@ export const Request: NextPage<Props> = ({ props: { id, supplier } }) => {
         mt="6"
         textAlign={{ base: "left", md: "center" }}
         title="Request product information"
+        description="Your contact details will be shared with the supplier."
       />
       <RequestForm
         products={supplier.products}

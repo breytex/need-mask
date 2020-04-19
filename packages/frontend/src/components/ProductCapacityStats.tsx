@@ -29,10 +29,10 @@ export const ProductCapacityStats: React.FC<Props> = ({ items }) => {
               {capacity.title}
             </Heading>
             <Heading size="lg">{capacity.capacity || 0}</Heading>
-            <Image
+            <img
+              style={{ margin: "0 auto" }}
               src={`/images/productTypes/${capacity.title.toLowerCase()}.svg`}
               alt=""
-              mx="auto"
             />
           </Card>
         );

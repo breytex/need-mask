@@ -15,6 +15,7 @@ type Props = {
   supplerId: string;
   withAddress?: boolean;
   products: Product[];
+  supplierCompanyName: string;
 };
 
 const SubmitButton = ({ isLoading, children, d }) => (
@@ -31,7 +32,12 @@ const SubmitButton = ({ isLoading, children, d }) => (
   </Button>
 );
 
-const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
+const RequestForm: React.FC<Props> = ({
+  supplerId,
+  withAddress,
+  products,
+  supplierCompanyName,
+}) => {
   const { trigger: mutateRequest, data, isLoading } = useMutation<any>(
     ADD_REQUEST
   );
@@ -68,7 +74,7 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
     <Form onSubmit={onSubmit}>
       <StickyContainer>
         <Flex flexDirection={{ base: "column-reverse", md: "row" }}>
-          <Box flexGrow={1}>
+          <Box w={{ base: "100%", md: "38%" }}>
             <Text
               fontSize="25px"
               fontWeight="400"
@@ -95,7 +101,7 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
           <Box
             ml={{ base: "0", md: "12" }}
             p={{ base: "3", md: "0" }}
-            minWidth="50%"
+            w={{ base: "100%", md: "58%" }}
           >
             <Sticky disableCompensation={!shouldStick}>
               {({ style }) => (
@@ -112,7 +118,10 @@ const RequestForm: React.FC<Props> = ({ supplerId, withAddress, products }) => {
                     How can the supplier reach you?
                   </Text>
 
-                  <ContactDetails id={supplerId} />
+                  <ContactDetails
+                    id={supplerId}
+                    supplierCompanyName={supplierCompanyName}
+                  />
                   <SubmitButton
                     isLoading={isLoading}
                     d={{ base: "none", md: "block" }}

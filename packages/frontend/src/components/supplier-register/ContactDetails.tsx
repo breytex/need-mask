@@ -3,7 +3,7 @@ import { Field } from "../chakra/form/Field";
 import { Input } from "@chakra-ui/core";
 import { FieldRow } from "../chakra/form/FieldRow";
 import { useFormContext } from "react-hook-form";
-import { WEB_REGEX, EMAIL_REGEX } from "../../constants/regex";
+import { EMAIL_REGEX } from "../../constants/regex";
 
 interface Props {}
 

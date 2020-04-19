@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import Error from "../../components/chakra/form/Error";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import queryString from "query-string";
+import PageHead from "../../components/PageHead";
 
 type Props = NextPage;
 
@@ -50,6 +51,7 @@ const Verify: Props = (props) => {
 
   return (
     <>
+      <PageHead title="Login: check your mails" />
       <SiteHero
         title="Check your emails!"
         description="We just sent you an email including a security pin. Enter it below to finish the login process."

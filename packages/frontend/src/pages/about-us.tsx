@@ -1,10 +1,12 @@
 import * as React from "react";
 import SiteHero from "../components/SiteHero";
 import { Heading, Text } from "@chakra-ui/core";
+import PageHead from "../components/PageHead";
 
 const AboutUs = () => {
   let div = (
     <>
+      <PageHead title="About us" />
       <div>
         <SiteHero
           title="About Us"

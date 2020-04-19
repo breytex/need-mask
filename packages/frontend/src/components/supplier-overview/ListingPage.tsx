@@ -12,6 +12,7 @@ import { LISTINGS_PER_PAGE } from "../../graphql/queries/listings";
 import { useMediaQuery } from "../../chakra/useMediaQuery";
 import PageTitle from "../chakra/PageTitle";
 import { StickyContainer, Sticky } from "react-sticky";
+import PageHead from "../PageHead";
 
 export const ListingPage: NextPage<ListingResponses> = (props) => {
   const router = useRouter();
@@ -40,6 +41,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
 
   return (
     <React.Fragment>
+      <PageHead title="Discover suppliers" />
       <PageTitle>Discover new suppliers for protective gear</PageTitle>
       <StickyContainer>
         <Flex flexDirection={{ base: "column", md: "row" }}>

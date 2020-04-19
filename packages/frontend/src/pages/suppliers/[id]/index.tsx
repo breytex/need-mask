@@ -17,6 +17,7 @@ import {
   AlertTitle,
   AlertDescription,
 } from "@chakra-ui/core";
+import PageHead from "../../../components/PageHead";
 
 type Props = {
   supplier?: Supplier;
@@ -26,28 +27,36 @@ const SupplierDetailPageContainer: NextPage<Props> = (props) => {
   const { supplier } = props;
   const router = useRouter();
   if (router.isFallback) {
-    return <Spinner></Spinner>;
+    return (
+      <>
+        <PageHead title="Loading" />
+        <Spinner></Spinner>
+      </>
+    );
   }
   if (!supplier) {
     return (
-      <Alert status="error">
-        <AlertIcon />
-        <AlertTitle mr={2}>Not found</AlertTitle>
-        <AlertDescription>
-          The supplier you were looking for could not be found.
-        </AlertDescription>
-      </Alert>
+      <>
+        <PageHead title="Supplier details" />
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle mr={2}>Not found</AlertTitle>
+          <AlertDescription>
+            The supplier you were looking for could not be found.
+          </AlertDescription>
+        </Alert>
+      </>
     );
   }
-  return <SupplierDetailPage supplier={supplier} />;
+  return (
+    <>
+      <PageHead title="Supplier details" />
+      <SupplierDetailPage supplier={supplier} />
+    </>
+  );
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  console.log(
-    "supplliers/index getStaticProps: fetching supplier for SDP: ",
-    params.id
-  );
-
   const { data } = await graphQuery(GET_SUPPLIER_WITH_PRODUCTS, {
     supplierId: params.id,
   });
@@ -67,10 +76,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  console.log(
-    "supplliers/index getStaticPaths: fetching ids of all available suppliers"
-  );
-
   const {
     data: { suppliers },
   } = await graphQuery(GET_ALL_SUPPLIER_IDS);

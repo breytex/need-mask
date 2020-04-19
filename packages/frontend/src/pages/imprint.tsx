@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Heading, Text } from "@chakra-ui/core";
 import SiteHero from "../components/SiteHero";
+import PageHead from "../components/PageHead";
 
 const Imprint = () => {
   return (
     <div>
+      <PageHead title="Imprint" />
       <SiteHero title="Imprint" />
 
       <Heading as="h4" size="sm">

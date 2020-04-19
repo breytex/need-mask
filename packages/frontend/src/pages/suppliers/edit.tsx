@@ -18,6 +18,7 @@ import queryString from "query-string";
 import { useQuery } from "../../hooks/useQuery";
 import { useMutation } from "../../hooks/useMutation";
 import { useCsr } from "../../hooks/useCsr";
+import PageHead from "../../components/PageHead";
 
 type Props = NextPage;
 
@@ -73,18 +74,22 @@ const EditFormPage = (props) => {
 
   if (data) {
     return (
-      <SuccessMessage
-        title="Thanks!"
-        buttonTitle="Back to suppliers"
-        onClickPath="/suppliers"
-      >
-        You have successfuly submitted updated listing to need-mask.com. Our
-        moderators will now review your submission and notify you via email.
-      </SuccessMessage>
+      <>
+        <PageHead title="Success" />
+        <SuccessMessage
+          title="Thanks!"
+          buttonTitle="Back to suppliers"
+          onClickPath="/suppliers"
+        >
+          You have successfuly submitted updated listing to need-mask.com. Our
+          moderators will now review your submission and notify you via email.
+        </SuccessMessage>
+      </>
     );
   }
   return (
     <>
+      <PageHead title="Edit your listing" />
       <SiteHero
         title="Edit your listing"
         description="Change your listing below. Our moderators will review your changes in the next 48 houres. Your listing will be offline in the meantime."

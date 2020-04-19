@@ -13,6 +13,7 @@ import { usePost } from "../../hooks/usePost";
 import { useRouter } from "next/router";
 import Error from "../../components/chakra/form/Error";
 import queryString from "query-string";
+import PageHead from "../../components/PageHead";
 
 type Props = NextPage;
 
@@ -46,6 +47,7 @@ const Login: Props = (props) => {
 
   return (
     <>
+      <PageHead title="Login" />
       <SiteHero
         title="Login to edit your listing"
         description="Please enter the email address which you used to create the listing below. You will receive a password pin via email to the same address."

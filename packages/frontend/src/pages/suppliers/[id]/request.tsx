@@ -7,6 +7,7 @@ import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../../graphql/queries/supplier
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/core";
 import Link from "next/link";
 import { graphQuery } from "../../../graphql/graphQuery";
+import PageHead from "../../../components/PageHead";
 
 type Props = {
   props: {
@@ -18,6 +19,7 @@ type Props = {
 export const Request: NextPage<Props> = ({ props: { id, supplier } }) => {
   return (
     <>
+      <PageHead title="Supplier: Request a quote" />
       <Breadcrumb fontSize="sm">
         <BreadcrumbItem>
           <Link href="/suppliers">

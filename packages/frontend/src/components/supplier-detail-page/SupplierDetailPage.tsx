@@ -7,7 +7,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Icon,
-} from "@chakra-ui/core/dist";
+} from "@chakra-ui/core";
 
 import Link from "next/link";
 import ProductCard from "../supplier-detail-page/ProductCard";

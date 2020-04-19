@@ -123,13 +123,6 @@ export const CompanyAddress = (props: Props) => {
           </Field>
         </React.Fragment>
       )}
-      <Field
-        name="web"
-        label="Web address"
-        hint="You can add a link to your companies website or to your LinkedIn profile"
-      >
-        <Input name="web" ref={register()} />
-      </Field>
       <Field name="privacy" mt="8">
         <Checkbox name="privacy" ref={register({ required: true })}>
           <PrivacyCheckboxText />

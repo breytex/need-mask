@@ -86,24 +86,16 @@ export const CompanyAddress = (props: Props) => {
       )}
       {hasSearched && (
         <React.Fragment>
-          <FieldRow>
-            <Field name="street" label="Street" flexGrow={4} isRequired>
-              <Input
-                name="street"
-                maxLength={254}
-                ref={register({ required: true })}
-              />
-            </Field>
-            <Field name="houseNumber" label="Number" flexGrow={1} isRequired>
-              <Input
-                name="houseNumber"
-                maxLength={25}
-                ref={register({
-                  required: true,
-                })}
-              />
-            </Field>
-          </FieldRow>
+          <Field name="street" label="Street address / number" isRequired>
+            <Input
+              name="street"
+              maxLength={254}
+              ref={register({ required: true })}
+            />
+          </Field>
+          <Field name="street2" label="Street address line 2">
+            <Input name="street2" maxLength={254} ref={register()} />
+          </Field>
           <FieldRow>
             <Field name="city" label="City" flexGrow={4} isRequired>
               <Input

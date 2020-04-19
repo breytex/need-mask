@@ -117,7 +117,7 @@ export const GET_FULL_SUPPLIER_WITH_PRODUCTS = (id: string) => {
         companyName
         city
         street
-        houseNumber
+        street2
         updatedAt
         vatNumber
         zip

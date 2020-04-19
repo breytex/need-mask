@@ -16,7 +16,7 @@ export interface Supplier {
   firstName?: string;
   lastName?: string;
   street?: string;
-  houseNumber?: string;
+  street2?: string;
   zip?: string;
   city?: string;
   country?: string;

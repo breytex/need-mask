@@ -1,20 +1,10 @@
 import * as React from "react";
-
 import { Heading, Text } from "@chakra-ui/core";
 import PageHead from "../components/PageHead";
-import { Box, Link } from "@chakra-ui/core/dist";
+import { Box } from "@chakra-ui/core/dist";
 import SimpleGrid from "@chakra-ui/core/dist/SimpleGrid";
 import { NextPage } from "next";
-import Card from "../components/chakra/Card";
-
-type Member = {
-  title: string;
-  description: string;
-  role: string;
-  linkedIn: string;
-  web: string;
-  imageSrc: string;
-};
+import TeamMember, { Member } from "../components/TeamMember";
 
 const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
   return (
@@ -24,47 +14,7 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
         <Box mb="16">
           <SimpleGrid columns={{ base: 2, md: 3 }} spacing={5}>
             {team.map((member) => (
-              <Card key={member.title} textAlign="center" p="4">
-                <Heading as="h4" size="sm">
-                  {member.title}
-                </Heading>
-                <Text fontSize="sm" color="#495057" mb="2">
-                  {member.role}
-                </Text>
-                <Box textAlign="center">
-                  {member.imageSrc ? (
-                    <img
-                      src={`${member.imageSrc}.jpg`}
-                      srcSet={`${member.imageSrc}@2x.jpg 2x`}
-                      alt={member.title}
-                      height="150"
-                      width="150"
-                      style={{ borderRadius: "50%", display: "inline-block" }}
-                    />
-                  ) : (
-                    <img
-                      src="/images/mask.svg"
-                      alt={member.title}
-                      height="150"
-                      width="150"
-                      style={{ display: "inline-block", padding: "16px" }}
-                    />
-                  )}
-                </Box>
-                <Link
-                  fontSize="xs"
-                  href={member.linkedIn}
-                  target="_blank"
-                  px={1}
-                >
-                  LinkedIn
-                </Link>
-                {member.web && (
-                  <Link fontSize="xs" href={member.web} target="_blank" px={1}>
-                    Web
-                  </Link>
-                )}
-              </Card>
+              <TeamMember key={member.title} {...member} />
             ))}
           </SimpleGrid>
         </Box>
@@ -115,14 +65,14 @@ export async function getServerSideProps() {
       title: "Kira Hirschberger",
       description: "",
       role: "Project Assistant",
-      linkedIn: "https://www.linkedin.com/in/firatoezcan",
+      linkedIn: "",
       imageSrc: "",
     },
     {
       title: "Hanna Hohenbild",
       description: "",
       role: "Project Assistant",
-      linkedIn: "https://www.linkedin.com/in/firatoezcan",
+      linkedIn: "",
       imageSrc: "",
     },
   ];

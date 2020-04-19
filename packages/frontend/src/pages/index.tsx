@@ -1,7 +1,6 @@
 import * as React from "react";
 import { NextPage } from "next";
-import { Box, Flex, Text, Button, Image, Heading } from "@chakra-ui/core";
-import Link from "next/link";
+import { Box, Flex, Text, Heading } from "@chakra-ui/core";
 import SiteHero from "../components/SiteHero";
 import ProductCapacityStats from "../components/ProductCapacityStats";
 import { GET_CAPACITY_PER_PRODUCT } from "../graphql/queries/capacity";

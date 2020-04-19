@@ -18,8 +18,7 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
             recent days the request for medical masks and protective wear across
             Europe has risen due to the spread of COVID-19. We want to help to
             provide an overview of current NEED and SUPPLY of protective wear,
-            especially face masks. Our main goal is to establish a transparent
-            market and give usury prices no chance.
+            especially face masks.
           </Text>
         </Box>
         <Box mb="16" mt="10" textAlign="center">
@@ -36,21 +35,13 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
         <Box textAlign="left">
           <Heading mt="4">Our story</Heading>
           <Text mt="2">
-            David founded need-mask.com late March 2020 in Aachen, Germany. At
-            first, David matched suppliers and buyers by hand via email. The
-            number of requests quickly grew to a point where it was not possible
-            anymore for David to handle everything on his own. Hanna and Kira
-            joined the team to support him.
-          </Text>
-          <Text mt="2">
-            Shortly after, David had the idea to build a fully-fledged listing
-            platform, where buyers and suppliers could be matched without being
-            manually connected by a team member. He posted a job advertisement
-            on a university website and Fabian messaged him, offering software
-            development support. Fabian brought his two friends Firat and Arne
-            on board to be able to build the platform faster than the commercial
-            competition. The three developers built the main prototype of the
-            platform throughout the easter weekend.
+            David founded need-mask.com in late March 2020 in Aachen, Germany.
+            At first, David matched suppliers and buyers by mail and phone.
+            Fabian and his two friends Firat and Arne joined and built a
+            fully-fledged listing platform in their free time. Now buyers and
+            suppliers can finally find each other without a middleman.
+            Need-mask.com is ready to be scaled worldwide. Now it‘s up to you:
+            Spread the word, send us feedback, make it work!
           </Text>
           <Heading mt="8">Want to help?</Heading>
           <Text mt="2">

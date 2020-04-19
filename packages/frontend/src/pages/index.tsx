@@ -173,10 +173,10 @@ const Home: NextPage<Props> = (props) => {
             maxW="600px"
             mx="auto"
           >
-            <Headline>Want to help us?</Headline>
+            <Headline>Curious who we are? Want to help?</Headline>
             <Paragraph>
-              Need-mask is operated by a small team from Germany. Get to know us
-              or learn how you can help.
+              Let us build a strong community to support people in need of
+              protective masks. Join our movement and be part of our team.
             </Paragraph>
 
             <LinkButton
@@ -185,7 +185,7 @@ const Home: NextPage<Props> = (props) => {
               href="/about-us"
               {...marginButton}
             >
-              About us
+              Get to know us
             </LinkButton>
           </Box>
         </Flex>

@@ -35,14 +35,24 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
                   {member.role}
                 </Text>
                 <Box textAlign="center">
-                  <img
-                    src={`${member.imageSrc}.jpg`}
-                    srcSet={`${member.imageSrc}@2x.jpg 2x`}
-                    alt={member.title}
-                    height="150"
-                    width="150"
-                    style={{ borderRadius: "50%", display: "inline-block" }}
-                  />
+                  {member.imageSrc ? (
+                    <img
+                      src={`${member.imageSrc}.jpg`}
+                      srcSet={`${member.imageSrc}@2x.jpg 2x`}
+                      alt={member.title}
+                      height="150"
+                      width="150"
+                      style={{ borderRadius: "50%", display: "inline-block" }}
+                    />
+                  ) : (
+                    <img
+                      src="/images/mask.svg"
+                      alt={member.title}
+                      height="150"
+                      width="150"
+                      style={{ display: "inline-block" }}
+                    />
+                  )}
                 </Box>
                 <Link
                   fontSize="xs"
@@ -109,14 +119,14 @@ export async function getServerSideProps() {
       description: "",
       role: "Project Assistant",
       linkedIn: "https://www.linkedin.com/in/firatoezcan",
-      imageSrc: "/images/team/ds",
+      imageSrc: "",
     },
     {
       title: "Hanna Hohenbild",
       description: "",
       role: "Project Assistant",
       linkedIn: "https://www.linkedin.com/in/firatoezcan",
-      imageSrc: "/images/team/ds",
+      imageSrc: "",
     },
   ];
 

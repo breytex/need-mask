@@ -89,9 +89,12 @@ const ContactDetails: React.FC<Props> = ({ supplierCompanyName }) => {
         <Checkbox name="privacy" ref={register({ required: true })}>
           <Text fontSize="sm" ml="2">
             I have understood that my contact details will be shared with the
-            supplier "{supplierCompanyName}" and that Need-Mask.com is not
-            liable for any usage of the shared data, any contracts closed
-            between you and the supplier as well as any transactions.
+            supplier "{supplierCompanyName}". Need-Mask.com is not liable for
+            any usage of the shared data, any contracts closed between you and
+            the supplier as well as any transactions. I also understood that all
+            details such as availability, capacity, price range and lead time of
+            the presented products are not binding and are up to further
+            negotiation between me and the supplier.
           </Text>
         </Checkbox>
       </Field>

@@ -13,6 +13,7 @@ import { useMediaQuery } from "../../chakra/useMediaQuery";
 import PageTitle from "../chakra/PageTitle";
 import { StickyContainer, Sticky } from "react-sticky";
 import PageHead from "../PageHead";
+import { DetailsWarning } from "../DetailsWarning";
 
 export const ListingPage: NextPage<ListingResponses> = (props) => {
   const router = useRouter();
@@ -78,6 +79,7 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
               onPageChange={navigateTo}
               mt="4"
             />
+            <DetailsWarning />
           </Box>
         </Flex>
       </StickyContainer>

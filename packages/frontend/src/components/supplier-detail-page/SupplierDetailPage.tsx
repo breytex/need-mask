@@ -16,6 +16,7 @@ import { countries } from "../../types/Geographic";
 import PageTitle from "../chakra/PageTitle";
 import LinkButton from "../chakra/LinkButton";
 import { Supplier } from "../../types/Supplier";
+import { DetailsWarning } from "../DetailsWarning";
 
 interface Props {
   supplier: Supplier;
@@ -119,7 +120,8 @@ const SupplierDetailPage = (props: Props) => {
           </Flex>
         </Box>
       ))}
-      <LinkButton href="/auth/login" mt="5" leftIcon="edit" variant="ghost">
+      <DetailsWarning />
+      <LinkButton href="/auth/login" leftIcon="edit" variant="ghost">
         Edit your listing
       </LinkButton>
     </>

@@ -42,6 +42,7 @@ export const Request: NextPage<Props> = ({ props: { id, supplier } }) => {
         mt="6"
         textAlign={{ base: "left", md: "center" }}
         title="Request product information"
+        description="Your contact details will be shared with the supplier."
       />
       <RequestForm
         products={supplier.products}

@@ -7,6 +7,7 @@ import SiteHero from "../../components/SiteHero";
 import { SupplierForm } from "../../components/supplier-register/SupplierForm";
 import { useMutation } from "../../hooks/useMutation";
 import PageHead from "../../components/PageHead";
+import NotSupportedBrowser from "../../components/NotSupportedBrowser";
 
 const Register: NextPage = () => {
   const { trigger: mutateSupplier, data, isLoading, errors } = useMutation(
@@ -31,6 +32,7 @@ const Register: NextPage = () => {
 
   return (
     <>
+      <NotSupportedBrowser />
       <PageHead title="Register as supplier" />
       <SiteHero
         title="Register as a Supplier"

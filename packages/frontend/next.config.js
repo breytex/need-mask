@@ -15,9 +15,11 @@ module.exports = {
     SMTP_USER: process.env.SMTP_USER,
     SMTP_PASS: process.env.SMTP_PASS,
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config) => {
     // Add the new plugin to the existing webpack plugins
-    config.plugins.push(new Dotenv({ silent: true }));
+    config.plugins.push(new Dotenv({
+      silent: true
+    }));
 
     return config;
   },

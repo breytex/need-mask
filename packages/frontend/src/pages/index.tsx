@@ -49,7 +49,11 @@ const Home: NextPage<Props> = (props) => {
           flexDirection={{ base: "column", md: "row" }}
         >
           <Box flex={3}>
-            <Image src="/images/deliveries.svg" height={svgHeight} mx="auto" />
+            <img
+              style={{ margin: "0 auto" }}
+              src="/images/deliveries.svg"
+              height={svgHeight}
+            />
           </Box>
 
           <Box
@@ -104,10 +108,10 @@ const Home: NextPage<Props> = (props) => {
             </LinkButton>
           </Box>
           <Box flex={3}>
-            <Image
+            <img
+              style={{ margin: "0 auto" }}
               src="/images/undraw_medical_research.svg"
               height={svgHeight}
-              mx="auto"
             />
           </Box>
         </Flex>
@@ -118,11 +122,10 @@ const Home: NextPage<Props> = (props) => {
           flexDirection={{ base: "column", md: "row" }}
         >
           <Box flex={3}>
-            <Image
+            <img
+              style={{margin: "0 auto", transform:"scale(-1,1)"}}
               src="/images/social_distancing.svg"
               height={svgHeight}
-              mx="auto"
-              transform="scale(-1,1)"
             />
           </Box>
 

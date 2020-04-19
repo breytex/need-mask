@@ -87,7 +87,7 @@ const EditFormPage = (props) => {
     <>
       <SiteHero
         title="Edit your listing"
-        description="Change your listing below. Our moderators will review your changes in the next 48 houres. Your listing will be offline for the meantime."
+        description="Change your listing below. Our moderators will review your changes in the next 48 houres. Your listing will be offline in the meantime."
       />
       <SupplierForm
         errors={errors}

@@ -7,11 +7,12 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Icon,
+  Button,
 } from "@chakra-ui/core/dist";
 import Link from "next/link";
 import ProductCard from "../supplier-detail-page/ProductCard";
 import { Product } from "../../types/Product";
-
+import { countries } from "../../types/Geographic";
 import PageTitle from "../chakra/PageTitle";
 import LinkButton from "../chakra/LinkButton";
 import { Supplier } from "../../types/Supplier";
@@ -51,6 +52,9 @@ const SupplierDetailPage = (props: Props) => {
 
   const realWebAddress = web?.includes("http") ? web : `https://${web}`;
 
+  const countryString =
+    countries.find((c) => c.code === country)?.name || country;
+
   return (
     <>
       <Breadcrumb fontSize="sm" mb="4">
@@ -71,7 +75,7 @@ const SupplierDetailPage = (props: Props) => {
         <Box>
           <PageTitle mb="0">{companyName}</PageTitle>
           <Text fontSize="25px" mt="-8px" color="gray.700">
-            {city}, {country}
+            {city}, {countryString}
           </Text>
           {web && (
             <a
@@ -115,6 +119,9 @@ const SupplierDetailPage = (props: Props) => {
           </Flex>
         </Box>
       ))}
+      <LinkButton href="/auth/login" mt="5" leftIcon="edit" variant="ghost">
+        Edit your listing
+      </LinkButton>
     </>
   );
 };

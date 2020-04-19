@@ -88,24 +88,36 @@ export const CompanyAddress = (props: Props) => {
         <React.Fragment>
           <FieldRow>
             <Field name="street" label="Street" flexGrow={4} isRequired>
-              <Input name="street" ref={register()} />
+              <Input
+                name="street"
+                maxLength={254}
+                ref={register({ required: true })}
+              />
             </Field>
             <Field name="houseNumber" label="Number" flexGrow={1} isRequired>
               <Input
                 name="houseNumber"
+                maxLength={25}
                 ref={register({
                   required: true,
-                  pattern: /^[a-zA-Z\ \.]*\d+[a-zA-Z\ \.]*$/,
                 })}
               />
             </Field>
           </FieldRow>
           <FieldRow>
             <Field name="city" label="City" flexGrow={4} isRequired>
-              <Input name="city" ref={register({ required: true })} />
+              <Input
+                name="city"
+                maxLength={254}
+                ref={register({ required: true })}
+              />
             </Field>
             <Field name="zip" label="ZIP" flexGrow={1}>
-              <Input name="zip" ref={register()} />
+              <Input
+                name="zip"
+                maxLength={15}
+                ref={register({ required: true })}
+              />
             </Field>
           </FieldRow>
           <Field name="country" label="Country" flexGrow={1} isRequired>

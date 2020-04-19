@@ -1,7 +1,11 @@
 import * as React from "react";
-import { Box, Flex, Heading } from "@chakra-ui/core";
+import { Box, Flex, Heading, Text } from "@chakra-ui/core";
 import Link from "next/link";
-
+const Spacer = () => (
+  <Text mr="2" ml="2">
+    |
+  </Text>
+);
 const SiteFooter: React.FC = () => {
   return (
     <Box p={6} bg="gray.700" color="white">
@@ -22,17 +26,19 @@ const SiteFooter: React.FC = () => {
           width={{ sm: "full", md: "auto" }}
           alignItems="center"
         >
-          <Box pr={2}>
+          <Box pr={2} fontSize="lg">
             <Link href="/about-us">
               <a>About Us</a>
             </Link>
           </Box>
-          <Box pr={2}>
+          <Spacer />
+          <Box pr={2} fontSize="lg">
             <Link href="/imprint">
               <a>Imprint</a>
             </Link>
           </Box>
-          <Box pr={2}>
+          <Spacer />
+          <Box pr={2} fontSize="lg">
             <Link href="/privacy">
               <a>Privacy</a>
             </Link>

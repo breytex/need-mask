@@ -20,8 +20,8 @@ const Register: NextPage = () => {
         <PageHead title="Success" />
         <SuccessMessage
           title="Thanks!"
-          buttonTitle="Back to suppliers"
-          onClickPath="/suppliers"
+          buttonTitle="Back to mainpage"
+          onClickPath="/"
         >
           You have successfuly submitted your listing to need-mask.com. Our
           moderators will now review your submission and notify you via email.

@@ -50,7 +50,7 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
                       alt={member.title}
                       height="150"
                       width="150"
-                      style={{ display: "inline-block" }}
+                      style={{ display: "inline-block", padding: "16px" }}
                     />
                   )}
                 </Box>

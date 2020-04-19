@@ -32,6 +32,11 @@ const SiteFooter: React.FC = () => {
               <a>Imprint</a>
             </Link>
           </Box>
+          <Box pr={2}>
+            <Link href="/privacy">
+              <a>Privacy</a>
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Box>

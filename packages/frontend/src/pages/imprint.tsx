@@ -5,7 +5,7 @@ import PageHead from "../components/PageHead";
 
 const Imprint = () => {
   return (
-    <div>
+    <>
       <PageHead title="Imprint" />
       <Box maxWidth="600px" mx="auto">
         <Box mb="4">
@@ -69,7 +69,7 @@ const Imprint = () => {
           unauthorized use may violate copyright laws.
         </Text>
       </Box>
-    <div/>
+    </>
   );
 };
 

@@ -46,7 +46,10 @@ const Login: Props = (props) => {
 
   return (
     <>
-      <SiteHero title="Login" description="Change your supplier listing" />
+      <SiteHero
+        title="Login to edit your listing"
+        description="Please enter the email address which you used to create the listing below. You will receive a password pin via email to the same address."
+      />
       <Flex justify="center">
         <InputGroup size="lg">
           <InputLeftElement children={<Icon name="email" color="gray.500" />} />

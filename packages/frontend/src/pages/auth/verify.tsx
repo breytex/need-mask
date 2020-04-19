@@ -51,8 +51,8 @@ const Verify: Props = (props) => {
   return (
     <>
       <SiteHero
-        title="Enter Pin Code"
-        description="We just sent you an email, enter the attached pin code below"
+        title="Check your emails!"
+        description="We just sent you an email including a security pin. Enter it below to finish the login process."
       />
       <Flex justify="center">
         <InputGroup size="lg">

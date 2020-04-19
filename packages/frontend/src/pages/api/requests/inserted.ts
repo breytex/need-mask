@@ -103,4 +103,4 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   return res.end();
 });
 
-export default authWebhook(handler);
+export default handler;

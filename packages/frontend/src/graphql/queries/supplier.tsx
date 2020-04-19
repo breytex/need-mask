@@ -60,6 +60,14 @@ export const GET_SUPPLIER_FN_WITH_PRODUCTS = (id: string) => {
   `;
 };
 
+export const GET_ALL_SUPPLIER_IDS = `
+  query GetSupplierWithProducts {
+    suppliers {
+      id
+    }
+  }
+`;
+
 export const GET_SUPPLIER_WITH_PRODUCTS = /* GraphQL */ `
   query GetSupplierWithProducts($supplierId: uuid!) {
     suppliers_by_pk(id: $supplierId) {
@@ -69,8 +77,6 @@ export const GET_SUPPLIER_WITH_PRODUCTS = /* GraphQL */ `
       companyName
       city
       web
-      createdAt
-      updatedAt
       products(order_by: { productType: { title: desc } }) {
         id
         capacity
@@ -80,14 +86,10 @@ export const GET_SUPPLIER_WITH_PRODUCTS = /* GraphQL */ `
         minOrderAmount
         minPrice
         title
-        createdAt
-        updatedAt
         typeId
         productType {
           id
           title
-          createdAt
-          updatedAt
         }
         files {
           file {

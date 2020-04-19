@@ -11,6 +11,7 @@ type Member = {
   description: string;
   role: string;
   linkedIn: string;
+  web: string;
   imageSrc: string;
 };
 
@@ -24,7 +25,7 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
 
       <Box maxWidth="800px" mx="auto" textAlign="center">
         <Box mb="16">
-          <SimpleGrid columns={3} spacing={2}>
+          <SimpleGrid columns={{ base: 2, md: 3 }} spacing={5}>
             {team.map((member) => (
               <Card key={member.title} textAlign="center" p="4">
                 <Heading as="h4" size="sm">
@@ -38,14 +39,24 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
                     src={`${member.imageSrc}.jpg`}
                     srcSet={`${member.imageSrc}@2x.jpg 2x`}
                     alt={member.title}
-                    height="180"
-                    width="180"
+                    height="150"
+                    width="150"
                     style={{ borderRadius: "50%", display: "inline-block" }}
                   />
                 </Box>
-                <Link fontSize="xs" href={member.linkedIn} target="_blank">
+                <Link
+                  fontSize="xs"
+                  href={member.linkedIn}
+                  target="_blank"
+                  px={1}
+                >
                   LinkedIn
                 </Link>
+                {member.web && (
+                  <Link fontSize="xs" href={member.web} target="_blank" px={1}>
+                    Web
+                  </Link>
+                )}
               </Card>
             ))}
           </SimpleGrid>
@@ -74,21 +85,22 @@ export async function getServerSideProps() {
     {
       title: "Arne Wiese",
       description: "",
-      role: "Software Engineer",
+      role: "Freelance Software Engineer",
       linkedIn: "https://www.linkedin.com/in/arnewiese/",
       imageSrc: "/images/team/aw",
     },
     {
       title: "Fabian Schulze",
       description: "",
-      role: "Software Engineer",
+      role: "Freelance Software Engineer",
       linkedIn: "https://www.linkedin.com/in/fabian-schulze-code-consulting/",
+      web: "http://code-consulting.de",
       imageSrc: "/images/team/fs",
     },
     {
       title: "Firat Özcan",
       description: "",
-      role: "Software Engineer",
+      role: "Freelance Software Engineer",
       linkedIn: "https://www.linkedin.com/in/firatoezcan",
       imageSrc: "/images/team/fo",
     },

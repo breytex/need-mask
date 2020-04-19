@@ -144,7 +144,7 @@ export const SupplierForm = (props: Props) => {
                           mx="auto"
                           type="submit"
                           variantColor="blue"
-                          mt={{ base: "5", md: "10" }}
+                          mt="4"
                           isLoading={isLoading}
                           size="lg"
                           isFullWidth

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Heading } from "@chakra-ui/core/dist";
+import { Heading } from "@chakra-ui/core";
 
 type Props = {};
 

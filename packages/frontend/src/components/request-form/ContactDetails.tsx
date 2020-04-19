@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import { Box, Input, Checkbox, Text } from "@chakra-ui/core/dist";
+import { Box, Input, Checkbox, Text } from "@chakra-ui/core";
 import { Field } from "../chakra/form/Field";
-import Select from "@chakra-ui/core/dist/Select";
+import { Select } from "@chakra-ui/core";
 import { PrivacyCheckboxText } from "../privacyCheckboxes";
 import { EMAIL_REGEX } from "../../constants/regex";
 

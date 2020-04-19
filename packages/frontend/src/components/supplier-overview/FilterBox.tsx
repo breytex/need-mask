@@ -35,7 +35,10 @@ export const FilterBox = (props: Props) => {
     (value) => {
       onFilterChanged({
         page: 1,
-        products: value.length > 0 ? value.join(",") : undefined,
+        products:
+          value.length > 0
+            ? value.sort((a: string, b: string) => b.localeCompare(a)).join(",")
+            : undefined,
       });
     },
     [onFilterChanged]

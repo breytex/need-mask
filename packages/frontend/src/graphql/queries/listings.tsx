@@ -63,6 +63,30 @@ export const GET_LISTINGS_FN = (products: String[], continent?: String) => {
   return query;
 };
 
+export const GET_LISTINGS_COUNT_FN = (
+  products: String[],
+  continent?: String
+) => {
+  let productFilter = "";
+  if (products.length > 0) {
+    productFilter = createAndWhereFilters(products, !continent);
+  }
+
+  let combinedFilter = productFilter;
+  if (!!continent) {
+    combinedFilter = `{continent: {_eq: "${continent}"}${productFilter}}`;
+  }
+
+  const aggregateFilter = combinedFilter ? `(where: ${combinedFilter})` : "";
+  const query = `
+        query GetListingsCount {
+            suppliers_aggregate${aggregateFilter}{aggregate{count}}
+        }
+    `;
+
+  return query;
+};
+
 export interface SupplierResponse {
   suppliers: Supplier[];
 }

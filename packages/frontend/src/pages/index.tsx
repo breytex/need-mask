@@ -8,6 +8,7 @@ import { GET_CAPACITY_PER_PRODUCT } from "../graphql/queries/capacity";
 import { Capacity, CapacityResponse } from "../types/Capacity";
 import { graphQuery, HasuraResponse } from "../graphql/graphQuery";
 import LinkButton from "../components/chakra/LinkButton";
+import PageHead from "../components/PageHead";
 
 type Props = {
   capacities: Capacity[];
@@ -33,6 +34,7 @@ const Home: NextPage<Props> = (props) => {
 
   return (
     <div>
+      <PageHead title="Welcome" />
       <SiteHero
         title="You NEED or SUPPLY masks?"
         description="COVID-19 has changed all our lives in the recent weeks. While a

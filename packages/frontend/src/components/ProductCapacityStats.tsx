@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Heading, Image, SimpleGrid } from "@chakra-ui/core/dist";
+import { Box, Heading, Image, SimpleGrid } from "@chakra-ui/core";
 import { Capacity } from "../types/Capacity";
 import Card from "./chakra/Card";
 
@@ -9,7 +9,12 @@ type Props = {
 
 export const ProductCapacityStats: React.FC<Props> = ({ items }) => {
   return (
-    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} mx="auto" mb="24">
+    <SimpleGrid
+      columns={{ base: 1, md: 3 }}
+      spacing={{ base: 4, md: 8 }}
+      mx="auto"
+      mb="24"
+    >
       {items.map((capacity) => {
         return (
           <Card bg="white" p={6} key={capacity.title}>

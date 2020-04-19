@@ -1,6 +1,7 @@
 import * as React from "react";
-import SiteHero from "../components/SiteHero";
+
 import { Heading, Text } from "@chakra-ui/core";
+import PageHead from "../components/PageHead";
 import { Box, Link } from "@chakra-ui/core/dist";
 import SimpleGrid from "@chakra-ui/core/dist/SimpleGrid";
 import { NextPage } from "next";
@@ -18,11 +19,7 @@ type Member = {
 const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
   return (
     <>
-      <SiteHero
-        title="About Us"
-        description="A non-profit registry for sourcing protective masks in Europe"
-      />
-
+      <PageHead title="About us" />
       <Box maxWidth="800px" mx="auto" textAlign="center">
         <Box mb="16">
           <SimpleGrid columns={{ base: 2, md: 3 }} spacing={5}>

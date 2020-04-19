@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Heading, Text } from "@chakra-ui/core";
-import SiteHero from "../components/SiteHero";
 import { Box, List, ListItem } from "@chakra-ui/core/dist";
+import PageHead from "../components/PageHead";
 
 const Imprint = () => {
   return (
-    <>
-      <SiteHero title="Imprint" />
+    <div>
+      <PageHead title="Imprint" />
       <Box maxWidth="600px" mx="auto">
         <Box mb="4">
           <Heading as="h4" size="sm">
@@ -69,7 +69,7 @@ const Imprint = () => {
           unauthorized use may violate copyright laws.
         </Text>
       </Box>
-    </>
+    <div/>
   );
 };
 

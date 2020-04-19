@@ -64,6 +64,9 @@ const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
   if (!supplier) {
     return res.send("Supplier not found 😱");
   }
+  if (supplier.status !== 'published') {
+    return res.send("You cannot request from an unpublished supplier listing 💤")
+  }
 
   const subject = `${firstName} ${lastName} requested product information 📦`;
 

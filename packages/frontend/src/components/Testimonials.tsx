@@ -11,10 +11,18 @@ const Testimonials = () => {
       flexDirection={{ base: "column", md: "row" }}
     >
       <Box>
-        <Image height="100px" src="/images/ita-rwth.png" alt="RWTH" p={2} />
+        <img
+          style={{ padding: "0.5rem", height: "100px" }}
+          src="/images/ita-rwth.png"
+          alt="RWTH"
+        />
       </Box>
       <Box>
-        <Image height="50px" src="/images/ghzeri.png" alt="Ghzeri" p={2} />
+        <img
+          style={{ padding: "0.5rem", height: "50px" }}
+          src="/images/ghzeri.png"
+          alt="Ghzeri"
+        />
       </Box>
     </Flex>
   );

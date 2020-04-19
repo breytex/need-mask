@@ -20,7 +20,11 @@ const SiteHeader: React.FC = () => {
         <Link href="/">
           <a>
             <Flex align="center">
-              <Image src="/images/logo.png" alt="need-mask.com" size="50px" />
+              <img
+                style={{ height: "50px" }}
+                src="/images/logo.png"
+                alt="need-mask.com"
+              />
               <Heading
                 color="gray.700"
                 ml="4"

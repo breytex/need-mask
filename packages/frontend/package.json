@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
+    "build": "next build && ./node_modules/.bin/babel .next/static --out-dir .next/static --presets=@babel/preset-env --minified",
     "start": "next start",
     "format": "prettier --write \"src/**/*.+(js|jsx|ts|tsx|css)\""
   },
@@ -40,6 +40,9 @@
     "text-mask-addons": "^3.8.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
     "@types/multiparty": "^0.0.32",
     "@types/node": "^13.11.1",
     "@types/nodemailer": "^6.4.0",

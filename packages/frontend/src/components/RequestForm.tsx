@@ -45,6 +45,8 @@ const RequestForm: React.FC<Props> = ({
 
   function onSubmit(d) {
     const { requestedProducts, ...fields } = d;
+    delete d.privacy;
+    delete d.terms;
     mutateRequest({
       data: {
         ...fields,

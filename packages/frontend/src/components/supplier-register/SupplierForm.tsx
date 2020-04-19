@@ -80,6 +80,7 @@ const onSubmit = (mutateSupplier) => (values) => {
   delete data.productTypes;
   delete data.addressBlocker;
   delete data.id;
+  delete data.privacy;
 
   mutateSupplier({ data });
 };

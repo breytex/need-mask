@@ -10,7 +10,7 @@ export const getFeedbackMail = (supplierId: string, email: string) => {
   \r\n
   Take your time adjusting your listing and submit it again.\r\n
   Use this link to login to your listing:\r\n
-  https://app.need-mask.com/suppliers/edit?supplierId=${supplierId}&email=${email} \r\n
+  https://need-mask.com/suppliers/edit?supplierId=${supplierId}&email=${email} \r\n
   \r\n
   \r\n
   Thank you for listing your offering on need-mask.com
@@ -27,7 +27,7 @@ export const getFeedbackMail = (supplierId: string, email: string) => {
   <br/>
   Take your time adjusting your listing and submit it again.<br/>
   Use this link to login to your listing:<br/>
-  <a href="https://app.need-mask.com/suppliers/edit?supplierId=${supplierId}&email=${email}">Click here to review your listing</a> <br/>
+  <a href="https://need-mask.com/suppliers/edit?supplierId=${supplierId}&email=${email}">Click here to review your listing</a> <br/>
   <br/>
   <br/>
   Thank you for listing your offering on need-mask.com

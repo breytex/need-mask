@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Heading, Image, SimpleGrid } from "@chakra-ui/core/dist";
+import { Box, Heading, Image, SimpleGrid } from "@chakra-ui/core";
 import { Capacity } from "../types/Capacity";
 import Card from "./chakra/Card";
 

@@ -4,11 +4,7 @@ import SiteHero from "../../../components/SiteHero";
 import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../../types/Supplier";
 import { GET_SUPPLIER_FN_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-} from "@chakra-ui/core/dist";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/core";
 import Link from "next/link";
 import { graphQuery } from "../../../graphql/graphQuery";
 

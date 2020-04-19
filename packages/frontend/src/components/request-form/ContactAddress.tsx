@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import { Box, Input } from "@chakra-ui/core/dist";
+import { Box, Input } from "@chakra-ui/core";
 import { Field } from "../chakra/form/Field";
 
 type Props = {};

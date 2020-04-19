@@ -13,8 +13,8 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
 
   const mailTextParams = getFeedbackMail(data.new.id, data.new.email);
   const mailParams: SendMailParams = {
-    // to: data.new.email,
-    to: "breytex+needmask@gmail.com",
+    to: data.new.email,
+    // to: "breytex+needmask@gmail.com",
     ...mailTextParams,
   };
 

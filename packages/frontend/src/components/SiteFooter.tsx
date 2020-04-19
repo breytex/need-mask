@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Flex, Heading, Button } from "@chakra-ui/core";
+import { Box, Flex, Heading } from "@chakra-ui/core";
 import Link from "next/link";
 
 const SiteFooter: React.FC = () => {
@@ -30,6 +30,11 @@ const SiteFooter: React.FC = () => {
           <Box pr={2}>
             <Link href="/imprint">
               <a>Imprint</a>
+            </Link>
+          </Box>
+          <Box pr={2}>
+            <Link href="/privacy">
+              <a>Privacy</a>
             </Link>
           </Box>
         </Box>

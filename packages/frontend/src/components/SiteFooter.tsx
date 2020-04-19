@@ -26,21 +26,27 @@ const SiteFooter: React.FC = () => {
           width={{ sm: "full", md: "auto" }}
           alignItems="center"
         >
-          <Box pr={2} fontSize="lg">
+          <Box fontSize="lg">
             <Link href="/about-us">
               <a>About Us</a>
             </Link>
           </Box>
           <Spacer />
-          <Box pr={2} fontSize="lg">
+          <Box fontSize="lg">
             <Link href="/imprint">
               <a>Imprint</a>
             </Link>
           </Box>
           <Spacer />
-          <Box pr={2} fontSize="lg">
+          <Box fontSize="lg">
             <Link href="/privacy">
               <a>Privacy</a>
+            </Link>
+          </Box>
+          <Spacer />
+          <Box fontSize="lg">
+            <Link href="/terms-of-use">
+              <a>Terms of use</a>
             </Link>
           </Box>
         </Box>

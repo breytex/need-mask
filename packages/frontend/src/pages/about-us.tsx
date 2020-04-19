@@ -115,7 +115,7 @@ export async function getServerSideProps() {
       description: "",
       role: "Project Assistant",
       linkedIn: "",
-      imageSrc: "",
+      imageSrc: "/images/team/hh",
     },
   ];
 

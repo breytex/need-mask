@@ -15,15 +15,25 @@ export const TermsOfUse: React.FC<Props> = () => {
         <Text mb="2">
           By using need-mask.com and its product database as well as its
           supplementary services, the user accepts the following Terms of Use,
-          which govern the use of the website and its supplementary
-          services. David Schmelzeisen is the publisher of the
-          website www.need-mask.com°and all other related NeedMask language
-          versions and their supplementary services. need-mask.com offers
-          services for online listings and access to several online databases
-          with information on products, services, companies and other business
-          data for commercial use only. need-mask.com has no own commercial
-          interests. Need-mask.com is not a vendor of any goods or services.
-          Need-mask.com does not take any provisions of listed companies.
+          which govern the use of the website and its supplementary services.
+        </Text>
+
+        <Text mb="2">
+          David Schmelzeisen is the publisher of the website www.need-mask.com
+          and all other related NeedMask language versions and their
+          supplementary services. 
+        </Text>
+
+        <Text mb="2">
+          need-mask.com offers services for online listings and access to
+          several online databases with information on products, services,
+          companies and other business data for commercial use only.
+        </Text>
+
+        <Text mb="2">
+          need-mask.com has no own commercial interests. Need-mask.com is not a
+          vendor of any goods or services. Need-mask.com does not take any
+          provisions of listed companies.
         </Text>
 
         <Heading as="h5" size="sm" my="2">
@@ -65,12 +75,20 @@ export const TermsOfUse: React.FC<Props> = () => {
         </Text>
 
         <Text mb="2">
-          The user is aware that he/she uses need-mask.com services and
-          information at his/her own risk. The user can contact all companies
-          listed on need-mask.com. need-mask.com accepts no responsibility or
-          liability for damage caused by the use of the services, databases and
-          their contents as well as the use of external links to other websites,
-          for whatever reason. All need-mask.com databases, including their
+          need-mask.com assumes no guarantee, responsibility, assurances or
+          liability for the topicality, completeness and correctness of all
+          services and information provided, or for an uninterrupted and
+          error-free Internet connection without malfunctions. The user is aware
+          that he/she uses need-mask.com services and information at his/her own
+          risk.
+        </Text>
+
+        <Text mb="2">
+          The user can contact all companies listed on
+          need-mask.com. need-mask.com accepts no responsibility or liability
+          for damage caused by the use of the services, databases and their
+          contents as well as the use of external links to other websites, for
+          whatever reason. All need-mask.com databases, including their
           contents, are subject to unlimited copyright, both individually and as
           a whole. The user undertakes not to market, forward to third parties,
           copy, automatically or individually download, duplicate, reproduce,

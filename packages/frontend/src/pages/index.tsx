@@ -176,7 +176,7 @@ const Home: NextPage<Props> = (props) => {
             <Headline>Curious who we are? Want to help?</Headline>
             <Paragraph>
               Let us build a strong community to support people in need of
-              protective masks. Join our movement and be part of our team.
+              protective equipment. Join our movement and be part of our team.
             </Paragraph>
 
             <LinkButton

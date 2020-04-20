@@ -1,15 +1,10 @@
 import React from "react";
-import { NextPage, GetStaticPaths, GetStaticProps } from "next";
+import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../../types/Supplier";
-import {
-  GET_ALL_SUPPLIER_IDS,
-  GET_SUPPLIER_WITH_PRODUCTS,
-} from "../../../graphql/queries/supplier";
+import { GET_SUPPLIER_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
 
 import { graphQuery } from "../../../graphql/graphQuery";
 
-import { useRouter } from "next/router";
-import { Spinner } from "../../../components/chakra/Spinner";
 import SupplierDetailPage from "../../../components/supplier-detail-page/SupplierDetailPage";
 import {
   Alert,
@@ -18,22 +13,16 @@ import {
   AlertDescription,
 } from "@chakra-ui/core";
 import PageHead from "../../../components/PageHead";
+import { redirect } from "../../../helpers/redirect";
 
 type Props = {
+  id: string;
   supplier?: Supplier;
 };
 
 const SupplierDetailPageContainer: NextPage<Props> = (props) => {
   const { supplier } = props;
-  const router = useRouter();
-  if (router.isFallback) {
-    return (
-      <>
-        <PageHead title="Loading" />
-        <Spinner></Spinner>
-      </>
-    );
-  }
+
   if (!supplier) {
     return (
       <>
@@ -48,6 +37,7 @@ const SupplierDetailPageContainer: NextPage<Props> = (props) => {
       </>
     );
   }
+
   return (
     <>
       <PageHead title="Supplier details" />
@@ -56,35 +46,27 @@ const SupplierDetailPageContainer: NextPage<Props> = (props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await graphQuery(GET_SUPPLIER_WITH_PRODUCTS, {
-    supplierId: params.id,
-  });
+SupplierDetailPageContainer.getInitialProps = async (
+  context: NextPageContext
+) => {
+  const { query } = context;
+  const id = query.id as string;
+
+  const { data } = await graphQuery(
+    GET_SUPPLIER_WITH_PRODUCTS,
+    {
+      supplierId: id,
+    },
+    { shouldCache: true }
+  );
+
   if (!data || !data.suppliers_by_pk) {
-    return {
-      props: {
-        supplier: null,
-      },
-    };
+    redirect(context, "/suppliers");
   }
 
   return {
-    props: {
-      supplier: data.suppliers_by_pk,
-    },
-  };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const {
-    data: { suppliers },
-  } = await graphQuery(GET_ALL_SUPPLIER_IDS);
-
-  const paths = suppliers.map(({ id }) => ({ params: { id } }));
-
-  return {
-    paths,
-    fallback: true,
+    id,
+    supplier: data.suppliers_by_pk,
   };
 };
 

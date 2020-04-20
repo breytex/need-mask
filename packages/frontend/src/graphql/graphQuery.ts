@@ -3,6 +3,7 @@ import fetch from "isomorphic-unfetch";
 export interface GraphQueryProps {
   headers?: object;
   auth?: boolean;
+  shouldCache?: boolean;
 }
 interface HasuraError {
   extensions: {
@@ -22,7 +23,7 @@ export async function graphQuery<T>(
   variables?: object,
   props?: GraphQueryProps
 ): Promise<T> {
-  const { headers = {}, auth = false } = props || {};
+  const { headers = {}, auth = false, shouldCache = false } = props || {};
 
   const getAuthorization = () => {
     if (!auth || window === undefined) return {};
@@ -40,9 +41,12 @@ export async function graphQuery<T>(
 
     return { Authorization: `Bearer ${parsedToken}` };
   };
+  const fetchEndpoint = shouldCache
+    ? process.env.HASURA_CDN_URL
+    : process.env.HASURA_URL;
 
   try {
-    const res = await fetch(process.env.HASURA_URL, {
+    const res = await fetch(fetchEndpoint, {
       method: "POST",
       body: JSON.stringify({
         query,

@@ -3,6 +3,7 @@
   "env": {
     "HASURA_ADMIN_SECRET": "@hasura_admin_secret",
     "HASURA_URL": "@hasura_url",
+    "HASURA_CDN_URL": "@hasura_cdn_url",
     "SPACES_KEY": "@spaces_key",
     "SPACES_SECRET": "@spaces_secret",
     "ALGOLIA_PLACES_APPID": "@algolia_places_appid",
@@ -19,6 +20,7 @@
     "env": {
       "HASURA_ADMIN_SECRET": "@hasura_admin_secret",
       "HASURA_URL": "@hasura_url",
+      "HASURA_CDN_URL": "@hasura_cdn_url",
       "SPACES_KEY": "@spaces_key",
       "SPACES_SECRET": "@spaces_secret",
       "ALGOLIA_PLACES_APPID": "@algolia_places_appid",

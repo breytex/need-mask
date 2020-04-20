@@ -32,7 +32,8 @@ export const listingInitialProps = async function (ctx: NextPageContext) {
 
   const { data: supplierData } = await graphQuery(
     GET_LISTINGS_FN(productFilter, continentFilter),
-    listingValues
+    listingValues,
+    { shouldCache: true }
   );
 
   return {

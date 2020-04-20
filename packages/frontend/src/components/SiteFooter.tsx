@@ -2,7 +2,7 @@ import * as React from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/core";
 import Link from "next/link";
 const Spacer = () => (
-  <Text mr="2" ml="2">
+  <Text mr="2" ml="2" d={{ base: "none", md: "block" }}>
     |
   </Text>
 );
@@ -25,6 +25,7 @@ const SiteFooter: React.FC = () => {
           display={{ sm: "block", md: "flex" }}
           width={{ sm: "full", md: "auto" }}
           alignItems="center"
+          mt={{ base: "5", md: "0" }}
         >
           <Box fontSize="lg">
             <Link href="/about-us">

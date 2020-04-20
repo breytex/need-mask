@@ -8,8 +8,8 @@ import htmlToText from "html-to-text";
 
 export default createWebhooookHandler<Supplier>(async (req, res) => {
   const { data: requestData } = req.body.event;
-  if (requestData.new.status !== "published") {
-    return res.end("New row is not status published. This is a no-op.");
+  if (requestData.new.status !== "pending") {
+    return res.end("New row is not status pending. This is a no-op.");
   }
 
   const { data, errors } = await rootGraphQuery<{
@@ -63,8 +63,8 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
   Email: ${supplier.email}<br/>
   Web: ${supplier.email}<br/>
   VAT: ${supplier.vatNumber}<br/>
-<br/><br/>
-${products}
+  <br/><br/>
+  ${products}
 `;
 
   const mailParams: SendMailParams = {

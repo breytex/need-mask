@@ -14,7 +14,7 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
         <Box textAlign="left">
           <Heading>About us</Heading>
           <Text mt="2">
-            A non-profit registry for sourcing protective masks in Europe In
+            A non-profit registry for sourcing protective masks in Europe. In
             recent days the request for medical masks and protective wear across
             Europe has risen due to the spread of COVID-19. We want to help to
             provide an overview of current NEED and SUPPLY of protective wear,
@@ -100,7 +100,7 @@ export async function getServerSideProps() {
       description: "",
       role: "Project Assistant",
       linkedIn: "",
-      imageSrc: "",
+      imageSrc: "/images/team/kh",
     },
     {
       title: "Hanna Hohenbild",

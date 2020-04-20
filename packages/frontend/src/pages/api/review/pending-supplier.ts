@@ -5,6 +5,8 @@ import { sendMail, SendMailParams } from "../utils/sendMail";
 import { rootGraphQuery } from "../utils/rootGraphQuery";
 import { GET_FULL_SUPPLIER_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
 import htmlToText from "html-to-text";
+import crypto from "crypto";
+import { PUBLISH_HASH_SALT } from "./publish-supplier";
 
 export default createWebhooookHandler<Supplier>(async (req, res) => {
   const { data: requestData } = req.body.event;
@@ -17,6 +19,15 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
     errors: any[];
   }>(GET_FULL_SUPPLIER_WITH_PRODUCTS(requestData.new.id));
   const supplier = data.suppliers_by_pk;
+
+  if (Boolean(errors)) {
+    return res.end("Supplier not found");
+  }
+
+  const hash = crypto
+    .createHmac("sha256", PUBLISH_HASH_SALT)
+    .update(supplier.id as string)
+    .digest("hex");
 
   const products = supplier.products.reduce((acc, next) => {
     const fileString = next.files.reduce((files, file) => {
@@ -34,7 +45,7 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
       title: ${next.title} <br/>  
       description: ${next.description} <br/>  
       typeId: ${next.typeId} <br/>  
-      productType: ${next.productType} <br/>  
+      productType: ${next.productType?.title} <br/>  
       minPrice: ${next.minPrice} <br/>  
       maxPrice: ${next.maxPrice} <br/>  
       capacity: ${next.capacity} <br/>  
@@ -46,6 +57,9 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
       updatedAt: ${next.updatedAt} <br/>  
       files:
       ${fileString}
+      <br/><br/>
+      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${supplier.id}&hash=${hash}&stautus=published">Publish</a><br/><br/>
+      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${supplier.id}&hash=${hash}&stautus=feedback">Needs rework</a>
     `;
 
     return acc + productStr;
@@ -61,7 +75,7 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
   Street2: ${supplier.street2}<br/>
   ZIP: ${supplier.zip}<br/>
   Email: ${supplier.email}<br/>
-  Web: ${supplier.email}<br/>
+  Web: ${supplier.web}<br/>
   VAT: ${supplier.vatNumber}<br/>
   <br/><br/>
   ${products}

@@ -57,8 +57,8 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
       files:
       ${fileString}
       <br/><br/>
-      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${supplier.id}&hash=${hash}&stautus=published">Publish</a><br/><br/>
-      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${supplier.id}&hash=${hash}&stautus=feedback">Needs rework</a>
+      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${supplier.id}&hash=${hash}&status=published">Publish</a><br/><br/>
+      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${supplier.id}&hash=${hash}&status=feedback">Needs rework</a>
     `;
 
     return acc + productStr;

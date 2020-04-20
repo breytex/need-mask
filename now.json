@@ -46,6 +46,10 @@
       "destination": "https://api.need-mask.com/console/$1"
     },
     {
+      "source": "/api/cdn/graphql/(.*)",
+      "destination": "https://cdn.needmask.workers.dev/v1/graphql$1"
+    },
+    {
       "source": "/api/v1/graphql/(.*)",
       "destination": "https://api.need-mask.com/v1/graphql$1"
     },

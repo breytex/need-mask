@@ -33,7 +33,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   if (Boolean(errors)) {
-    return res.send("Graphql error");
+    return res.send(errors);
   }
+
   return res.send("success");
 };

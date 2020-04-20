@@ -29,7 +29,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const { errors } = await rootGraphQuery(UPDATE_SUPPLIER, {
-    variables: { id: supplierId, status },
+    id: supplierId,
+    status,
   });
 
   if (Boolean(errors)) {

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { Product, File } from "../../types/Product";
 import Card from "../chakra/Card";
-import { Heading, Box, Text, Flex } from "@chakra-ui/core";
+import { Heading, Box, Text, Flex, Icon, Button } from "@chakra-ui/core";
 import Zoom from "react-medium-image-zoom";
 import { toPrice } from "../../helpers/functions";
 import styled from "@emotion/styled";
@@ -11,6 +11,8 @@ const FixMarginBottom = styled(Box)`
     display: block;
   }
 `;
+
+const imageFileTypes = ["jpg", "jpeg", "png", "gif"];
 
 const KeyValue = (props) => {
   const { label, value, available } = props;
@@ -68,10 +70,10 @@ const ProductCard = (props: Product) => {
     let result = { images: [] as Array<File>, other: [] as Array<File> };
 
     files.forEach((f) => {
-      if (f.file.fileKind === "certificateFile") {
-        result.other.push(f.file);
-      } else {
+      if (imageFileTypes.includes(f.file.fileType.toLowerCase())) {
         result.images.push(f.file);
+      } else {
+        result.other.push(f.file);
       }
     });
     return result;
@@ -143,14 +145,13 @@ const ProductCard = (props: Product) => {
           {fileTypes.other.map((f) => {
             const fileName = f.url.split("/").slice(-1)[0].split("--")[1];
             return (
-              <a
-                href={f.url}
-                style={{ textDecoration: "underline" }}
-                download={fileName}
-                target="_blank"
-              >
-                Download "{fileName}"
-              </a>
+              <Flex>
+                <a href={f.url} download={fileName} target="_blank">
+                  <Button leftIcon="download" variant="ghost">
+                    {fileName}
+                  </Button>
+                </a>
+              </Flex>
             );
           })}
         </>

@@ -71,7 +71,7 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
     to: "review@need-mask.com",
     subject: "A new supplier joined 🚀",
     html,
-    text: htmlToText(html),
+    text: htmlToText.fromString(html),
   };
 
   await sendMail(mailParams);

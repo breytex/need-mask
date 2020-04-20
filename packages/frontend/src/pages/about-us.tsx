@@ -20,9 +20,10 @@ const AboutUs: NextPage<{ team: Member[] }> = ({ team }) => {
             provide an overview of current NEED and SUPPLY of protective wear,
             especially face masks.
           </Text>
+          <Heading mt="12">The team</Heading>
         </Box>
-        <Box mb="16" mt="10" textAlign="center">
-          <SimpleGrid columns={{ base: 2, md: 3 }} spacing={5}>
+        <Box mb="16" mt="4" textAlign="center">
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
             {team.map((member) => (
               <TeamMember key={member.title} {...member} />
             ))}

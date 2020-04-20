@@ -1,4 +1,3 @@
-import { getPublishedMail } from "../../../mails/published";
 import { Supplier } from "../../../types/Supplier";
 import { createWebhooookHandler } from "../utils/createWebhooookHandler";
 import { sendMail, SendMailParams } from "../utils/sendMail";
@@ -26,7 +25,7 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
 
   const hash = crypto
     .createHmac("sha256", PUBLISH_HASH_SALT)
-    .update(supplier.id as string)
+    .update("" + supplier.id)
     .digest("hex");
 
   const products = supplier.products.reduce((acc, next) => {

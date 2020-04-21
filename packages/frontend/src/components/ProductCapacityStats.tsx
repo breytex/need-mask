@@ -29,7 +29,7 @@ export const ProductCapacityStats: React.FC<Props> = ({ items }) => {
               {capacity.title}
             </Heading>
             <Heading size="lg">
-              {new Intl.NumberFormat("en-US").format(capacity.capacity) || 0}
+              {new Intl.NumberFormat("en-US").format(capacity.capacity || 0)}
             </Heading>
             <img
               style={{ margin: "0 auto" }}

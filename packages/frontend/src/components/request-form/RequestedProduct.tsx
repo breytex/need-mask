@@ -129,7 +129,7 @@ const RequestedProduct: React.FC<Props> = ({ index, product }) => {
           <KeyValue
             label="Capacity"
             value={`${new Intl.NumberFormat("en-US").format(
-              capacity
+              capacity || 0
             )} units/week`}
             available={Boolean(capacity)}
           />

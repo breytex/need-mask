@@ -92,7 +92,7 @@ export async function getServerSideProps() {
       title: "Firat Özcan",
       description: "",
       role: "Freelance Software Engineer",
-      linkedIn: "https://www.linkedin.com/in/firatoezcan",
+      linkedIn: "https://entwickler.jetzt",
       imageSrc: "/images/team/fo",
     },
     {

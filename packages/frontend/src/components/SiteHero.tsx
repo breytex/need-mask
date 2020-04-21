@@ -12,6 +12,7 @@ const SiteHero: React.FC<Props> = (props) => {
   return (
     <Box
       mb={{ base: 4, md: 10, lg: 12 }}
+      px={{ base: 3, md: 0 }}
       mx="auto"
       textAlign="center"
       maxWidth="720px"

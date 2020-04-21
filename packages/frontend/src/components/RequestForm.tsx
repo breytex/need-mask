@@ -11,26 +11,13 @@ import ContactAddress from "./request-form/ContactAddress";
 import { useMutation } from "../hooks/useMutation";
 import { StickyContainer, Sticky } from "react-sticky";
 import { useMediaQuery } from "../chakra/useMediaQuery";
+import { BorderHeadline } from "./chakra/BorderHeadline";
 type Props = {
   supplerId: string;
   withAddress?: boolean;
   products: Product[];
   supplierCompanyName: string;
 };
-
-const SubmitButton = ({ isLoading, children, d }) => (
-  <Button
-    type="submit"
-    isFullWidth
-    variantColor="blue"
-    size="lg"
-    mt="6"
-    isLoading={isLoading}
-    d={d}
-  >
-    {children}
-  </Button>
-);
 
 const RequestForm: React.FC<Props> = ({
   supplerId,
@@ -75,16 +62,9 @@ const RequestForm: React.FC<Props> = ({
   return (
     <Form onSubmit={onSubmit}>
       <StickyContainer>
-        <Flex flexDirection={{ base: "column-reverse", md: "row" }}>
+        <Flex flexDirection={{ base: "column", md: "row" }}>
           <Box w={{ base: "100%", md: "38%" }}>
-            <Text
-              fontSize="25px"
-              fontWeight="400"
-              mb={{ base: "4", md: "6" }}
-              mt="4"
-            >
-              Select the products you need
-            </Text>
+            <BorderHeadline>Select the products you need</BorderHeadline>
             {products.map((product, index) => (
               <RequestedProduct
                 key={product.id}
@@ -92,12 +72,6 @@ const RequestForm: React.FC<Props> = ({
                 product={product}
               />
             ))}
-            <SubmitButton
-              isLoading={isLoading}
-              d={{ base: "block", md: "none" }}
-            >
-              Submit your request
-            </SubmitButton>
           </Box>
 
           <Box
@@ -111,25 +85,24 @@ const RequestForm: React.FC<Props> = ({
                   className="StickyContactDetails"
                   style={shouldStick ? style : {}}
                 >
-                  <Text
-                    fontSize="25px"
-                    fontWeight="400"
-                    mb={{ base: "4", md: "6" }}
-                    mt="4"
-                  >
+                  <BorderHeadline>
                     How can the supplier reach you?
-                  </Text>
+                  </BorderHeadline>
 
                   <ContactDetails
                     id={supplerId}
                     supplierCompanyName={supplierCompanyName}
                   />
-                  <SubmitButton
+                  <Button
+                    type="submit"
+                    isFullWidth
+                    variantColor="blue"
+                    size="lg"
+                    mt="6"
                     isLoading={isLoading}
-                    d={{ base: "none", md: "block" }}
                   >
                     Submit your request
-                  </SubmitButton>
+                  </Button>
                 </div>
               )}
             </Sticky>

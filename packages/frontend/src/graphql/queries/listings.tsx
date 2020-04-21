@@ -29,7 +29,7 @@ export const GET_LISTINGS_FN = (products: String[], continent?: String) => {
   const aggregateFilter = combinedFilter ? `(where: ${combinedFilter})` : "";
   const query = `
         query CACHE__GetListings($offset:Int) {
-            suppliers(limit: ${LISTINGS_PER_PAGE}, offset: $offset${getFilter}) {
+            suppliers(order_by: {createdAt: desc}, limit: ${LISTINGS_PER_PAGE}, offset: $offset${getFilter}) {
                 id 
                 country
                 city

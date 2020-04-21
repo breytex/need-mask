@@ -51,8 +51,7 @@ body {
   margin: 1em;
 }
 
-@media all and (-ms-high-contrast:none) {
-
+@media all and (-ms-high-contrast: none) {
   *::-ms-backdrop,
   .NotSupportedBrowser {
     display: flex !important;

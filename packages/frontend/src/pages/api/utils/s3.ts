@@ -11,7 +11,7 @@ const getEdgeUrl = (path) =>
   `https://${bucketName}.fra1.cdn.digitaloceanspaces.com/${path}`;
 const tempFolder = "definitelyNotTemp";
 const getPath = (url: string) => {
-  const match = url.match(/digitaloceanspaces.com\/(.*)/)
-  if (match) return match[2]
-}
+  const match = url.match(/digitaloceanspaces.com\/(.*)/);
+  if (match) return match[2];
+};
 export { s3, bucketName, getEdgeUrl, getPath, tempFolder };

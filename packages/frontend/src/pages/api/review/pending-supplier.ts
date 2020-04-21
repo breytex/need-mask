@@ -7,6 +7,8 @@ import htmlToText from "html-to-text";
 import crypto from "crypto";
 import { PUBLISH_HASH_SALT } from "./publish-supplier";
 
+const format = (num) => new Intl.NumberFormat("en-US").format(num || 0);
+
 export default createWebhooookHandler<Supplier>(async (req, res) => {
   const { data: requestData } = req.body.event;
   if (requestData.new.status !== "pending") {
@@ -45,12 +47,12 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
       description: ${next.description} <br/>  
       typeId: ${next.typeId} <br/>  
       productType: ${next.productType?.title} <br/>  
-      minPrice: ${next.minPrice} <br/>  
-      maxPrice: ${next.maxPrice} <br/>  
-      capacity: ${next.capacity} <br/>  
-      minOrderAmount: ${next.minOrderAmount} <br/>  
-      leadTime: ${next.leadTime} <br/>  
-      supplierId: ${next.supplierId} <br/>  
+      minPrice: ${next.minPrice / 100}€ <br/>  
+      maxPrice: ${next.maxPrice / 100}€ <br/>  
+      capacity: ${format(next.capacity)} units/week<br/>  
+      minOrderAmount: ${format(next.minOrderAmount)} units<br/>  
+      leadTime: ${next.leadTime} days<br/>  
+      supplierId: ${next.supplierId}<br/>  
       supplier: ${next.supplier} <br/>  
       createdAt: ${next.createdAt} <br/>  
       updatedAt: ${next.updatedAt} <br/>  

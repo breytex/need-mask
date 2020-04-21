@@ -6,6 +6,7 @@ import { GET_FULL_SUPPLIER_WITH_PRODUCTS } from "../../../graphql/queries/suppli
 import htmlToText from "html-to-text";
 import crypto from "crypto";
 import { PUBLISH_HASH_SALT } from "./publish-supplier";
+import { sendNotification } from "../utils/slackNotification";
 
 const format = (num) => new Intl.NumberFormat("en-US").format(num || 0);
 
@@ -65,8 +66,12 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
       files:
       ${fileString}
       <br/><br/>
-      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${supplier.id}&hash=${hash}&status=published">Publish</a><br/><br/>
-      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${supplier.id}&hash=${hash}&status=feedback">Needs rework</a>
+      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${
+        supplier.id
+      }&hash=${hash}&status=published">Publish</a><br/><br/>
+      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${
+        supplier.id
+      }&hash=${hash}&status=feedback">Needs rework</a>
     `;
 
     return acc + productStr;
@@ -96,6 +101,9 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
   };
 
   await sendMail(mailParams);
+  await sendNotification({
+    text: `New supplier 🚀 - ${supplier.firstName} ${supplier.lastName}, ${supplier.companyName}, ${supplier.web}`,
+  });
 
   return res.end();
 });

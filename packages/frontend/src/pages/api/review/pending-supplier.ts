@@ -102,7 +102,9 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
 
   await sendMail(mailParams);
   await sendNotification({
-    text: `New supplier 🚀 - ${supplier.firstName} ${supplier.lastName}, ${supplier.companyName}, ${supplier.web}`,
+    text: `New supplier 🚀 - ${supplier.firstName} ${supplier.lastName}, ${
+      supplier.companyName
+    }, ${supplier.web || ""}`,
   });
 
   return res.end();

@@ -121,6 +121,7 @@ export const GET_FULL_SUPPLIER_WITH_PRODUCTS = (id: string) => {
         updatedAt
         vatNumber
         zip
+        web
         products {
           id
           capacity

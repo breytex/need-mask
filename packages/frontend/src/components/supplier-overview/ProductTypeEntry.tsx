@@ -25,10 +25,11 @@ export default function ProductTypeEntry(props: {
       minPrice === maxPrice
         ? `${toPrice(minPrice)}`
         : `${toPrice(minPrice)} - ${toPrice(maxPrice)}`;
-    const deliveryTimeRange =
-      minLeadTime === maxLeadTime
-        ? `${minLeadTime} days`
-        : `${minLeadTime} - ${maxLeadTime} days`;
+    const deliveryTimeRange = !minLeadTime
+      ? "N/A"
+      : minLeadTime === maxLeadTime
+      ? `${minLeadTime} days`
+      : `${minLeadTime} - ${maxLeadTime} days`;
     return {
       priceRange,
       deliveryTimeRange,

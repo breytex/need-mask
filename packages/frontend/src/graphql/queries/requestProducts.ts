@@ -11,6 +11,7 @@ export const GET_REQUEST_PRODUCTS_BY_REQUEST = /* GraphQL */ `
         id
         title
         supplier {
+          status
           email
         }
         productType {

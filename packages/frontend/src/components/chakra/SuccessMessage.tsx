@@ -7,6 +7,7 @@ interface Props {
   children: string;
   buttonTitle?: string;
   onClickPath?: string;
+  bigWarning?: string;
 }
 
 const SuccessMessage = ({
@@ -14,6 +15,7 @@ const SuccessMessage = ({
   children,
   onClickPath,
   buttonTitle,
+  bigWarning,
 }: Props) => {
   const router = useRouter();
   return (
@@ -22,6 +24,11 @@ const SuccessMessage = ({
       <Text textAlign="center" maxW="600px" fontSize="lg" mt={"4"}>
         {children}
       </Text>
+      {bigWarning && (
+        <Text fontSize="xl" fontWeight="600" mt="4">
+          {bigWarning}
+        </Text>
+      )}
       {buttonTitle && onClickPath && (
         <Button
           onClick={() => router.push(onClickPath)}

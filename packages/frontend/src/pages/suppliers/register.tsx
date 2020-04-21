@@ -22,6 +22,7 @@ const Register: NextPage = () => {
           title="Thanks!"
           buttonTitle="Back to mainpage"
           onClickPath="/"
+          bigWarning="Please be patient until you hear from us."
         >
           You have successfuly submitted your listing to need-mask.com. Our
           moderators will now review your submission and notify you via email.

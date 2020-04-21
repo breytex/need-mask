@@ -9,11 +9,17 @@ import { PUBLISH_HASH_SALT } from "./publish-supplier";
 
 const format = (num) => new Intl.NumberFormat("en-US").format(num || 0);
 
+const sleep = (time) => {
+  return new Promise((resolve) => setTimeout(resolve, time));
+};
+
 export default createWebhooookHandler<Supplier>(async (req, res) => {
   const { data: requestData } = req.body.event;
   if (requestData.new.status !== "pending") {
     return res.end("New row is not status pending. This is a no-op.");
   }
+
+  await sleep(20000); // sleep 20 sek to allow file move webhook to move all the files...
 
   const { data, errors } = await rootGraphQuery<{
     data: { suppliers_by_pk: Supplier };

@@ -9,6 +9,12 @@ import Link from "next/link";
 import { graphQuery } from "../../../graphql/graphQuery";
 import PageHead from "../../../components/PageHead";
 import NotSupportedBrowser from "../../../components/NotSupportedBrowser";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/core";
 
 type Props = {
   props: {
@@ -18,6 +24,32 @@ type Props = {
 };
 
 export const Request: NextPage<Props> = ({ props: { id, supplier } }) => {
+  if (!supplier) {
+    return (
+      <>
+        <PageHead title="Supplier details" />
+        <Alert
+          maxW="300px"
+          status="error"
+          flexDirection="column"
+          justifyContent="center"
+          textAlign="center"
+          mx="auto"
+          height="200px"
+        >
+          <AlertIcon size="40px" mr={0} />
+          <AlertTitle mt={4} mb={1} fontSize="lg">
+            Not found / under review
+          </AlertTitle>
+          <AlertDescription maxWidth="sm">
+            The supplier you were looking for could not be found or awaits
+            moderation of our admins.
+          </AlertDescription>
+        </Alert>
+      </>
+    );
+  }
+
   return (
     <>
       <NotSupportedBrowser />
@@ -59,7 +91,7 @@ Request.getInitialProps = async (context: NextPageContext) => {
   const { query } = context;
   const id = query.id as string;
   const { data } = await graphQuery(GET_SUPPLIER_FN_WITH_PRODUCTS(id));
-
+  console.log(data);
   return {
     props: {
       id,

@@ -27,11 +27,22 @@ const SupplierDetailPageContainer: NextPage<Props> = (props) => {
     return (
       <>
         <PageHead title="Supplier details" />
-        <Alert status="error">
-          <AlertIcon />
-          <AlertTitle mr={2}>Not found</AlertTitle>
-          <AlertDescription>
-            The supplier you were looking for could not be found.
+        <Alert
+          maxW="300px"
+          status="error"
+          flexDirection="column"
+          justifyContent="center"
+          textAlign="center"
+          mx="auto"
+          height="200px"
+        >
+          <AlertIcon size="40px" mr={0} />
+          <AlertTitle mt={4} mb={1} fontSize="lg">
+            Not found / under review
+          </AlertTitle>
+          <AlertDescription maxWidth="sm">
+            The supplier you were looking for could not be found or awaits
+            moderation of our admins.
           </AlertDescription>
         </Alert>
       </>

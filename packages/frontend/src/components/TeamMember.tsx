@@ -10,12 +10,13 @@ export type Member = {
   linkedIn: string;
   web: string;
   imageSrc: string;
+  xing: string;
 };
 
 type Props = Member;
 
 export const TeamMember: React.FC<Props> = (props) => {
-  const { imageSrc, role, web, title, linkedIn } = props;
+  const { imageSrc, role, web, title, linkedIn, xing } = props;
   return (
     <Card key={title} textAlign="center" p="4">
       <Heading as="h4" size="sm" mb="1">
@@ -54,6 +55,17 @@ export const TeamMember: React.FC<Props> = (props) => {
             display="inline-block"
           >
             <Icon name="linkedin" fontSize="2xl" />
+          </Link>
+        )}
+        {xing && (
+          <Link
+            fontSize="xs"
+            href={xing}
+            target="_blank"
+            px={1}
+            display="inline-block"
+          >
+            <Icon name="xing" fontSize="2xl" />
           </Link>
         )}
         {web && (

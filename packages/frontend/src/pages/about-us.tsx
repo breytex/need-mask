@@ -85,6 +85,7 @@ export async function getServerSideProps() {
       description: "",
       role: "Freelance Software Engineer",
       linkedIn: "https://www.linkedin.com/in/fabian-schulze-code-consulting/",
+      xing: "https://www.xing.com/profile/Fabian_Schulze6/cv",
       web: "http://code-consulting.de",
       imageSrc: "/images/team/fs",
     },

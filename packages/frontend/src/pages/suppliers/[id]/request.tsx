@@ -91,7 +91,7 @@ Request.getInitialProps = async (context: NextPageContext) => {
   const { query } = context;
   const id = query.id as string;
   const { data } = await graphQuery(GET_SUPPLIER_FN_WITH_PRODUCTS(id));
-  console.log(data);
+
   return {
     props: {
       id,

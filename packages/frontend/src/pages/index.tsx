@@ -44,10 +44,12 @@ const Home: NextPage<Props> = (props) => {
       <Box maxWidth="900px" mx="auto">
         <Flex
           textAlign="center"
-          mb="8rem"
+          mb={{ base: "3rem", md: "8rem" }}
           flexDirection={{ base: "column", md: "row" }}
+          p={{ base: "6", md: "0" }}
+          alignItems="center"
         >
-          <Box flex={3}>
+          <Box flex={3} mr={{ base: "0", md: "6" }} maxW="450px">
             <img
               style={{ margin: "0 auto" }}
               src="/images/deliveries.svg"
@@ -67,22 +69,35 @@ const Home: NextPage<Props> = (props) => {
               If you are a reliable producer or vendor of protective gear click
               here to list the protective gear that you SUPPLY
             </Paragraph>
-
-            <LinkButton
-              href="/suppliers/register"
-              size="lg"
-              variantColor="blue"
-              {...marginButton}
-            >
-              I supply protective gear and masks
-            </LinkButton>
+            <Box d={{ base: "none", md: "block" }}>
+              <LinkButton
+                href="/suppliers/register"
+                size="lg"
+                variantColor="blue"
+                {...marginButton}
+              >
+                I supply protective gear and masks
+              </LinkButton>
+            </Box>
+            <Box d={{ base: "block", md: "none" }}>
+              <LinkButton
+                href="/suppliers/register"
+                size="lg"
+                variantColor="blue"
+                {...marginButton}
+              >
+                I supply gear
+              </LinkButton>
+            </Box>
           </Box>
         </Flex>
 
         <Flex
           textAlign="center"
-          mb="8rem"
+          mb={{ base: "3rem", md: "8rem" }}
           flexDirection={{ base: "column-reverse", md: "row" }}
+          p={{ base: "6", md: "0" }}
+          alignItems="center"
         >
           <Box
             flex={3}
@@ -106,7 +121,7 @@ const Home: NextPage<Props> = (props) => {
               I need masks
             </LinkButton>
           </Box>
-          <Box flex={3}>
+          <Box flex={3} ml={{ base: "0", md: "6" }} maxW="450px">
             <img
               style={{ margin: "0 auto" }}
               src="/images/undraw_medical_research.svg"
@@ -155,10 +170,12 @@ const Home: NextPage<Props> = (props) => {
 
         <Flex
           textAlign="center"
-          mb="8rem"
+          mb={{ base: "3rem", md: "8rem" }}
           flexDirection={{ base: "column", md: "row" }}
+          p={{ base: "6", md: "0" }}
+          alignItems="center"
         >
-          <Box flex={3}>
+          <Box flex={3} mr={{ base: "0", md: "6" }} maxW="450px">
             <img
               style={{ margin: "0 auto", transform: "scale(-1,1)" }}
               src="/images/team.svg"

@@ -69,7 +69,7 @@ export const GET_ALL_SUPPLIER_IDS = `
 `;
 
 export const GET_SUPPLIER_WITH_PRODUCTS = /* GraphQL */ `
-  query GetSupplierWithProducts($supplierId: uuid!) {
+  query CACHE__GetSupplierWithProducts($supplierId: uuid!) {
     suppliers_by_pk(id: $supplierId) {
       id
       country

@@ -52,7 +52,7 @@ export default function ProductTypeEntry(props: {
         {details.deliveryTimeRange}
       </Text>
       <Text ml="4" fontSize="sm" w="120px">
-        {new Intl.NumberFormat("en-US").format(details.totalCapacity)}
+        {new Intl.NumberFormat("en-US").format(details.totalCapacity || 0)}
       </Text>
     </Flex>
   );

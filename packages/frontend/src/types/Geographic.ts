@@ -216,7 +216,7 @@ export const countries = [
   { continent: Continent.AFRICA, name: "Namibia", code: "NA" },
   { continent: Continent.OCEANIA, name: "Nauru", code: "NR" },
   { continent: Continent.ASIA, name: "Nepal", code: "NP" },
-  { continent: Continent.EUROPE, name: "Netherlands the", code: "NL" },
+  { continent: Continent.EUROPE, name: "Netherlands", code: "NL" },
   {
     continent: Continent.N_AMERICA,
     name: "Netherlands Antilles",

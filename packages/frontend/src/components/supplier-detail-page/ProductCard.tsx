@@ -101,12 +101,16 @@ const ProductCard = (props: Product) => {
       />
       <KeyValue
         label="Capacity"
-        value={`${capacity} units/week`}
+        value={`${new Intl.NumberFormat("en-US").format(
+          capacity || 0
+        )} units/week`}
         available={Boolean(capacity)}
       />
       <KeyValue
         label="Min amount"
-        value={`${minOrderAmount} units`}
+        value={`${new Intl.NumberFormat("en-US").format(
+          minOrderAmount || 0
+        )} units`}
         available={Boolean(minOrderAmount)}
       />
 

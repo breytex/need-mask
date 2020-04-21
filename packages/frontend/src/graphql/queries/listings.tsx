@@ -5,7 +5,7 @@ export const LISTINGS_PER_PAGE = 35;
 const createAndWhereFilters = (products, firstWhere = false) => {
   if (products.length === 0) return "";
   const [first, ...rest] = products;
-  const and = rest.length > 0 ? createAndWhereFilters([rest]) : "";
+  const and = rest.length > 0 ? createAndWhereFilters(rest) : "";
 
   if (firstWhere) {
     return `{products: {productType: {title: {_eq: "${first}"}}} ${and}}`;

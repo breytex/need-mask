@@ -17,6 +17,11 @@ const Testimonials = () => {
           alt="RWTH"
         />
       </Box>
+      <Box>
+        <a href="https://vercel.com/" target="_blank" rel="noopener">
+          <img src="/images/powered-by-vercel.svg" alt="Powered by Vercel" />
+        </a>
+      </Box>
     </Flex>
   );
 };

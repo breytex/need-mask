@@ -11,8 +11,12 @@ export const GET_REQUEST_PRODUCTS_BY_REQUEST = /* GraphQL */ `
         id
         title
         supplier {
+          firstName
+          lastName
           status
           email
+          companyName
+          web
         }
         productType {
           title

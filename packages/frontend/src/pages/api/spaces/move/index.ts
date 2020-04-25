@@ -12,7 +12,7 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
   const { data: { files } } = await rootGraphQuery<{ data: { files: File[] } }>(GET_FILES_BY_SUPPLIER, {
     supplierId,
   });
-  if (!files.length) { 
+  if (!files.length) {
     return res.send("No files to move found");
   }
 
@@ -30,18 +30,20 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
       const newURL = `${supplierId}/${file.url}`;
       const currentKey = `${tempFolder}/${file.url}`;
 
-      // Check if the object even exists
-      await s3.headObject({
-        Bucket: bucketName,
-        Key: currentKey,
-      }).promise().catch((error) => {
-        throw [{ ...error, file }];
-      });
+      // Skip execution if the file doesn't exist
+      try {
+        await s3.headObject({
+          Bucket: bucketName,
+          Key: currentKey,
+        }).promise()
+      } catch (error) {
+        continue
+      }
 
       // If it does we know we can copy it
       await s3.copyObject({
         Bucket: bucketName,
-        CopySource: `${bucketName}/${currentKey}`,
+        CopySource: encodeURIComponent(`${bucketName}/${currentKey}`),
         Key: newURL,
         ACL: "public-read",
       }).promise().catch((error) => {

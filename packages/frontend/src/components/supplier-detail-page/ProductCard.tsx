@@ -5,6 +5,7 @@ import { Heading, Box, Text, Flex, Button, Collapse } from "@chakra-ui/core";
 import Zoom from "react-medium-image-zoom";
 import { toPrice } from "../../helpers/functions";
 import styled from "@emotion/styled";
+import { truncateText } from "../../helpers/truncateText";
 
 const FixMarginBottom = styled(Box)`
   & > div {
@@ -176,7 +177,13 @@ const ProductCard = (props: Product) => {
             Product specifications
           </Text>
           {fileTypes.other.map((f) => {
-            const fileName = f.url.split("/").slice(-1)[0].split("--")[1];
+            const fileName = truncateText(
+              f.url.split("/").slice(-1)[0].split("--")[1],
+              10,
+              30,
+              "(...).pdf"
+            );
+
             return (
               <Flex>
                 <a href={f.url} download={fileName} target="_blank">

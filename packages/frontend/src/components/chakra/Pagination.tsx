@@ -82,7 +82,7 @@ export const Pagination = (props: PaginationProps): ReactElement => {
         )}
       </React.Fragment>
     ),
-    [currentPage]
+    [currentPage, onPageChange]
   );
 
   const pagesToRender = _getPagesToRender(maxPages, currentPage);

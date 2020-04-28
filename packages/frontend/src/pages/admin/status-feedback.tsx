@@ -101,9 +101,9 @@ export const Report: NextPage<Props> = ({ id, supplier }) => {
 export const getServerSideProps = async (context: NextPageContext) => {
   const { query } = context;
   const id = query.supplierId as string;
-  console.log({ id });
+
   const { data } = await rootGraphQuery(GET_SUPPLIER_HEADER, { id });
-  console.log({ data });
+
   return {
     props: {
       id,

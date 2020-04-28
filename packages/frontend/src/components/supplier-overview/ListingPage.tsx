@@ -34,6 +34,11 @@ export const ListingPage: NextPage<ListingResponses> = (props) => {
       Object.keys(params).length > 0 ? "?" + queryString.stringify(params) : "";
     const newUrl = `/suppliers${queryParamString}`;
     replace(newUrl, newUrl);
+    window.scrollTo({
+      top: 100,
+      left: 100,
+      behavior: "smooth",
+    });
   };
 
   const currentPage = parseInt("" + router.query.page) || 1;

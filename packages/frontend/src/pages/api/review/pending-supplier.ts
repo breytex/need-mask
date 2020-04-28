@@ -69,9 +69,9 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
       <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${
         supplier.id
       }&hash=${hash}&status=published">Publish</a><br/><br/>
-      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${
+      <a href="https://need-mask.com/admin/status-feedback?supplierId=${
         supplier.id
-      }&hash=${hash}&status=feedback">Needs rework</a>
+      }&hash=${hash}">Needs rework</a>
     `;
 
     return acc + productStr;

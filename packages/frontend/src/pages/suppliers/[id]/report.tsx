@@ -1,12 +1,7 @@
 import * as React from "react";
-import RequestForm from "../../../components/RequestForm";
-import SiteHero from "../../../components/SiteHero";
 import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../../types/Supplier";
-import {
-  GET_SUPPLIER_FN_WITH_PRODUCTS,
-  GET_SUPPLIER_HEADER,
-} from "../../../graphql/queries/supplier";
+import { GET_SUPPLIER_HEADER } from "../../../graphql/queries/supplier";
 import {
   Breadcrumb,
   BreadcrumbItem,

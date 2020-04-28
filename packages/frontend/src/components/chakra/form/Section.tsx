@@ -1,14 +1,13 @@
 import React, { ReactNode } from "react";
-import { Text, Box } from "@chakra-ui/core";
+import { Box, BoxProps } from "@chakra-ui/core";
 import { BorderHeadline } from "../BorderHeadline";
-interface Props {
+interface Props extends BoxProps {
   children: ReactNode;
   title: string;
-  mb?: string;
 }
 
-export const Section = ({ children, title, mb }: Props) => (
-  <Box mb={mb}>
+export const Section = ({ children, title, ...rest }: Props) => (
+  <Box {...rest}>
     <BorderHeadline>{title}</BorderHeadline>
     <Box>{children}</Box>
   </Box>

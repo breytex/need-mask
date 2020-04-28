@@ -6,10 +6,10 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Icon,
+  Link,
 } from "@chakra-ui/core";
 
-import Link from "next/link";
+import NextLink from "next/link";
 import ProductCard from "../supplier-detail-page/ProductCard";
 import { Product } from "../../types/Product";
 import { countries } from "../../types/Geographic";
@@ -17,6 +17,7 @@ import PageTitle from "../chakra/PageTitle";
 import LinkButton from "../chakra/LinkButton";
 import { Supplier } from "../../types/Supplier";
 import { DetailsWarning } from "../DetailsWarning";
+import SupplierHeader from "./SupplierHeader";
 
 interface Props {
   supplier: Supplier;
@@ -51,11 +52,6 @@ const SupplierDetailPage = (props: Props) => {
     return result;
   }, [products]);
 
-  const realWebAddress = web?.includes("http") ? web : `https://${web}`;
-
-  const countryString =
-    countries.find((c) => c.code === country)?.name || country;
-
   return (
     <>
       <Breadcrumb fontSize="sm" mb="4">
@@ -73,24 +69,13 @@ const SupplierDetailPage = (props: Props) => {
         justify="space-between"
         flexDirection={{ base: "column", md: "row" }}
       >
-        <Box>
-          <PageTitle mb="0">{companyName}</PageTitle>
-          <Text fontSize="25px" mt="-8px" color="gray.700">
-            {city}, {countryString}
-          </Text>
-          {web && (
-            <a
-              href={
-                realWebAddress +
-                "/?utm_source=need-mask&utm_medium=link&utm_campaign=referring"
-              }
-              target="_blank"
-              rel="noopener"
-            >
-              <Icon name="external-link" mb="3px" /> Company website
-            </a>
-          )}
-        </Box>
+        <SupplierHeader
+          companyName={companyName}
+          country={country}
+          city={city}
+          web={web}
+        />
+
         <Box>
           <LinkButton
             href="/suppliers/[id]/request"
@@ -103,7 +88,22 @@ const SupplierDetailPage = (props: Props) => {
           </LinkButton>
         </Box>
       </Flex>
-
+      <Flex alignItems="center">
+        <Text fontSize="sm">
+          This supplier does not look legitimate to you?{" "}
+        </Text>
+        <LinkButton
+          href="/suppliers/[id]/report"
+          params={{ id }}
+          size="sm"
+          variant="ghost"
+          variantColor="red"
+          leftIcon="warning-2"
+          mt="2px"
+        >
+          File a report
+        </LinkButton>
+      </Flex>
       <Text fontSize="30px" mt={{ base: "6", md: "12" }}>
         Products
       </Text>

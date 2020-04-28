@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NextPage, NextPageContext } from "next";
 import { Supplier } from "../../types/Supplier";
 import { GET_SUPPLIER_HEADER } from "../../graphql/queries/supplier";
-import { Textarea, Text, Button } from "@chakra-ui/core";
+import { Textarea, Text, Button, Heading } from "@chakra-ui/core";
 import PageHead from "../../components/PageHead";
 import Form from "../../components/chakra/form/Form";
 import { Field } from "../../components/chakra/form/Field";
@@ -67,7 +67,7 @@ export const Report: NextPage<Props> = ({ id, supplier }) => {
   return (
     <React.Fragment>
       <PageHead title="Send Supplier Feedback" />
-
+      <Heading>ADMIN MODE</Heading>
       <SupplierHeader
         companyName={supplier.companyName}
         city={supplier.city}

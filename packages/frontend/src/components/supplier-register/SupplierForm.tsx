@@ -116,7 +116,7 @@ export const SupplierForm = (props: Props) => {
                 if (errors.some((e) => e.message.includes(key))) {
                   return <Text>{value}</Text>;
                 }
-                return null;
+                return JSON.stringify(errors);
               })}
             </React.Fragment>
           </ErrorMessage>

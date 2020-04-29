@@ -12,6 +12,7 @@ import { useMutation } from "../hooks/useMutation";
 import { StickyContainer, Sticky } from "react-sticky";
 import { useMediaQuery } from "../chakra/useMediaQuery";
 import { BorderHeadline } from "./chakra/BorderHeadline";
+import { ErrorMessage } from "./chakra/ErrorMessage";
 type Props = {
   supplerId: string;
   withAddress?: boolean;
@@ -25,7 +26,7 @@ const RequestForm: React.FC<Props> = ({
   products,
   supplierCompanyName,
 }) => {
-  const { trigger: mutateRequest, data, isLoading } = useMutation<any>(
+  const { trigger: mutateRequest, data, isLoading, errors } = useMutation<any>(
     ADD_REQUEST
   );
   const shouldStick = useMediaQuery([false, true]);
@@ -61,6 +62,11 @@ const RequestForm: React.FC<Props> = ({
 
   return (
     <Form onSubmit={onSubmit}>
+      <ErrorMessage show={errors?.length > 0} title="Oh no!">
+        Please send this error code to support@need-mask.com:
+        <br />
+        {JSON.stringify(errors)}
+      </ErrorMessage>
       <StickyContainer>
         <Flex flexDirection={{ base: "column", md: "row" }}>
           <Box w={{ base: "100%", md: "38%" }}>

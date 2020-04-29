@@ -6,6 +6,7 @@ import {
   AlertDescription,
   CloseButton,
   BoxProps,
+  Flex,
 } from "@chakra-ui/core";
 
 interface Props extends BoxProps {
@@ -28,8 +29,11 @@ export function ErrorMessage({
   return (
     <Alert status="error" {...rest}>
       <AlertIcon />
-      <AlertTitle mr={2}>{title}</AlertTitle>
-      <AlertDescription>{children}</AlertDescription>
+      <Flex flexDirection="column" ml={6}>
+        <AlertTitle>{title}</AlertTitle>
+        <AlertDescription>{children}</AlertDescription>
+      </Flex>
+
       <CloseButton
         position="absolute"
         right="8px"

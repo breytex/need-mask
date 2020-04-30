@@ -109,7 +109,7 @@ export const Report: NextPage<Props> = ({ props: { id, supplier } }) => {
         </ErrorMessage>
         <Text mb="6">
           The supplier does not appear to be a reliable business partner? The
-          product details or certificats do not look legitimate? Send us your
+          product details or certificates do not look legitimate? Send us your
           opinion.
         </Text>
         <Form onSubmit={onSubmit}>

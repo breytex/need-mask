@@ -121,6 +121,12 @@ export const ListingRow = (props: Props) => {
             {productsList.Mask && (
               <ProductTypeEntry category="Masks" products={productsList.Mask} />
             )}
+            {productsList["Community Mask"] && (
+              <ProductTypeEntry
+                category="Community Mask"
+                products={productsList["Community Mask"]}
+              />
+            )}
             {productsList.Headgear && (
               <ProductTypeEntry
                 category="Headgear"

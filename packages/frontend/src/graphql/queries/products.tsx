@@ -25,6 +25,12 @@ export const productTypes: ProductType[] = [
     id: "82117589-5307-41f7-9652-9bd3347a3577",
   },
   {
+    title: "Community Mask",
+    subTypes:
+      "One Layer Fabric, Multilayer - no filter, Multilayer - with filter",
+    id: "e8ab62a6-044e-4d52-98be-8552b1efa5cd",
+  },
+  {
     title: "Clothing",
     subTypes: "Surgical gown, Disposable gloves",
     id: "ec682fcb-dabe-457c-bc5c-0e2d38088809",

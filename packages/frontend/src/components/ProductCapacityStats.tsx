@@ -10,7 +10,7 @@ type Props = {
 export const ProductCapacityStats: React.FC<Props> = ({ items }) => {
   return (
     <SimpleGrid
-      columns={{ base: 1, md: 3 }}
+      columns={{ base: 1, md: 4 }}
       spacing={{ base: 4, md: 8 }}
       mx="auto"
       mb="24"
@@ -33,7 +33,9 @@ export const ProductCapacityStats: React.FC<Props> = ({ items }) => {
             </Heading>
             <img
               style={{ margin: "0 auto" }}
-              src={`/images/productTypes/${capacity.title.toLowerCase()}.svg`}
+              src={`/images/productTypes/${capacity.title
+                .replace(" ", "")
+                .toLowerCase()}.svg`}
               alt=""
             />
           </Card>

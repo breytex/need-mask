@@ -208,7 +208,7 @@ const Home: NextPage<Props> = (props) => {
         </Flex>
       </Box>
 
-      <Box maxWidth="720px" mx="auto" textAlign="center">
+      <Box maxWidth="920px" mx="auto" textAlign="center">
         <Heading maxWidth="520px" size="lg" fontWeight="500" mb={12} mx="auto">
           Our suppliers currently provide access to the following weekly
           capacities

@@ -7,13 +7,13 @@ export const PUBLISH_HASH_SALT =
   "iajkgnysfgkjkkjadgnkja___dgnknk1329185ankjkdgLOL_DER_CHONKInk";
 
 const UPDATE_SUPPLIER = `
-    mutation UpdateSupplierStatus($id: uuid!, $status: supplierstatus) {
-        update_suppliers(where: {id: {_eq: $id}}, _set: {status: $status}){affected_rows}
-    }
+  mutation UpdateSupplierStatus($id: uuid!, $status: supplierstatus, $feedback: String) {
+    update_suppliers(where: {id: {_eq: $id}}, _set: {status: $status, feedback: $feedback}){affected_rows}
+  }
 `;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { supplierId, hash, status } = req.query;
+  const { supplierId, hash, status, msg } = req.query;
 
   if (status !== "published" && status !== "feedback") {
     return res.send("Status field check failed");
@@ -31,6 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { errors } = await rootGraphQuery(UPDATE_SUPPLIER, {
     id: supplierId,
     status,
+    feedback: msg,
   });
 
   if (Boolean(errors)) {

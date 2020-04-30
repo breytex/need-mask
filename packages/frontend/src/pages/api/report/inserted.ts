@@ -1,3 +1,4 @@
+import { Report } from "./../../../types/Report";
 import { Supplier } from "../../../types/Supplier";
 import { createWebhooookHandler } from "../utils/createWebhooookHandler";
 import { sendMail, SendMailParams } from "../utils/sendMail";
@@ -5,27 +6,18 @@ import { rootGraphQuery } from "../utils/rootGraphQuery";
 import { GET_FULL_SUPPLIER_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
 import htmlToText from "html-to-text";
 import crypto from "crypto";
-import { PUBLISH_HASH_SALT } from "./publish-supplier";
+import { PUBLISH_HASH_SALT } from "../review/publish-supplier";
 import { sendNotification } from "../utils/slackNotification";
 
 const format = (num) => new Intl.NumberFormat("en-US").format(num || 0);
 
-const sleep = (time) => {
-  return new Promise((resolve) => setTimeout(resolve, time));
-};
-
-export default createWebhooookHandler<Supplier>(async (req, res) => {
+export default createWebhooookHandler<Report>(async (req, res) => {
   const { data: requestData } = req.body.event;
-  if (requestData.new.status !== "pending") {
-    return res.end("New row is not status pending. This is a no-op.");
-  }
-
-  await sleep(20000); // sleep 20 sek to allow file move webhook to move all the files...
 
   const { data, errors } = await rootGraphQuery<{
     data: { suppliers_by_pk: Supplier };
     errors: any[];
-  }>(GET_FULL_SUPPLIER_WITH_PRODUCTS(requestData.new.id));
+  }>(GET_FULL_SUPPLIER_WITH_PRODUCTS(requestData.new.supplierId));
   const supplier = data.suppliers_by_pk;
 
   if (Boolean(errors)) {
@@ -66,18 +58,20 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
       files:
       ${fileString}
       <br/><br/>
-      <a href="https://need-mask.com/api/review/publish-supplier?supplierId=${
-        supplier.id
-      }&hash=${hash}&status=published">Publish</a><br/><br/>
       <a href="https://need-mask.com/admin/status-feedback?supplierId=${
         supplier.id
-      }&hash=${hash}">Needs rework</a>
+      }&hash=${hash}">Disable the supplier and send a feedback</a><br/>
+      (Feel free to do nothing, if the supplier is legitimate!)
     `;
 
     return acc + productStr;
   }, ``);
 
   const html = `
+  This supplier was reported by a user. The user added this reason:<br/>
+  ${requestData.new.reason}
+  <br/><br/>
+  Supplier:<br/>
   Company name: ${supplier.companyName}<br/>
   First name: ${supplier.firstName}<br/>
   Last name: ${supplier.lastName}<br/>
@@ -95,16 +89,18 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
 
   const mailParams: SendMailParams = {
     to: "review@need-mask.com",
-    subject: "A new supplier joined 🚀",
+    subject: "A supplier was reported ⚠️",
     html,
     text: htmlToText.fromString(html),
   };
 
   await sendMail(mailParams);
   await sendNotification({
-    text: `New supplier 🚀 - ${supplier.firstName} ${supplier.lastName}, ${
-      supplier.companyName
-    }, ${supplier.web || ""}`,
+    text: `A supplier was reported ⚠️ - ${supplier.firstName} ${
+      supplier.lastName
+    }, ${supplier.companyName}, ${supplier.web || ""} - Reason: ${
+      requestData.new.reason
+    }`,
   });
 
   return res.end();

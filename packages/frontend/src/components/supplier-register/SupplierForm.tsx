@@ -116,7 +116,12 @@ export const SupplierForm = (props: Props) => {
                 if (errors.some((e) => e.message.includes(key))) {
                   return <Text>{value}</Text>;
                 }
-                return null;
+                return (
+                  <>
+                    Please send this error code to support@need-mask.com: <br />
+                    {JSON.stringify(errors)}
+                  </>
+                );
               })}
             </React.Fragment>
           </ErrorMessage>

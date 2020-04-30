@@ -154,6 +154,18 @@ export const GET_FULL_SUPPLIER_WITH_PRODUCTS = (id: string) => {
   `;
 };
 
+export const GET_SUPPLIER_HEADER = `
+  query CACHE__GetSupplierHeader($id: uuid!) {
+    suppliers_by_pk(id: $id) {
+      id
+      companyName
+      city
+      country
+      web
+    }
+  }
+`;
+
 export interface SupplierResponse {
   suppliers_by_pk: Supplier;
 }

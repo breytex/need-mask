@@ -29,6 +29,7 @@ export interface Supplier {
   web?: string;
   updatedAt: string;
   createdAt: string;
+  feedback?: string;
 }
 
 export interface LoginCode {

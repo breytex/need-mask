@@ -1,10 +1,11 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Product, File } from "../../types/Product";
 import Card from "../chakra/Card";
-import { Heading, Box, Text, Flex, Icon, Button } from "@chakra-ui/core";
+import { Heading, Box, Text, Flex, Button, Collapse } from "@chakra-ui/core";
 import Zoom from "react-medium-image-zoom";
 import { toPrice } from "../../helpers/functions";
 import styled from "@emotion/styled";
+import { truncateText } from "../../helpers/truncateText";
 
 const FixMarginBottom = styled(Box)`
   & > div {
@@ -13,6 +14,19 @@ const FixMarginBottom = styled(Box)`
 `;
 
 const imageFileTypes = ["jpg", "jpeg", "png", "gif"];
+
+const KeyText = ({ children }) => (
+  <Text
+    mt="4"
+    color="gray.700"
+    fontWeight="semibold"
+    letterSpacing="wide"
+    fontSize="14px"
+    textTransform="uppercase"
+  >
+    {children}
+  </Text>
+);
 
 const KeyValue = (props) => {
   const { label, value, available } = props;
@@ -58,8 +72,10 @@ const ProductCard = (props: Product) => {
     maxPrice,
     minOrderAmount,
     capacity,
+    description,
     files = [],
   } = props;
+  const [extendDescription, setExtendDescription] = useState(false);
 
   const priceRange =
     minPrice === maxPrice
@@ -85,6 +101,7 @@ const ProductCard = (props: Product) => {
       mr="8"
       mb="8"
       minW={{ base: "300px", md: "350px" }}
+      maxW="500px"
     >
       <Heading size="lg" mb="2">
         {title}
@@ -113,19 +130,32 @@ const ProductCard = (props: Product) => {
         )} units`}
         available={Boolean(minOrderAmount)}
       />
+      {description && (
+        <Box>
+          <KeyText>Description:</KeyText>
+          <Collapse
+            ml="4"
+            mt="1"
+            startingHeight={50}
+            isOpen={extendDescription}
+          >
+            {description}
+          </Collapse>
+          <Button
+            mt="2"
+            ml="3"
+            size="xs"
+            onClick={() => setExtendDescription((state) => !state)}
+            variant="outline"
+          >
+            Show {extendDescription ? "Less" : "More"}
+          </Button>
+        </Box>
+      )}
 
       {fileTypes.images.length > 0 && (
         <>
-          <Text
-            mt="6"
-            color="gray.700"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="14px"
-            textTransform="uppercase"
-          >
-            Product images
-          </Text>
+          <KeyText>Product images</KeyText>
           <Flex mt="2" alignItems="flex-start">
             {fileTypes.images.map((f) => (
               <ProductImage {...f} />
@@ -147,12 +177,19 @@ const ProductCard = (props: Product) => {
             Product specifications
           </Text>
           {fileTypes.other.map((f) => {
-            const fileName = f.url.split("/").slice(-1)[0].split("--")[1];
+            const filename = f.url.split("/").slice(-1)[0].split("--")[1];
+            const truncatedFileName = truncateText(
+              filename,
+              10,
+              30,
+              "(...).pdf"
+            );
+
             return (
               <Flex>
-                <a href={f.url} download={fileName} target="_blank">
+                <a href={f.url} download={filename} target="_blank">
                   <Button leftIcon="download" variant="ghost">
-                    {fileName}
+                    {truncatedFileName}
                   </Button>
                 </a>
               </Flex>

@@ -177,8 +177,9 @@ const ProductCard = (props: Product) => {
             Product specifications
           </Text>
           {fileTypes.other.map((f) => {
-            const fileName = truncateText(
-              f.url.split("/").slice(-1)[0].split("--")[1],
+            const filename = f.url.split("/").slice(-1)[0].split("--")[1];
+            const truncatedFileName = truncateText(
+              filename,
               10,
               30,
               "(...).pdf"
@@ -186,9 +187,9 @@ const ProductCard = (props: Product) => {
 
             return (
               <Flex>
-                <a href={f.url} download={fileName} target="_blank">
+                <a href={f.url} download={filename} target="_blank">
                   <Button leftIcon="download" variant="ghost">
-                    {fileName}
+                    {truncatedFileName}
                   </Button>
                 </a>
               </Flex>

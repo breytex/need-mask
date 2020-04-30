@@ -31,7 +31,7 @@ type Props = {
 };
 
 const ADD_SUPPLIER_REPORT = `
-  mutation MyMutation($reason: String!, $supplierId: uuid!) {
+  mutation AddReport($reason: String!, $supplierId: uuid!) {
     insert_reports(objects: {reason: $reason, supplierId: $supplierId}){affected_rows}
   }
 `;

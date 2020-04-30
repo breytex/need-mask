@@ -123,7 +123,7 @@ export const ListingRow = (props: Props) => {
             )}
             {productsList["Community Mask"] && (
               <ProductTypeEntry
-                category="Community Mask"
+                category="Com. Mask"
                 products={productsList["Community Mask"]}
               />
             )}

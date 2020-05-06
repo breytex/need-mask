@@ -17,7 +17,14 @@ const Testimonials = () => {
           alt="RWTH"
         />
       </Box>
-      <Box>
+      <Box mx={{ base: "0", md: "6" }}>
+        <img
+          style={{ padding: "0.5rem", height: "auto", maxWidth: "270px" }}
+          src="/images/ghzeri.png"
+          alt="RWTH"
+        />
+      </Box>
+      <Box mt={{ base: "5", md: "0" }}>
         <a href="https://vercel.com/" target="_blank" rel="noopener">
           <img src="/images/powered-by-vercel.svg" alt="Powered by Vercel" />
         </a>

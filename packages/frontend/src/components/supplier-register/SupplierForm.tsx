@@ -82,6 +82,8 @@ const onSubmit = (mutateSupplier) => (values) => {
   delete data.id;
   delete data.privacy;
 
+  data.email = data.email.toLowerCase();
+
   mutateSupplier({ data });
 };
 

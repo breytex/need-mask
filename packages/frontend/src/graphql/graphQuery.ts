@@ -24,7 +24,7 @@ export async function graphQuery<T>(
   props?: GraphQueryProps
 ): Promise<T> {
   const { headers = {}, auth = false, shouldCache = false } = props || {};
-
+  
   const getAuthorization = () => {
     if (!auth || window === undefined) return {};
     const token = localStorage.getItem("accessToken");
@@ -41,10 +41,12 @@ export async function graphQuery<T>(
 
     return { Authorization: `Bearer ${parsedToken}` };
   };
-  const fetchEndpoint = shouldCache
-    ? process.env.HASURA_CDN_URL
-    : process.env.HASURA_URL;
-
+  // const fetchEndpoint = shouldCache
+  //   ? process.env.HASURA_CDN_URL
+  //   : process.env.HASURA_URL;
+  
+  // Disable cache because Firat pays for it all the time lol
+  const fetchEndpoint = process.env.HASURA_URL;
   try {
     const res = await fetch(fetchEndpoint, {
       method: "POST",

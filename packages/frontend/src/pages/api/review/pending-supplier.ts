@@ -1,11 +1,10 @@
 import { Supplier } from "../../../types/Supplier";
-import { createWebhooookHandler } from "../utils/createWebhooookHandler";
+import { createWebhookHandler } from "../utils/createWebhooookHandler";
 import { sendMail, SendMailParams } from "../utils/sendMail";
 import { rootGraphQuery } from "../utils/rootGraphQuery";
 import { GET_FULL_SUPPLIER_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
 import htmlToText from "html-to-text";
 import crypto from "crypto";
-import { PUBLISH_HASH_SALT } from "./publish-supplier";
 import { sendNotification } from "../utils/slackNotification";
 
 const format = (num) => new Intl.NumberFormat("en-US").format(num || 0);
@@ -14,7 +13,7 @@ const sleep = (time) => {
   return new Promise((resolve) => setTimeout(resolve, time));
 };
 
-export default createWebhooookHandler<Supplier>(async (req, res) => {
+export default createWebhookHandler<Supplier>(async (req, res) => {
   const { data: requestData } = req.body.event;
   if (requestData.new.status !== "pending") {
     return res.end("New row is not status pending. This is a no-op.");
@@ -33,7 +32,7 @@ export default createWebhooookHandler<Supplier>(async (req, res) => {
   }
 
   const hash = crypto
-    .createHmac("sha256", PUBLISH_HASH_SALT)
+    .createHmac("sha256", process.env.PUBLISH_HASH_SALT)
     .update("" + supplier.id)
     .digest("hex");
 

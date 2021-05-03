@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
   const code = Math.max(1e5, Math.floor(Math.random() * 1e6)).toString();
   // const codeString = "123456";
-  const codeString = "" + code;
+  const codeString = String(code);
 
   const suppliersResponse = await rootGraphQuery<{
     data: { suppliers: Supplier[] };
@@ -23,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const supplier = suppliersResponse.data.suppliers[0];
-  const addResponse = await rootGraphQuery(ADD_LOGINCODE, {
+  await rootGraphQuery(ADD_LOGINCODE, {
     supplierId: supplier.id,
     code: codeString,
   });

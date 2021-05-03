@@ -1,6 +1,6 @@
 import { Report } from "./../../../types/Report";
 import { Supplier } from "../../../types/Supplier";
-import { createWebhooookHandler } from "../utils/createWebhooookHandler";
+import { createWebhookHandler } from "../utils/createWebhooookHandler";
 import { sendMail, SendMailParams } from "../utils/sendMail";
 import { rootGraphQuery } from "../utils/rootGraphQuery";
 import { GET_FULL_SUPPLIER_WITH_PRODUCTS } from "../../../graphql/queries/supplier";
@@ -11,7 +11,7 @@ import { sendNotification } from "../utils/slackNotification";
 
 const format = (num) => new Intl.NumberFormat("en-US").format(num || 0);
 
-export default createWebhooookHandler<Report>(async (req, res) => {
+export default createWebhookHandler<Report>(async (req, res) => {
   const { data: requestData } = req.body.event;
 
   const { data, errors } = await rootGraphQuery<{

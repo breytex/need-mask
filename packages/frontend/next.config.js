@@ -6,8 +6,7 @@ module.exports = {
     HASURA_CDN_URL: process.env.HASURA_CDN_URL,
     ALGOLIA_PLACES_APPID: process.env.ALGOLIA_PLACES_APPID,
     ALGOLIA_PLACES_KEY: process.env.ALGOLIA_PLACES_KEY,
-    SLACK_REQUEST_HOOK_URL:
-      "https://hooks.slack.com/services/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",
+    SLACK_REQUEST_HOOK_URL: process.env.SLACK_HOOK,
   },
   webpack: (config) => {
     // Add the new plugin to the existing webpack plugins

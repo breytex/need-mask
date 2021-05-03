@@ -5,7 +5,7 @@ import {
 } from "../../../types/SupplierRequest";
 import { authWebhook } from "../utils/authWebhook";
 import { sendMail, SendMailParams } from "../utils/sendMail";
-import { createWebhooookHandler } from "../utils/createWebhooookHandler";
+import { createWebhookHandler } from "../utils/createWebhooookHandler";
 import { GET_REQUEST_PRODUCTS_BY_REQUEST } from "../../../graphql/queries/requestProducts";
 import htmlToText from "html-to-text";
 import { sendNotification } from "../utils/slackNotification";
@@ -42,7 +42,7 @@ const styledProperty = ([key, value]) => `
   ${renderValue(value)}
 </tr>`;
 
-const handler = createWebhooookHandler<SupplierRequest>(async (req, res) => {
+const handler = createWebhookHandler<SupplierRequest>(async (req, res) => {
   const {
     new: { id, email, phoneNumber, firstName, lastName },
   } = req.body.event.data;

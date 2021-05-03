@@ -4,9 +4,9 @@ import { GET_FILES_BY_SUPPLIER } from "./../../utils/queries";
 import { Supplier } from "./../../../../types/Supplier";
 import File from "./../../../../types/file";
 import { s3, getEdgeUrl, getPath, bucketName, tempFolder } from "../../utils/s3";
-import { createWebhooookHandler } from "../../utils/createWebhooookHandler";
+import { createWebhookHandler } from "../../utils/createWebhooookHandler";
 
-export default createWebhooookHandler<Supplier>(async (req, res) => {
+export default createWebhookHandler<Supplier>(async (req, res) => {
   const { new: insertedSupplier } = req.body.event.data;
   const supplierId = insertedSupplier.id;
   const { data: { files } } = await rootGraphQuery<{ data: { files: File[] } }>(GET_FILES_BY_SUPPLIER, {

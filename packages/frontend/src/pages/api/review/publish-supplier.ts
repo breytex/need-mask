@@ -3,9 +3,6 @@ import { NextApiRequest } from "next";
 import { rootGraphQuery } from "../utils/rootGraphQuery";
 import crypto from "crypto";
 
-export const PUBLISH_HASH_SALT =
-  "iajkgnysfgkjkkjadgnkja___dgnknk1329185ankjkdgLOL_DER_CHONKInk";
-
 const UPDATE_SUPPLIER = `
   mutation UpdateSupplierStatus($id: uuid!, $status: supplierstatus, $feedback: String) {
     update_suppliers(where: {id: {_eq: $id}}, _set: {status: $status, feedback: $feedback}){affected_rows}
@@ -20,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const compareHash = crypto
-    .createHmac("sha256", PUBLISH_HASH_SALT)
+    .createHmac("sha256", process.env.PUBLISH_HASH_SALT)
     .update("" + supplierId)
     .digest("hex");
 

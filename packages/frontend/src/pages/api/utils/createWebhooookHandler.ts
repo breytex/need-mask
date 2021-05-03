@@ -5,7 +5,7 @@ type WebhookHandler<T> = {
   (req: WebhookRequest<T>, res: NextApiResponse): any;
 };
 
-export function createWebhooookHandler<T>(
+export function createWebhookHandler<T>(
   next: WebhookHandler<T>
 ): WebhookHandler<T> {
   return (req, res) => {
